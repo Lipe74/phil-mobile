@@ -539,20 +539,32 @@ footer { background: var(--dark); padding: 48px 20px 28px; }
 
     <div id="panel-opport" class="form-panel">
       <div class="form-card">
+        <div style="background:var(--blue-pale);border:1.5px solid var(--blue-border);border-radius:12px;padding:14px 16px;margin-bottom:20px;">
+          <div style="font-size:14px;font-weight:800;color:var(--blue);margin-bottom:4px;">🚀 Devenez Consultant Smart SN</div>
+          <div style="font-size:13px;color:var(--muted);line-height:1.6;">Lancez votre activité indépendante dans les télécom & énergie. Smart SN prend en charge la création. Philippe vous contacte pour tout expliquer.</div>
+        </div>
         <form action="https://formspree.io/f/xzdwwwgv" method="POST" onsubmit="handleSubmit(event,'success-opport')">
           <div class="form-row">
             <div class="form-group"><label>Prénom *</label><input type="text" name="prenom" required placeholder="Philippe"></div>
             <div class="form-group"><label>Nom *</label><input type="text" name="nom" required placeholder="Dupont"></div>
           </div>
           <div class="form-group"><label>Email *</label><input type="email" name="email" required placeholder="vous@exemple.be"></div>
-          <div class="form-group"><label>Numéro de TVA ?</label><select name="tva"><option>Oui</option><option>Non</option><option>En cours de création</option><option>Je souhaite des informations</option></select></div>
-          <div class="form-group"><label>Vos motivations</label><textarea name="motivation" placeholder="Expliquez brièvement votre situation ou vos motivations..."></textarea></div>
-          <input type="hidden" name="_subject" value="Nouvelle candidature – Phil-Mobile">
-          <button type="submit" class="btn-submit">🚀 Je souhaite être contacté(e)</button>
-          <div id="success-opport" class="form-success">✅ Super ! Philippe vous contacte très vite.</div>
+          <div class="form-group"><label>Téléphone *</label><input type="tel" name="telephone" required placeholder="+32 4xx xx xx xx"></div>
+          <div class="form-group"><label>Numéro de TVA ?</label>
+            <select name="tva">
+              <option>Oui, j'en ai un</option>
+              <option>Non, pas encore</option>
+              <option>En cours de création</option>
+              <option>Je souhaite des informations</option>
+            </select>
+          </div>
+          <div class="form-group"><label>Pourquoi rejoindre Phil-Mobile ?</label><textarea name="motivation" placeholder="Parlez-nous de votre situation et de vos motivations..."></textarea></div>
+          <input type="hidden" name="_subject" value="🚀 Nouvelle candidature consultant – Phil-Mobile">
+          <button type="submit" class="btn-submit">🚀 Je veux en savoir plus !</button>
+          <div id="success-opport" class="form-success">✅ Super ! Philippe vous contacte très vite pour tout expliquer 🚀</div>
         </form>
         <div class="form-or"><span>OU</span></div>
-        <a href="https://wa.me/32475240205?text=Bonjour%20Philippe,%20je%20souhaite%20rejoindre%20l%27%C3%A9quipe%20!" class="btn-wa-full">
+        <a href="https://wa.me/32475240205?text=Bonjour%20Philippe,%20j%27ai%20vu%20votre%20vid%C3%A9o%20et%20je%20souhaite%20rejoindre%20l%27%C3%A9quipe%20Phil-Mobile%20!" class="btn-wa-full">
           <svg class="ico-wa" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.125.558 4.126 1.535 5.862L.057 23.737a.75.75 0 00.921.921l5.875-1.478A11.944 11.944 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.886 0-3.66-.499-5.197-1.373l-.373-.217-3.876.974.993-3.768-.237-.388A9.956 9.956 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
           Discuter sur WhatsApp
         </a>
@@ -588,16 +600,17 @@ footer { background: var(--dark); padding: 48px 20px 28px; }
 
 <script>
 function toggleMenu() {
-  const menu = document.getElementById('mobileMenu');
-  menu.classList.toggle('open');
+  document.getElementById('mobileMenu').classList.toggle('open');
 }
 
+function switchForm(tab) {
   document.querySelectorAll('.form-tab').forEach((t,i) => {
     t.classList.toggle('active', (i===0&&tab==='client')||(i===1&&tab==='opport'));
   });
   document.getElementById('panel-client').classList.toggle('active', tab==='client');
   document.getElementById('panel-opport').classList.toggle('active', tab==='opport');
 }
+
 function handleSubmit(e, successId) {
   e.preventDefault();
   fetch(e.target.action, { method:'POST', body:new FormData(e.target), headers:{'Accept':'application/json'} })
