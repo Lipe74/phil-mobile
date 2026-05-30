@@ -1,0 +1,21 @@
+{
+  "name": "Phil-Mobile",
+  "short_name": "Phil-Mobile",
+  "description": "Revendeur officiel Orange & Eneco - Beaufays (Liège)",
+  "start_url": "/index.html",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#1a56db",
+  "theme_color": "#1a56db",
+  "orientation": "portrait",
+  "lang": "fr",
+  "id": "phil-mobile-site",
+  "icons": [
+    {
+      "src": "images/logo.png",
+      "sizes": "any",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
