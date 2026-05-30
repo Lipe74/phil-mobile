@@ -379,6 +379,7 @@ footer { background: var(--dark); padding: 48px 20px 28px; }
       <span>Phil-Mobile</span>
     </a>
     <div class="nav-links">
+      <a href="#">🏠 Accueil</a>
       <a href="#services">Services</a>
       <a href="#video">Opportunité</a>
       <a href="#avis">Avis</a>
@@ -393,6 +394,7 @@ footer { background: var(--dark); padding: 48px 20px 28px; }
     </button>
   </div>
   <div class="mobile-menu" id="mobileMenu">
+    <a href="#" onclick="toggleMenu()">🏠 Accueil</a>
     <a href="#services" onclick="toggleMenu()">🧩 Services</a>
     <a href="#video" onclick="toggleMenu()">🚀 Opportunité</a>
     <a href="#avis" onclick="toggleMenu()">⭐ Avis clients</a>
@@ -523,9 +525,57 @@ footer { background: var(--dark); padding: 48px 20px 28px; }
           <div class="form-group"><label>Email *</label><input type="email" name="email" required placeholder="vous@exemple.be"></div>
           <div class="form-group"><label>Téléphone *</label><input type="tel" name="telephone" required placeholder="+32 4xx xx xx xx"></div>
           <div class="form-group"><label>Vous êtes</label><select name="profil"><option>Particulier</option><option>Indépendant</option><option>Société</option></select></div>
-          <div class="form-group"><label>Je souhaite des infos sur</label><select name="sujet"><option>📱 Abonnement mobile Orange</option><option>🌍 Internet & Packs</option><option>⚡ Énergie (Eneco)</option><option>🔥 Gaz (Eneco)</option><option>📦 Tout comparer</option></select></div>
+          <div class="form-group"><label>Je souhaite des infos sur</label>
+            <select name="sujet" id="sujet" onchange="updateFields()">
+              <option value="mobile">📱 Abonnement mobile Orange</option>
+              <option value="internet">🌍 Internet & Packs</option>
+              <option value="energie">⚡ Énergie (Eneco)</option>
+              <option value="gaz">🔥 Gaz (Eneco)</option>
+              <option value="tout">📦 Tout comparer</option>
+            </select>
+          </div>
+
+          <!-- Champ mobile -->
+          <div class="form-group dyn-field" id="field-mobile">
+            <label>📱 Votre opérateur mobile actuel</label>
+            <select name="operateur_mobile">
+              <option>Proximus</option>
+              <option>Base</option>
+              <option>VOO</option>
+              <option>Orange</option>
+              <option>Mobile Vikings</option>
+              <option>Autre</option>
+            </select>
+          </div>
+
+          <!-- Champ internet -->
+          <div class="form-group dyn-field" id="field-internet" style="display:none;">
+            <label>🌍 Votre fournisseur internet actuel</label>
+            <select name="fournisseur_internet">
+              <option>Proximus</option>
+              <option>VOO</option>
+              <option>Telenet</option>
+              <option>Orange</option>
+              <option>Autre</option>
+            </select>
+          </div>
+
+          <!-- Champ énergie -->
+          <div class="form-group dyn-field" id="field-energie" style="display:none;">
+            <label>⚡ Votre fournisseur énergie actuel</label>
+            <select name="fournisseur_energie">
+              <option>Engie</option>
+              <option>Luminus</option>
+              <option>Mega</option>
+              <option>TotalEnergies</option>
+              <option>Octa+</option>
+              <option>Eneco</option>
+              <option>Autre</option>
+            </select>
+          </div>
           <div class="form-group"><label>Votre message</label><textarea name="message" placeholder="Dites-nous en plus sur votre situation..."></textarea></div>
-          <input type="hidden" name="_subject" value="Nouvelle demande client – Phil-Mobile">
+          <input type="hidden" name="_subject" value="📋 Nouvelle demande d'analyse – Phil-Mobile">
+          <input type="hidden" name="_language" value="fr">
           <button type="submit" class="btn-submit">✅ Recevoir mon analyse gratuite</button>
           <div id="success-client" class="form-success">✅ Merci ! Philippe vous recontacte très vite.</div>
         </form>
@@ -559,7 +609,15 @@ footer { background: var(--dark); padding: 48px 20px 28px; }
             </select>
           </div>
           <div class="form-group"><label>Pourquoi rejoindre Phil-Mobile ?</label><textarea name="motivation" placeholder="Parlez-nous de votre situation et de vos motivations..."></textarea></div>
-          <input type="hidden" name="_subject" value="🚀 Nouvelle candidature consultant – Phil-Mobile">
+          <div class="form-group"><label>Je réside en Belgique *</label>
+            <select name="residence" required>
+              <option value="">-- Sélectionnez --</option>
+              <option value="Oui">✅ Oui, je réside en Belgique</option>
+              <option value="Non">❌ Non, je ne réside pas en Belgique</option>
+            </select>
+          </div>
+          <input type="hidden" name="_subject" value="🚀 Nouvelle demande d'information – Opportunité Phil-Mobile">
+          <input type="hidden" name="_language" value="fr">
           <button type="submit" class="btn-submit">🚀 Je veux en savoir plus !</button>
           <div id="success-opport" class="form-success">✅ Super ! Philippe vous contacte très vite pour tout expliquer 🚀</div>
         </form>
@@ -599,6 +657,17 @@ footer { background: var(--dark); padding: 48px 20px 28px; }
 </a>
 
 <script>
+function updateFields() {
+  const val = document.getElementById('sujet').value;
+  const showMobile   = val === 'mobile'  || val === 'tout';
+  const showInternet = val === 'internet' || val === 'tout';
+  const showEnergie  = val === 'energie' || val === 'gaz' || val === 'tout';
+
+  document.getElementById('field-mobile').style.display   = showMobile   ? 'block' : 'none';
+  document.getElementById('field-internet').style.display = showInternet ? 'block' : 'none';
+  document.getElementById('field-energie').style.display  = showEnergie  ? 'block' : 'none';
+}
+
 function toggleMenu() {
   document.getElementById('mobileMenu').classList.toggle('open');
 }
