@@ -63,8 +63,40 @@ nav {
   display: flex; align-items: center; gap: 6px;
 }
 .nav-links .nav-cta:hover { background: #1da851; }
-@media (max-width: 600px) {
-  .nav-links a:not(.nav-cta) { display: none; }
+
+/* BURGER */
+.burger {
+  display: none; flex-direction: column; gap: 5px;
+  cursor: pointer; padding: 6px; border: none; background: none;
+}
+.burger span {
+  display: block; width: 24px; height: 2px;
+  background: var(--blue); border-radius: 2px;
+  transition: all 0.3s;
+}
+
+/* MOBILE MENU */
+.mobile-menu {
+  display: none; flex-direction: column;
+  background: var(--white); border-top: 1px solid var(--blue-border);
+  padding: 12px 20px 16px;
+}
+.mobile-menu.open { display: flex; }
+.mobile-menu a {
+  font-size: 15px; font-weight: 700; color: var(--dark);
+  text-decoration: none; padding: 12px 0;
+  border-bottom: 1px solid var(--blue-border);
+}
+.mobile-menu a:last-child { border-bottom: none; margin-top: 8px; }
+.mobile-menu .mob-cta {
+  background: var(--green); color: white !important;
+  padding: 12px 16px; border-radius: 10px;
+  text-align: center; border: none !important;
+}
+
+@media (max-width: 640px) {
+  .nav-links { display: none; }
+  .burger { display: flex; }
 }
 
 /* ===== HERO ===== */
@@ -354,6 +386,16 @@ footer { background: var(--dark); padding: 48px 20px 28px; }
         WhatsApp
       </a>
     </div>
+    <button class="burger" onclick="toggleMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#services" onclick="toggleMenu()">🧩 Services</a>
+    <a href="#video" onclick="toggleMenu()">🚀 Opportunité</a>
+    <a href="#avis" onclick="toggleMenu()">⭐ Avis clients</a>
+    <a href="#contact" onclick="toggleMenu()">📋 Contact</a>
+    <a href="https://wa.me/32475240205" class="mob-cta">💬 WhatsApp</a>
   </div>
 </nav>
 
@@ -543,7 +585,11 @@ footer { background: var(--dark); padding: 48px 20px 28px; }
 </a>
 
 <script>
-function switchForm(tab) {
+function toggleMenu() {
+  const menu = document.getElementById('mobileMenu');
+  menu.classList.toggle('open');
+}
+
   document.querySelectorAll('.form-tab').forEach((t,i) => {
     t.classList.toggle('active', (i===0&&tab==='client')||(i===1&&tab==='opport'));
   });
