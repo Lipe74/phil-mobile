@@ -149,7 +149,6 @@ nav {
   transition: transform 0.2s, box-shadow 0.2s;
 }
 .service-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(30,64,175,0.15); }
-.service-img { width: 100%; height: 160px; object-fit: cover; object-position: top; }
 .service-body { padding: 22px; }
 .service-tag {
   display: inline-block; font-size: 10px; font-weight: 800;
@@ -169,7 +168,7 @@ nav {
 /* ===== VIDEO ===== */
 .video-section {
   background: linear-gradient(135deg, #1e3a8a 0%, #1a56db 100%);
-  padding: 32px 20px;
+  padding: 20px 20px;
 }
 .video-section .section-label { color: rgba(255,255,255,0.7); }
 .video-section .section-title { color: white; }
@@ -388,7 +387,6 @@ footer { background: var(--dark); padding: 48px 20px 28px; }
     <div class="services-grid">
 
       <div class="service-card">
-        <img class="service-img" src="https://phil-mobile.be/wp-content/uploads/2026/04/Phil-Mobile-Pub-Energie-480x480.png" alt="Énergie Eneco" onerror="this.style.display='none'">
         <div class="service-body">
           <span class="service-tag tag-eneco">⚡ Énergie & Gaz</span>
           <h3>Eneco – Le compagnon Belge</h3>
@@ -398,7 +396,6 @@ footer { background: var(--dark); padding: 48px 20px 28px; }
       </div>
 
       <div class="service-card">
-        <img class="service-img" src="https://phil-mobile.be/wp-content/uploads/2026/04/PHIL-MOBILE-PUB-CLASSIQUE-480x480.png" alt="Orange Télécom" onerror="this.style.display='none'">
         <div class="service-body">
           <span class="service-tag tag-orange">📱 Télécommunications</span>
           <h3>Orange – Le meilleur réseau</h3>
@@ -408,7 +405,6 @@ footer { background: var(--dark); padding: 48px 20px 28px; }
       </div>
 
       <div class="service-card">
-        <img class="service-img" src="https://phil-mobile.be/wp-content/uploads/2026/04/Phil-Mobile-Pub-Recrutement-480x480.png" alt="Devenir Consultant" onerror="this.style.display='none'">
         <div class="service-body">
           <span class="service-tag tag-recruit">🚀 Opportunité</span>
           <h3>Devenez Consultant Smart SN</h3>
@@ -423,13 +419,11 @@ footer { background: var(--dark); padding: 48px 20px 28px; }
 
 <!-- VIDEO -->
 <div class="video-section" id="video">
-  <div class="section-label">Une Opportunité à ne pas rater</div>
-  <h2 class="section-title">Envie de nous rejoindre ?</h2>
   <div class="video-wrap">
     <iframe src="https://player.vimeo.com/video/1196897279" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
   </div>
   <div class="video-cta">
-    <a href="#contact" class="btn-green" style="display:inline-flex;margin-top:24px;">
+    <a href="#contact" class="btn-green" style="display:inline-flex;margin-top:16px;">
       <svg class="ico-wa" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.125.558 4.126 1.535 5.862L.057 23.737a.75.75 0 00.921.921l5.875-1.478A11.944 11.944 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.886 0-3.66-.499-5.197-1.373l-.373-.217-3.876.974.993-3.768-.237-.388A9.956 9.956 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
       Je suis intéressé(e) !
     </a>
