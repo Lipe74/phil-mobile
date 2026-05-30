@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Phil-Mobile – Télécom & Énergie à Beaufays</title>
+<meta name="description" content="Phil-Mobile, revendeur officiel Orange et Eneco à Beaufays. Simulation gratuite, sans engagement. Réduisez vos factures dès aujourd'hui.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<meta name="theme-color" content="#1a56db">
+<style>
+:root {
+  --blue: #1a56db;
+  --blue2: #1e40af;
+  --blue-light: #3b82f6;
+  --blue-pale: #eff6ff;
+  --blue-border: #bfdbfe;
+  --dark: #0f172a;
+  --text: #1e293b;
+  --muted: #64748b;
+  --bg: #f8fafc;
+  --white: #ffffff;
+  --green-wa: #25d366;
+  --radius: 16px;
+  --shadow: 0 4px 24px rgba(30,64,175,0.10);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: 'Nunito', sans-serif; background: var(--bg); color: var(--text); overflow-x: hidden; }
+
+/* NAV */
+nav {
+  position: sticky; top: 0; z-index: 100;
+  background: var(--white);
+  border-bottom: 3px solid var(--blue);
+  padding: 10px 20px;
+  display: flex; align-items: center; justify-content: space-between;
+  box-shadow: 0 2px 16px rgba(30,64,175,0.10);
+}
+.nav-logo { display: flex; align-items: center; gap: 10px; }
+.nav-logo img { width: 42px; height: 42px; border-radius: 50%; object-fit: cover; }
+.nav-logo span { font-size: 18px; font-weight: 900; color: var(--blue); }
+.nav-wa {
+  display: flex; align-items: center; gap: 6px;
+  background: var(--green-wa); color: white;
+  padding: 8px 14px; border-radius: 10px;
+  font-size: 13px; font-weight: 700; text-decoration: none;
+}
+
+/* HERO */
+.hero {
+  background: linear-gradient(135deg, #1e3a8a 0%, #1a56db 60%, #3b82f6 100%);
+  padding: 40px 20px 36px;
+  text-align: center;
+  position: relative; overflow: hidden;
+}
+.hero::after {
+  content: '';
+  position: absolute; bottom: -40px; left: 50%; transform: translateX(-50%);
+  width: 200%; height: 80px;
+  background: var(--bg);
+  border-radius: 50%;
+}
+.hero-logo {
+  width: 130px; height: 130px;
+  border-radius: 50%; object-fit: cover;
+  border: 4px solid rgba(255,255,255,0.5);
+  box-shadow: 0 8px 40px rgba(0,0,0,0.25);
+  margin-bottom: 16px;
+  background: white;
+}
+.hero h1 {
+  font-size: 32px; font-weight: 900; color: white;
+  line-height: 1.1; margin-bottom: 8px;
+}
+.hero-tagline {
+  font-size: 14px; color: rgba(255,255,255,0.85);
+  font-weight: 600; margin-bottom: 16px;
+  background: rgba(255,255,255,0.15);
+  display: inline-block; padding: 5px 16px; border-radius: 20px;
+}
+.hero-contact { margin-bottom: 24px; }
+.hero-contact a {
+  display: block; text-decoration: none;
+  font-size: 16px; font-weight: 700; color: white;
+  margin-bottom: 4px;
+}
+.hero-contact span { font-size: 12px; color: rgba(255,255,255,0.65); }
+.hero-desc {
+  font-size: 14px; color: rgba(255,255,255,0.85);
+  line-height: 1.7; max-width: 380px; margin: 0 auto 28px;
+}
+.hero-btns { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; padding-bottom: 20px; }
+.btn-wa {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--green-wa); color: white;
+  padding: 13px 22px; border-radius: 12px;
+  font-size: 14px; font-weight: 700; text-decoration: none;
+  box-shadow: 0 4px 20px rgba(37,211,102,0.35);
+  transition: transform 0.2s;
+}
+.btn-wa:hover { transform: translateY(-2px); }
+.btn-white {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: white; color: var(--blue);
+  padding: 13px 22px; border-radius: 12px;
+  font-size: 14px; font-weight: 700; text-decoration: none;
+  transition: transform 0.2s;
+}
+.btn-white:hover { transform: translateY(-2px); }
+
+/* SECTIONS */
+.section { padding: 48px 20px; }
+.section-label {
+  font-size: 11px; font-weight: 800; letter-spacing: 2px;
+  text-transform: uppercase; color: var(--blue);
+  margin-bottom: 6px; text-align: center;
+}
+.section-title {
+  font-size: 26px; font-weight: 900; color: var(--dark);
+  text-align: center; margin-bottom: 28px; line-height: 1.2;
+}
+
+/* SERVICES */
+.services-bg { background: var(--white); }
+.service-card {
+  background: var(--bg);
+  border: 1.5px solid var(--blue-border);
+  border-radius: var(--radius);
+  overflow: hidden; margin-bottom: 16px;
+  box-shadow: var(--shadow);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.service-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(30,64,175,0.15); }
+.service-img { width: 100%; height: 180px; object-fit: cover; display: block; }
+.service-body { padding: 20px; }
+.service-tag {
+  display: inline-block; font-size: 10px; font-weight: 800;
+  letter-spacing: 1px; text-transform: uppercase;
+  padding: 3px 10px; border-radius: 20px; margin-bottom: 10px;
+}
+.tag-orange { background: #fff5e6; color: #c95200; }
+.tag-eneco  { background: #fde8ea; color: #E2001A; }
+.tag-recruit{ background: var(--blue-pale); color: var(--blue2); }
+.service-body h3 { font-size: 19px; font-weight: 800; margin-bottom: 8px; color: var(--dark); }
+.service-body p  { font-size: 13px; color: var(--muted); line-height: 1.7; margin-bottom: 14px; }
+.service-link {
+  font-size: 13px; font-weight: 700; color: var(--blue);
+  text-decoration: none; display: inline-flex; align-items: center; gap: 6px;
+}
+
+/* VIDEO */
+.video-section {
+  padding: 48px 20px;
+  background: linear-gradient(135deg, #1e3a8a 0%, #1a56db 100%);
+}
+.video-section .section-label { color: rgba(255,255,255,0.7); }
+.video-section .section-title { color: white; }
+.video-wrap {
+  border-radius: var(--radius); overflow: hidden;
+  box-shadow: 0 16px 60px rgba(0,0,0,0.35);
+  position: relative; padding-bottom: 56.25%; height: 0;
+}
+.video-wrap iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
+.video-cta { text-align: center; margin-top: 24px; }
+
+/* AVIS */
+.reviews-section { background: var(--white); padding: 48px 20px; }
+.rating-bar {
+  display: flex; align-items: center; gap: 16px;
+  background: var(--blue-pale); border: 1.5px solid var(--blue-border);
+  border-radius: var(--radius); padding: 16px 20px; margin-bottom: 24px;
+}
+.rating-score { font-size: 52px; font-weight: 900; color: var(--blue); line-height: 1; }
+.rating-info .stars { color: #f59e0b; font-size: 20px; }
+.rating-info .rating-txt { font-size: 14px; font-weight: 700; color: var(--dark); }
+.rating-info small { font-size: 11px; color: var(--muted); }
+.review-card {
+  background: var(--bg); border: 1.5px solid var(--blue-border);
+  border-radius: var(--radius); padding: 16px; margin-bottom: 12px;
+}
+.review-header { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+.review-avatar {
+  width: 40px; height: 40px; border-radius: 50%;
+  background: var(--blue-pale); border: 2px solid var(--blue-border);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px; font-weight: 800; color: var(--blue); flex-shrink: 0;
+}
+.review-name { font-size: 13px; font-weight: 700; color: var(--dark); }
+.review-stars { color: #f59e0b; font-size: 12px; }
+.review-date { font-size: 10px; color: var(--muted); margin-left: auto; }
+.review-text { font-size: 12px; color: var(--muted); line-height: 1.7; font-style: italic; }
+.btn-more {
+  display: block; text-align: center; padding: 13px;
+  border-radius: 12px; font-size: 13px; font-weight: 700;
+  color: var(--blue); background: var(--blue-pale);
+  border: 1.5px solid var(--blue-border); text-decoration: none;
+  margin-top: 8px; transition: all 0.2s;
+}
+.btn-more:hover { background: var(--blue); color: white; }
+
+/* FORMULAIRES */
+.forms-section { padding: 48px 20px; background: var(--bg); }
+.form-tabs {
+  display: flex; background: var(--white);
+  border: 1.5px solid var(--blue-border); border-radius: 12px;
+  overflow: hidden; margin-bottom: 20px;
+}
+.form-tab {
+  flex: 1; padding: 13px 8px; text-align: center;
+  font-size: 13px; font-weight: 700; cursor: pointer;
+  border: none; background: transparent;
+  font-family: 'Nunito', sans-serif;
+  color: var(--muted); border-bottom: 3px solid transparent;
+  transition: all 0.2s;
+}
+.form-tab.active { color: var(--blue); background: var(--blue-pale); border-bottom-color: var(--blue); }
+.form-panel { display: none; }
+.form-panel.active { display: block; }
+.form-card {
+  background: var(--white); border: 1.5px solid var(--blue-border);
+  border-radius: var(--radius); padding: 24px 20px; box-shadow: var(--shadow);
+}
+.form-group { margin-bottom: 14px; }
+.form-group label { display: block; font-size: 12px; font-weight: 700; color: var(--dark); margin-bottom: 5px; }
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%; padding: 11px 14px;
+  border: 1.5px solid var(--blue-border); border-radius: 10px;
+  font-family: 'Nunito', sans-serif; font-size: 13px;
+  background: var(--bg); color: var(--text);
+  transition: border-color 0.2s; outline: none;
+}
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus { border-color: var(--blue); background: white; }
+.form-group textarea { resize: vertical; min-height: 90px; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.btn-submit {
+  width: 100%; padding: 14px;
+  background: var(--blue); color: white;
+  border: none; border-radius: 12px;
+  font-family: 'Nunito', sans-serif;
+  font-size: 14px; font-weight: 800; cursor: pointer;
+  transition: all 0.2s; margin-top: 6px;
+}
+.btn-submit:hover { background: var(--blue2); transform: translateY(-1px); }
+.form-success {
+  display: none; text-align: center; padding: 20px;
+  background: #f0fdf4; border: 1px solid #86efac;
+  border-radius: 12px; margin-top: 14px;
+  font-size: 14px; color: #166534; font-weight: 700;
+}
+.form-or {
+  text-align: center; margin: 16px 0; position: relative;
+  font-size: 11px; color: var(--muted); font-weight: 700; letter-spacing: 1px;
+}
+.form-or::before {
+  content: ''; position: absolute; top: 50%; left: 0; right: 0;
+  height: 1px; background: var(--blue-border);
+}
+.form-or span { background: var(--white); padding: 0 12px; position: relative; z-index: 1; }
+
+/* FOOTER */
+footer {
+  background: var(--dark); padding: 36px 20px 24px; text-align: center;
+}
+.f-logo-wrap { margin-bottom: 16px; }
+.f-logo-wrap img { width: 70px; height: 70px; border-radius: 50%; object-fit: cover; border: 3px solid var(--blue-light); }
+footer p { font-size: 12px; color: rgba(255,255,255,0.5); line-height: 1.9; }
+footer a { color: var(--blue-light); text-decoration: none; }
+.f-links { display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; margin: 14px 0; }
+.f-links a { font-size: 11px; color: rgba(255,255,255,0.35); }
+.f-copy { font-size: 10px; color: rgba(255,255,255,0.2); margin-top: 14px; border-top: 1px solid rgba(255,255,255,0.08); padding-top: 14px; }
+
+/* WA FLOAT */
+.wa-float {
+  position: fixed; bottom: 20px; right: 20px; z-index: 200;
+  width: 58px; height: 58px; border-radius: 50%;
+  background: var(--green-wa);
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 4px 24px rgba(37,211,102,0.45);
+  text-decoration: none; transition: transform 0.2s;
+}
+.wa-float:hover { transform: scale(1.1); }
+
+/* DIVIDER */
+.divider { height: 1px; background: var(--blue-border); margin: 0; }
+
+/* ANIMATIONS */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.hero > * { animation: fadeUp 0.5s ease both; }
+.hero-logo       { animation-delay: 0.1s; }
+.hero h1         { animation-delay: 0.2s; }
+.hero-tagline    { animation-delay: 0.25s; }
+.hero-contact    { animation-delay: 0.3s; }
+.hero-desc       { animation-delay: 0.35s; }
+.hero-btns       { animation-delay: 0.4s; }
+
+/* RESPONSIVE */
+@media (max-width: 480px) {
+  .hero h1 { font-size: 26px; }
+  .hero-logo { width: 110px; height: 110px; }
+  .form-row { grid-template-columns: 1fr; }
+  nav { padding: 8px 14px; }
+  .nav-logo span { font-size: 16px; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">
+    <img src="images/logo.png" alt="Phil-Mobile">
+    <span>Phil-Mobile</span>
+  </div>
+  <a href="https://wa.me/32475240205" class="nav-wa">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.125.558 4.126 1.535 5.862L.057 23.737a.75.75 0 00.921.921l5.875-1.478A11.944 11.944 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.886 0-3.66-.499-5.197-1.373l-.373-.217-3.876.974.993-3.768-.237-.388A9.956 9.956 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+    WhatsApp
+  </a>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <img class="hero-logo" src="images/logo.png" alt="Phil-Mobile Logo">
+  <h1>Phil-Mobile</h1>
+  <div class="hero-tagline">Revendeur Officiel Orange &amp; Eneco · Beaufays</div>
+  <div class="hero-contact">
+    <a href="tel:+32475240205">📞 +32 475 24 02 05</a>
+    <a href="mailto:infos@phil-mobile.be">✉️ infos@phil-Mobile.be</a>
+    <span>Lun–Ven · 9h00 – 19h00</span>
+  </div>
+  <p class="hero-desc">Nous analysons vos factures et vous proposons l'offre la plus adaptée à votre usage réel. Simulation gratuite, sans engagement.</p>
+  <div class="hero-btns">
+    <a href="#contact" class="btn-wa">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.125.558 4.126 1.535 5.862L.057 23.737a.75.75 0 00.921.921l5.875-1.478A11.944 11.944 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.886 0-3.66-.499-5.197-1.373l-.373-.217-3.876.974.993-3.768-.237-.388A9.956 9.956 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+      Analyse gratuite
+    </a>
+    <a href="#video" class="btn-white">🚀 Rejoindre l'équipe</a>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<div class="section services-bg" id="services">
+  <div class="section-label">Nos Services</div>
+  <h2 class="section-title">Ce que nous proposons</h2>
+
+  <div class="service-card">
+    <img class="service-img" src="https://phil-mobile.be/wp-content/uploads/2026/04/Phil-Mobile-Pub-Energie-480x480.png" alt="Énergie Eneco" onerror="this.style.display='none'">
+    <div class="service-body">
+      <span class="service-tag tag-eneco">⚡ Énergie & Gaz</span>
+      <h3>Eneco – Le compagnon Belge</h3>
+      <p>Avec Eneco, vous optez pour un fournisseur fiable, transparent et engagé. Des prix clairs et un accompagnement personnalisé pour réduire vos factures, sans mauvaises surprises.</p>
+      <a href="#contact" class="service-link">Demande gratuite →</a>
+    </div>
+  </div>
+
+  <div class="service-card">
+    <img class="service-img" src="https://phil-mobile.be/wp-content/uploads/2026/04/PHIL-MOBILE-PUB-CLASSIQUE-480x480.png" alt="Orange Télécom" onerror="this.style.display='none'">
+    <div class="service-body">
+      <span class="service-tag tag-orange">📱 Télécommunications</span>
+      <h3>Orange – Le meilleur réseau</h3>
+      <p>Vos factures sont analysées en détail pour vous proposer l'abonnement Orange le plus adapté. Fini les options inutiles : le meilleur réseau, au meilleur prix.</p>
+      <a href="#contact" class="service-link">Demande gratuite →</a>
+    </div>
+  </div>
+
+  <div class="service-card">
+    <img class="service-img" src="https://phil-mobile.be/wp-content/uploads/2026/04/Phil-Mobile-Pub-Recrutement-480x480.png" alt="Devenir Consultant" onerror="this.style.display='none'">
+    <div class="service-body">
+      <span class="service-tag tag-recruit">🚀 Opportunité</span>
+      <h3>Devenez Consultant Smart SN</h3>
+      <p>Lancez une activité indépendante dans les télécom & énergie. Smart SN prend en charge la création. Accompagnement, formation, revenus récurrents.</p>
+      <a href="#video" class="service-link">En savoir plus →</a>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- VIDEO -->
+<div class="video-section" id="video">
+  <div class="section-label">Une Opportunité à ne pas rater</div>
+  <h2 class="section-title">Envie de nous rejoindre ?</h2>
+  <div class="video-wrap">
+    <iframe src="https://player.vimeo.com/video/1196897279" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+  </div>
+  <div class="video-cta">
+    <a href="#contact" class="btn-wa" style="display:inline-flex;margin-top:20px;">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.125.558 4.126 1.535 5.862L.057 23.737a.75.75 0 00.921.921l5.875-1.478A11.944 11.944 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.886 0-3.66-.499-5.197-1.373l-.373-.217-3.876.974.993-3.768-.237-.388A9.956 9.956 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+      Je suis intéressé(e) !
+    </a>
+  </div>
+</div>
+
+<!-- AVIS -->
+<div class="reviews-section" id="avis">
+  <div class="section-label">Avis Clients</div>
+  <h2 class="section-title">Ce qu'ils disent de nous</h2>
+  <div class="rating-bar">
+    <div class="rating-score">4.9</div>
+    <div class="rating-info">
+      <div class="stars">★★★★★</div>
+      <div class="rating-txt">Excellent</div>
+      <small>sur Google Reviews</small>
+    </div>
+  </div>
+
+  <div class="review-card">
+    <div class="review-header">
+      <div class="review-avatar">SC</div>
+      <div><div class="review-name">Serena Ceccano</div><div class="review-stars">★★★★★</div></div>
+      <div class="review-date">Fév. 2026</div>
+    </div>
+    <p class="review-text">"Je recommande à 1000% ! Grâce à Philippe, j'ai internet qui fonctionne parfaitement et mes factures sont nettement moins chères. Absolument exceptionnel du début à la fin."</p>
+  </div>
+
+  <div class="review-card">
+    <div class="review-header">
+      <div class="review-avatar">BG</div>
+      <div><div class="review-name">Bruno Gérard</div><div class="review-stars">★★★★★</div></div>
+      <div class="review-date">Mai 2026</div>
+    </div>
+    <p class="review-text">"Je tiens à remercier Philippe pour son professionnalisme et sa gentillesse. Conseiller vraiment au top, toujours à l'écoute. Entièrement satisfait !"</p>
+  </div>
+
+  <div class="review-card">
+    <div class="review-header">
+      <div class="review-avatar">NJ</div>
+      <div><div class="review-name">Nora Juste</div><div class="review-stars">★★★★★</div></div>
+      <div class="review-date">Mai 2026</div>
+    </div>
+    <p class="review-text">"Une personne disponible, à l'écoute, qui fait tout pour que tout se passe bien. Il répond aux messages et règle les problèmes le plus rapidement possible. Très professionnel."</p>
+  </div>
+
+  <div class="review-card">
+    <div class="review-header">
+      <div class="review-avatar">D</div>
+      <div><div class="review-name">David</div><div class="review-stars">★★★★★</div></div>
+      <div class="review-date">Mars 2026</div>
+    </div>
+    <p class="review-text">"Service au top, patron à l'écoute et toujours disponible avec sourire et sympathie. Je recommande à 100% !"</p>
+  </div>
+
+  <div class="review-card">
+    <div class="review-header">
+      <div class="review-avatar">AB</div>
+      <div><div class="review-name">Arthur Bertholomé</div><div class="review-stars">★★★★★</div></div>
+      <div class="review-date">Mai 2026</div>
+    </div>
+    <p class="review-text">"Une expertise au top et des prix imbattables !"</p>
+  </div>
+
+  <div class="review-card">
+    <div class="review-header">
+      <div class="review-avatar">VL</div>
+      <div><div class="review-name">Vincent Leclercq</div><div class="review-stars">★★★★★</div></div>
+      <div class="review-date">Mars 2026</div>
+    </div>
+    <p class="review-text">"Excellent service, rapidité, efficacité."</p>
+  </div>
+
+  <div class="review-card">
+    <div class="review-header">
+      <div class="review-avatar">NE</div>
+      <div><div class="review-name">Nourdine El Morabet</div><div class="review-stars">★★★★★</div></div>
+      <div class="review-date">Avr. 2026</div>
+    </div>
+    <p class="review-text">"Très réactif ! Et de très bon conseil."</p>
+  </div>
+
+  <div class="review-card">
+    <div class="review-header">
+      <div class="review-avatar">RB</div>
+      <div><div class="review-name">Richard Bodart</div><div class="review-stars">★★★★★</div></div>
+      <div class="review-date">Avr. 2026</div>
+    </div>
+    <p class="review-text">"Chouette rencontre, personne très agréable, à l'écoute et professionnel."</p>
+  </div>
+
+  <div class="review-card">
+    <div class="review-header">
+      <div class="review-avatar">RC</div>
+      <div><div class="review-name">Raymond Carabin</div><div class="review-stars">★★★★★</div></div>
+      <div class="review-date">Mai 2026</div>
+    </div>
+    <p class="review-text">"Super service !!!"</p>
+  </div>
+
+  <div class="review-card">
+    <div class="review-header">
+      <div class="review-avatar">JH</div>
+      <div><div class="review-name">Jessica Hanquet</div><div class="review-stars">★★★★★</div></div>
+      <div class="review-date">Mai 2026</div>
+    </div>
+    <p class="review-text">"Très bonne expérience, Philippe est vraiment à l'écoute et très professionnel. Je recommande !"</p>
+  </div>
+
+  <a href="https://search.google.com/local/reviews?placeid=ChIJf9P2ZBGgkKcRmwuLgkfejME" target="_blank" class="btn-more">Voir tous les avis Google ↗</a>
+</div>
+
+<div class="divider"></div>
+
+<!-- FORMULAIRES -->
+<div class="forms-section" id="contact">
+  <div class="section-label">Nous contacter</div>
+  <h2 class="section-title">Parlons-en !</h2>
+  <div class="form-tabs">
+    <button class="form-tab active" onclick="switchForm('client')">📋 Demande d'information</button>
+    <button class="form-tab" onclick="switchForm('opport')">🚀 Rejoindre l'équipe</button>
+  </div>
+
+  <div id="panel-client" class="form-panel active">
+    <div class="form-card">
+      <form action="https://formspree.io/f/xykvvvjj" method="POST" onsubmit="handleSubmit(event,'success-client')">
+        <div class="form-row">
+          <div class="form-group"><label>Prénom *</label><input type="text" name="prenom" required placeholder="Philippe"></div>
+          <div class="form-group"><label>Nom *</label><input type="text" name="nom" required placeholder="Dupont"></div>
+        </div>
+        <div class="form-group"><label>Email *</label><input type="email" name="email" required placeholder="vous@exemple.be"></div>
+        <div class="form-group"><label>Téléphone *</label><input type="tel" name="telephone" required placeholder="+32 4xx xx xx xx"></div>
+        <div class="form-group">
+          <label>Vous êtes</label>
+          <select name="profil"><option>Particulier</option><option>Indépendant</option><option>Société</option></select>
+        </div>
+        <div class="form-group">
+          <label>Je souhaite des infos sur</label>
+          <select name="sujet">
+            <option>📱 Abonnement mobile Orange</option>
+            <option>🌍 Internet & Packs</option>
+            <option>⚡ Énergie (Eneco)</option>
+            <option>🔥 Gaz (Eneco)</option>
+            <option>📦 Tout comparer</option>
+          </select>
+        </div>
+        <div class="form-group"><label>Votre message</label><textarea name="message" placeholder="Dites-nous en plus sur votre situation..."></textarea></div>
+        <input type="hidden" name="_subject" value="Nouvelle demande client – Phil-Mobile">
+        <button type="submit" class="btn-submit">✅ Recevoir mon analyse gratuite</button>
+        <div id="success-client" class="form-success">✅ Merci ! Philippe vous recontacte très vite.</div>
+      </form>
+      <div class="form-or"><span>OU</span></div>
+      <a href="https://wa.me/32475240205?text=Bonjour%20Philippe,%20je%20souhaite%20une%20analyse%20gratuite%20!" class="btn-wa" style="justify-content:center;display:flex;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.125.558 4.126 1.535 5.862L.057 23.737a.75.75 0 00.921.921l5.875-1.478A11.944 11.944 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.886 0-3.66-.499-5.197-1.373l-.373-.217-3.876.974.993-3.768-.237-.388A9.956 9.956 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+        Contacter sur WhatsApp
+      </a>
+    </div>
+  </div>
+
+  <div id="panel-opport" class="form-panel">
+    <div class="form-card">
+      <form action="https://formspree.io/f/xzdwwwgv" method="POST" onsubmit="handleSubmit(event,'success-opport')">
+        <div class="form-row">
+          <div class="form-group"><label>Prénom *</label><input type="text" name="prenom" required placeholder="Philippe"></div>
+          <div class="form-group"><label>Nom *</label><input type="text" name="nom" required placeholder="Dupont"></div>
+        </div>
+        <div class="form-group"><label>Email *</label><input type="email" name="email" required placeholder="vous@exemple.be"></div>
+        <div class="form-group">
+          <label>Numéro de TVA ?</label>
+          <select name="tva"><option>Oui</option><option>Non</option><option>En cours de création</option><option>Je souhaite des informations</option></select>
+        </div>
+        <div class="form-group"><label>Vos motivations</label><textarea name="motivation" placeholder="Expliquez brièvement votre situation ou vos motivations..."></textarea></div>
+        <input type="hidden" name="_subject" value="Nouvelle candidature consultant – Phil-Mobile">
+        <button type="submit" class="btn-submit">🚀 Je souhaite être contacté(e)</button>
+        <div id="success-opport" class="form-success">✅ Super ! Philippe vous contacte très vite.</div>
+      </form>
+      <div class="form-or"><span>OU</span></div>
+      <a href="https://wa.me/32475240205?text=Bonjour%20Philippe,%20j%27ai%20vu%20votre%20vid%C3%A9o%20et%20je%20souhaite%20rejoindre%20l%27%C3%A9quipe%20!" class="btn-wa" style="justify-content:center;display:flex;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.125.558 4.126 1.535 5.862L.057 23.737a.75.75 0 00.921.921l5.875-1.478A11.944 11.944 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.886 0-3.66-.499-5.197-1.373l-.373-.217-3.876.974.993-3.768-.237-.388A9.956 9.956 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+        Discuter sur WhatsApp
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="f-logo-wrap">
+    <img src="images/logo.png" alt="Phil-Mobile">
+  </div>
+  <p style="font-size:16px;font-weight:800;color:white;margin-bottom:8px;">Phil-Mobile</p>
+  <p>Revendeur Officiel Orange &amp; Eneco</p>
+  <p><a href="tel:+32475240205">+32 475 24 02 05</a></p>
+  <p>infos@phil-Mobile.be</p>
+  <p>Rue de Trooz 1 Bte 21, 4052 Beaufays (Liège)</p>
+  <p style="margin-top:4px;">Lun–Ven : 9h00 – 19h00</p>
+  <div class="f-links">
+    <a href="https://phil-zen.be/">Phil-Zen</a>
+    <a href="https://lylou-zen.be/">Lylou-Vely</a>
+    <a href="#">Mentions légales</a>
+  </div>
+  <div class="f-copy">© 2026 Phil-Mobile · Tous droits réservés</div>
+</footer>
+
+<!-- BOUTON WA FLOTTANT -->
+<a href="https://wa.me/32475240205" class="wa-float" target="_blank">
+  <svg width="28" height="28" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.125.558 4.126 1.535 5.862L.057 23.737a.75.75 0 00.921.921l5.875-1.478A11.944 11.944 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.886 0-3.66-.499-5.197-1.373l-.373-.217-3.876.974.993-3.768-.237-.388A9.956 9.956 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+</a>
+
+<script>
+function switchForm(tab) {
+  document.querySelectorAll('.form-tab').forEach((t,i) => {
+    t.classList.toggle('active', (i===0&&tab==='client')||(i===1&&tab==='opport'));
+  });
+  document.getElementById('panel-client').classList.toggle('active', tab==='client');
+  document.getElementById('panel-opport').classList.toggle('active', tab==='opport');
+}
+function handleSubmit(e, successId) {
+  e.preventDefault();
+  fetch(e.target.action, { method:'POST', body:new FormData(e.target), headers:{'Accept':'application/json'} })
+    .then(r => { if(r.ok) { e.target.reset(); document.getElementById(successId).style.display='block'; } });
+}
+</script>
+</body>
+</html>
