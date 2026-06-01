@@ -429,6 +429,11 @@ footer { background: var(--blue-pale); border-top: 2px solid var(--blue-border);
         Analyse gratuite
       </a>
       <a href="#video" class="btn-white">🚀 Rejoindre l'équipe</a>
+
+      <a href="#" onclick="downloadVcard();return false;" class="btn-white">
+        📇 Mes coordonnées
+      </a>
+
     </div>
   </div>
 </div>
@@ -693,6 +698,30 @@ function handleSubmit(e, successId) {
   e.preventDefault();
   fetch(e.target.action, { method:'POST', body:new FormData(e.target), headers:{'Accept':'application/json'} })
     .then(r => { if(r.ok) { e.target.reset(); document.getElementById(successId).style.display='block'; } });
+}
+</script>
+
+<script>
+const VCARD = `BEGIN:VCARD
+VERSION:3.0
+N:Phil-Mobile;;;;
+FN:Phil-Mobile
+TEL;TYPE=CELL:+32475240205
+EMAIL:infos@phil-mobile.be
+URL:https://www.phil-mobile.be
+URL:https://wa.me/32475240205
+NOTE:Laissez un avis Google : https://g.page/r/CZsLi4JH3ozBEAE/review
+END:VCARD`;
+
+function downloadVcard() {
+  const blob = new Blob([VCARD], {type:'text/vcard;charset=utf-8'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'Phil-Mobile.vcf';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(a.href);
 }
 </script>
 </body>
