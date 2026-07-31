@@ -397,7 +397,7 @@ footer { background: var(--blue-pale); border-top: 2px solid var(--blue-border);
    <a href="#" class="nav-logo">
   <div class="logo-text">
     <span>Phil-Mobile</span>
-    <div class="site-version">Version 2.2</div>
+    <div class="site-version">Version 2.3</div>
   </div>
 </a>
     <div class="nav-links">
@@ -508,15 +508,15 @@ footer { background: var(--blue-pale); border-top: 2px solid var(--blue-border);
   <div class="section-inner">
     <div class="section-label">Avis Clients</div>
     <h2 class="section-title">Ce qu'ils disent de nous</h2>
-    <div class="rating-bar">
-      <div class="rating-score">5.0</div>
+    <div class="rating-bar" id="rating-bar">
+      <div class="rating-score" id="rating-score">5.0</div>
       <div class="rating-info">
         <div class="stars">★★★★★</div>
-        <div class="rtxt">Excellent</div>
+        <div class="rtxt" id="rating-label">Excellent</div>
         <small>sur Google Reviews</small>
       </div>
     </div>
-    <div class="reviews-grid">
+    <div class="reviews-grid" id="reviews-grid">
       <div class="review-card"><div class="review-header"><div class="review-avatar">SC</div><div><div class="review-name">Serena Ceccano</div><div class="review-stars">★★★★★</div></div><div class="review-date">Fév. 2026</div></div><p class="review-text">"Je recommande à 1000% ! Grâce à Philippe, j'ai internet qui fonctionne parfaitement et mes factures sont nettement moins chères."</p></div>
       <div class="review-card"><div class="review-header"><div class="review-avatar">BG</div><div><div class="review-name">Bruno Gérard</div><div class="review-stars">★★★★★</div></div><div class="review-date">Mai 2026</div></div><p class="review-text">"Conseiller vraiment au top, toujours à l'écoute et de très bon conseil. Entièrement satisfait !"</p></div>
       <div class="review-card"><div class="review-header"><div class="review-avatar">NJ</div><div><div class="review-name">Nora Juste</div><div class="review-stars">★★★★★</div></div><div class="review-date">Mai 2026</div></div><p class="review-text">"Disponible, à l'écoute, règle les problèmes le plus rapidement possible. Très professionnel."</p></div>
@@ -749,7 +749,7 @@ async function handleSubmit(e, formType) {
      en prospect se font depuis l'admin d'app.phil-mobile.be. -->
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
-import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+import { getFirestore, collection, addDoc, getDocs, doc, getDoc } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyDagghvP8ujE0fdUcYsOfmLaXps2ZSUexo",
@@ -766,6 +766,54 @@ const db = getFirestore(app);
 window.pmAddWebLead = function (payload) {
   return addDoc(collection(db, 'webLeads'), payload);
 };
+
+// --- Avis clients : lecture directe depuis Firestore au chargement de la page ---
+// Si la collection est vide ou en cas d'erreur, le bloc statique existant reste affiché tel quel
+// (aucune écriture ni suppression du DOM tant qu'on n'a pas de données valides à afficher).
+const FR_MONTHS_SITE = ['Jan.', 'Fév.', 'Mars', 'Avr.', 'Mai', 'Juin', 'Juil.', 'Août', 'Sept.', 'Oct.', 'Nov.', 'Déc.'];
+function frMonthLabelSite(dateMonth) {
+  if (!dateMonth) return '';
+  const parts = dateMonth.split('-');
+  const y = parts[0], m = parseInt(parts[1], 10);
+  if (!y || !m || m < 1 || m > 12) return dateMonth;
+  return `${FR_MONTHS_SITE[m - 1]} ${y}`;
+}
+function avisInitialesSite(nom) {
+  return (nom || '').trim().split(/\s+/).map(w => w[0]).join('').toUpperCase().slice(0, 2) || '?';
+}
+function escapeHtmlSite(str) {
+  const div = document.createElement('div');
+  div.textContent = str ?? '';
+  return div.innerHTML;
+}
+
+async function loadAvisFromFirestore() {
+  try {
+    const snap = await getDocs(collection(db, 'avisWeb'));
+    const list = [];
+    snap.forEach(d => { if (d.id !== '_globalRating') list.push(d.data()); });
+    if (list.length === 0) return; // aucun avis publié : on garde le bloc statique actuel
+
+    list.sort((a, b) => (b.dateMonth || '').localeCompare(a.dateMonth || ''));
+
+    const grid = document.getElementById('reviews-grid');
+    grid.innerHTML = list.map(a => {
+      const noteNum = Number(a.note) || 5;
+      const stars = '★'.repeat(noteNum) + '☆'.repeat(5 - noteNum);
+      return `<div class="review-card"><div class="review-header"><div class="review-avatar">${escapeHtmlSite(avisInitialesSite(a.nom))}</div><div><div class="review-name">${escapeHtmlSite(a.nom)}</div><div class="review-stars">${stars}</div></div><div class="review-date">${escapeHtmlSite(frMonthLabelSite(a.dateMonth))}</div></div><p class="review-text">"${escapeHtmlSite(a.texte)}"</p></div>`;
+    }).join('');
+
+    const ratingSnap = await getDoc(doc(db, 'avisWeb', '_globalRating'));
+    if (ratingSnap.exists()) {
+      const r = ratingSnap.data();
+      if (r.score) document.getElementById('rating-score').textContent = r.score;
+      if (r.label) document.getElementById('rating-label').textContent = r.label;
+    }
+  } catch (err) {
+    console.log('Chargement des avis impossible, bloc statique conservé:', err.message);
+  }
+}
+loadAvisFromFirestore();
 </script>
 
 <script>
