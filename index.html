@@ -397,7 +397,7 @@ footer { background: var(--blue-pale); border-top: 2px solid var(--blue-border);
    <a href="#" class="nav-logo">
   <div class="logo-text">
     <span>Phil-Mobile</span>
-    <div class="site-version">Version 2.1</div>
+    <div class="site-version">Version 2.2</div>
   </div>
 </a>
     <div class="nav-links">
@@ -545,7 +545,7 @@ footer { background: var(--blue-pale); border-top: 2px solid var(--blue-border);
 
     <div id="panel-client" class="form-panel active">
       <div class="form-card">
-        <form action="https://formspree.io/f/xykvvvjj" method="POST" onsubmit="handleSubmit(event,'success-client')">
+        <form onsubmit="handleSubmit(event,'client')">
           <div class="form-row">
             <div class="form-group"><label>Prénom *</label><input type="text" name="prenom" required placeholder="Philippe"></div>
             <div class="form-group"><label>Nom *</label><input type="text" name="nom" required placeholder="Dupont"></div>
@@ -602,8 +602,6 @@ footer { background: var(--blue-pale); border-top: 2px solid var(--blue-border);
             </select>
           </div>
           <div class="form-group"><label>Votre message</label><textarea name="message" placeholder="Dites-nous en plus sur votre situation..."></textarea></div>
-          <input type="hidden" name="_subject" value="📋 Nouvelle demande d'analyse – Phil-Mobile">
-          <input type="hidden" name="_language" value="fr">
           <button type="submit" class="btn-submit">✅ Recevoir mon analyse gratuite</button>
           <div id="success-client" class="form-success">✅ Merci ! Philippe vous recontacte très vite.</div>
         </form>
@@ -621,7 +619,7 @@ footer { background: var(--blue-pale); border-top: 2px solid var(--blue-border);
           <div style="font-size:14px;font-weight:800;color:var(--blue);margin-bottom:4px;">🚀 Devenez Consultant Smart SN</div>
           <div style="font-size:13px;color:var(--muted);line-height:1.6;">Lancez votre activité indépendante dans les télécom & énergie. Smart SN prend en charge la création. Philippe vous contacte pour tout expliquer.</div>
         </div>
-        <form action="https://formspree.io/f/xzdwwwgv" method="POST" onsubmit="handleSubmit(event,'success-opport')">
+        <form onsubmit="handleSubmit(event,'opport')">
           <div class="form-row">
             <div class="form-group"><label>Prénom *</label><input type="text" name="prenom" required placeholder="Philippe"></div>
             <div class="form-group"><label>Nom *</label><input type="text" name="nom" required placeholder="Dupont"></div>
@@ -644,8 +642,6 @@ footer { background: var(--blue-pale); border-top: 2px solid var(--blue-border);
               <option value="Non">❌ Non, je ne réside pas en Belgique</option>
             </select>
           </div>
-          <input type="hidden" name="_subject" value="🚀 Nouvelle demande d'information – Opportunité Phil-Mobile">
-          <input type="hidden" name="_language" value="fr">
           <button type="submit" class="btn-submit">🚀 Je veux en savoir plus !</button>
           <div id="success-opport" class="form-success">✅ Super ! Philippe vous contacte très vite pour tout expliquer 🚀</div>
         </form>
@@ -674,6 +670,7 @@ footer { background: var(--blue-pale); border-top: 2px solid var(--blue-border);
       <a href="https://phil-fixit.be">Visitez Phil-Fixit.be</a>
       <a href="https://lylou-vely.be">Lylou-Vely</a>
       <a href="#">Mentions légales</a>
+      <a href="https://app.phil-mobile.be/admin.html">Admin</a>
     </div>
     <div class="footer-copy">© 2026 Phil-Mobile · Tous droits réservés</div>
   </div>
@@ -708,11 +705,67 @@ function switchForm(tab) {
   document.getElementById('panel-opport').classList.toggle('active', tab==='opport');
 }
 
-function handleSubmit(e, successId) {
+async function handleSubmit(e, formType) {
   e.preventDefault();
-  fetch(e.target.action, { method:'POST', body:new FormData(e.target), headers:{'Accept':'application/json'} })
-    .then(r => { if(r.ok) { e.target.reset(); document.getElementById(successId).style.display='block'; } });
+  const form = e.target;
+  const data = new FormData(form);
+  const get = (k) => (data.get(k) || '').toString().trim();
+
+  let payload;
+  if (formType === 'client') {
+    const sujet = get('sujet');
+    const sourceMap = { mobile: 'Orange', internet: 'Orange', energie: 'Eneco', gaz: 'Eneco', tout: 'Orange+Eneco' };
+    payload = {
+      type: 'client',
+      prenom: get('prenom'), nom: get('nom'), email: get('email'), telephone: get('telephone'),
+      vousEtes: get('profil'), sujet: sujet, produitSource: sourceMap[sujet] || 'Autre',
+      operateurMobile: get('operateur_mobile'), fournisseurInternet: get('fournisseur_internet'),
+      fournisseurEnergie: get('fournisseur_energie'), message: get('message'),
+      status: 'nouveau', createdAt: new Date().toISOString()
+    };
+  } else {
+    payload = {
+      type: 'consultant',
+      prenom: get('prenom'), nom: get('nom'), email: get('email'), telephone: get('telephone'),
+      tva: get('tva'), motivation: get('motivation'), residence: get('residence'),
+      status: 'nouveau', createdAt: new Date().toISOString()
+    };
+  }
+
+  try {
+    await window.pmAddWebLead(payload);
+    form.reset();
+    if (formType === 'client') updateFields();
+    document.getElementById(formType === 'client' ? 'success-client' : 'success-opport').style.display = 'block';
+  } catch (err) {
+    alert("Une erreur est survenue lors de l'envoi. Merci de réessayer, ou contactez-nous directement via WhatsApp.");
+    console.log('Erreur envoi formulaire:', err.message);
+  }
 }
+</script>
+
+<!-- Firestore : écriture seule des formulaires publics vers la collection tampon "webLeads".
+     Aucune lecture n'est effectuée ici (pas de login sur ce site) ; le suivi et la conversion
+     en prospect se font depuis l'admin d'app.phil-mobile.be. -->
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyDagghvP8ujE0fdUcYsOfmLaXps2ZSUexo",
+  authDomain: "phil-mobile.firebaseapp.com",
+  projectId: "phil-mobile",
+  storageBucket: "phil-mobile.firebasestorage.app",
+  messagingSenderId: "193213939481",
+  appId: "1:193213939481:web:f8a750e89f0e645b62cf88",
+  measurementId: "G-6TJR9GTK90"
+};
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+window.pmAddWebLead = function (payload) {
+  return addDoc(collection(db, 'webLeads'), payload);
+};
 </script>
 
 <script>
