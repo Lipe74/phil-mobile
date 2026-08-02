@@ -32,6 +32,10 @@ img { max-width: 100%; display: block; }
   --blue2: #1e40af;
   --blue-pale: #eff6ff;
   --blue-border: #bfdbfe;
+  --navy: #0c1a4a;
+  --accent: #f59e0b;
+  --accent2: #d97706;
+  --accent-pale: #fff7ed;
   --dark: #0f172a;
   --muted: #64748b;
   --white: #ffffff;
@@ -39,6 +43,14 @@ img { max-width: 100%; display: block; }
   --green: #25d366;
   --radius: 16px;
   --max: 1100px;
+}
+
+/* ===== ANIMATIONS ===== */
+.reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+.reveal.visible { opacity: 1; transform: none; }
+@keyframes waPulse {
+  0%, 100% { box-shadow: 0 4px 24px rgba(37,211,102,0.5); }
+  50% { box-shadow: 0 4px 34px rgba(37,211,102,0.85); }
 }
 
 /* WRAPPER */
@@ -123,7 +135,7 @@ nav {
 
 /* ===== HERO ===== */
 .hero {
-  background: linear-gradient(135deg, #1e3a8a 0%, #1a56db 65%, #3b82f6 100%);
+  background: linear-gradient(135deg, var(--navy) 0%, var(--blue) 65%, #3b82f6 100%);
   padding: 60px 20px 80px;
   text-align: center;
   position: relative;
@@ -140,9 +152,11 @@ nav {
 .hero h1 { font-size: 38px; font-weight: 900; color: white; line-height: 1.1; margin-bottom: 12px; }
 .hero-tagline {
   display: inline-block;
-  font-size: 13px; font-weight: 700; color: rgba(255,255,255,0.9);
-  background: rgba(255,255,255,0.15); border-radius: 20px;
-  padding: 5px 18px; margin-bottom: 20px; border: 1px solid rgba(255,255,255,0.25);
+  font-size: 13px; font-weight: 800; color: #2c1a02;
+  background: linear-gradient(90deg, var(--accent) 0%, #fbbf24 100%);
+  border-radius: 20px;
+  padding: 6px 18px; margin-bottom: 20px; border: none;
+  box-shadow: 0 4px 16px rgba(245,158,11,0.4);
 }
 .hero-contact { margin-bottom: 20px; }
 .hero-contact a {
@@ -167,7 +181,7 @@ nav {
   font-size: 15px; font-weight: 800; text-decoration: none;
   transition: transform 0.2s;
 }
-.btn-white:hover { transform: translateY(-2px); }
+.btn-white:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(245,158,11,0.3); color: var(--accent2); }
 
 /* WAVE */
 .wave-bottom {
@@ -221,7 +235,7 @@ nav {
 
 /* ===== VIDEO ===== */
 .video-section {
-  background: linear-gradient(135deg, #1e3a8a 0%, #1a56db 100%);
+  background: linear-gradient(135deg, var(--navy) 0%, var(--blue) 100%);
   padding: 0 0 16px 0;
 }
 .video-section .section-label { color: rgba(255,255,255,0.7); }
@@ -246,8 +260,8 @@ nav {
   border-radius: var(--radius); padding: 20px 24px; margin-bottom: 28px;
   max-width: 400px;
 }
-.rating-score { font-size: 56px; font-weight: 900; color: var(--blue); line-height: 1; }
-.rating-info .stars { color: #f59e0b; font-size: 22px; }
+.rating-score { font-size: 56px; font-weight: 900; color: var(--accent2); line-height: 1; }
+.rating-info .stars { color: var(--accent); font-size: 22px; }
 .rating-info .rtxt { font-size: 15px; font-weight: 700; color: var(--dark); }
 .rating-info small { font-size: 12px; color: var(--muted); }
 .reviews-grid {
@@ -267,7 +281,7 @@ nav {
   font-size: 13px; font-weight: 800; color: var(--blue); flex-shrink: 0;
 }
 .review-name { font-size: 13px; font-weight: 700; color: var(--dark); }
-.review-stars { color: #f59e0b; font-size: 12px; }
+.review-stars { color: var(--accent); font-size: 12px; }
 .review-date { font-size: 10px; color: var(--muted); margin-left: auto; white-space: nowrap; }
 .review-text { font-size: 13px; color: var(--muted); line-height: 1.7; font-style: italic; }
 .btn-more {
@@ -382,8 +396,9 @@ footer { background: var(--blue-pale); border-top: 2px solid var(--blue-border);
   display: flex; align-items: center; justify-content: center;
   box-shadow: 0 4px 24px rgba(37,211,102,0.5);
   text-decoration: none; transition: transform 0.2s;
+  animation: waPulse 2.5s ease-in-out infinite;
 }
-.wa-float:hover { transform: scale(1.1); }
+.wa-float:hover { transform: scale(1.1); animation: none; }
 
 /* SVG ICON WA */
 .ico-wa { width: 22px; height: 22px; fill: white; flex-shrink: 0; }
@@ -459,7 +474,7 @@ footer { background: var(--blue-pale); border-top: 2px solid var(--blue-border);
     <h2 class="section-title">Ce que nous proposons</h2>
     <div class="services-grid">
 
-      <div class="service-card">
+      <div class="service-card reveal">
         <div class="service-body">
           <span class="service-tag tag-eneco">⚡ Énergie & Gaz</span>
           <h3>Eneco – Le compagnon Belge</h3>
@@ -468,7 +483,7 @@ footer { background: var(--blue-pale); border-top: 2px solid var(--blue-border);
         </div>
       </div>
 
-      <div class="service-card">
+      <div class="service-card reveal">
         <div class="service-body">
           <span class="service-tag tag-orange">📱 Télécommunications</span>
           <h3>Orange – Le meilleur réseau</h3>
@@ -477,7 +492,7 @@ footer { background: var(--blue-pale); border-top: 2px solid var(--blue-border);
         </div>
       </div>
 
-      <div class="service-card">
+      <div class="service-card reveal">
         <div class="service-body">
           <span class="service-tag tag-recruit">🚀 Opportunité</span>
           <h3>Devenez Consultant Smart SN</h3>
@@ -517,17 +532,17 @@ footer { background: var(--blue-pale); border-top: 2px solid var(--blue-border);
       </div>
     </div>
     <div class="reviews-grid" id="reviews-grid">
-      <div class="review-card"><div class="review-header"><div class="review-avatar">SC</div><div><div class="review-name">Serena Ceccano</div><div class="review-stars">★★★★★</div></div><div class="review-date">Fév. 2026</div></div><p class="review-text">"Je recommande à 1000% ! Grâce à Philippe, j'ai internet qui fonctionne parfaitement et mes factures sont nettement moins chères."</p></div>
-      <div class="review-card"><div class="review-header"><div class="review-avatar">BG</div><div><div class="review-name">Bruno Gérard</div><div class="review-stars">★★★★★</div></div><div class="review-date">Mai 2026</div></div><p class="review-text">"Conseiller vraiment au top, toujours à l'écoute et de très bon conseil. Entièrement satisfait !"</p></div>
-      <div class="review-card"><div class="review-header"><div class="review-avatar">NJ</div><div><div class="review-name">Nora Juste</div><div class="review-stars">★★★★★</div></div><div class="review-date">Mai 2026</div></div><p class="review-text">"Disponible, à l'écoute, règle les problèmes le plus rapidement possible. Très professionnel."</p></div>
-      <div class="review-card"><div class="review-header"><div class="review-avatar">D</div><div><div class="review-name">David</div><div class="review-stars">★★★★★</div></div><div class="review-date">Mars 2026</div></div><p class="review-text">"Service au top, patron à l'écoute et toujours disponible avec sourire et sympathie. Je recommande à 100% !"</p></div>
-      <div class="review-card"><div class="review-header"><div class="review-avatar">AB</div><div><div class="review-name">Arthur Bertholomé</div><div class="review-stars">★★★★★</div></div><div class="review-date">Mai 2026</div></div><p class="review-text">"Une expertise au top et des prix imbattables !"</p></div>
-      <div class="review-card"><div class="review-header"><div class="review-avatar">VL</div><div><div class="review-name">Vincent Leclercq</div><div class="review-stars">★★★★★</div></div><div class="review-date">Mars 2026</div></div><p class="review-text">"Excellent service, rapidité, efficacité."</p></div>
-      <div class="review-card"><div class="review-header"><div class="review-avatar">NE</div><div><div class="review-name">Nourdine El Morabet</div><div class="review-stars">★★★★★</div></div><div class="review-date">Avr. 2026</div></div><p class="review-text">"Très réactif ! Et de très bon conseil."</p></div>
-      <div class="review-card"><div class="review-header"><div class="review-avatar">RB</div><div><div class="review-name">Richard Bodart</div><div class="review-stars">★★★★★</div></div><div class="review-date">Avr. 2026</div></div><p class="review-text">"Chouette rencontre, personne très agréable, à l'écoute et professionnel."</p></div>
-      <div class="review-card"><div class="review-header"><div class="review-avatar">RC</div><div><div class="review-name">Raymond Carabin</div><div class="review-stars">★★★★★</div></div><div class="review-date">Mai 2026</div></div><p class="review-text">"Super service !!!"</p></div>
-      <div class="review-card"><div class="review-header"><div class="review-avatar">S</div><div><div class="review-name">Sauron 701</div><div class="review-stars">★★★★★</div></div><div class="review-date">Juin 2026</div></div><p class="review-text">"Super service et professionnalisme. Merci Phillipe !"</p></div>
-      <div class="review-card"><div class="review-header"><div class="review-avatar">JH</div><div><div class="review-name">Jessica Hanquet</div><div class="review-stars">★★★★★</div></div><div class="review-date">Mai 2026</div></div><p class="review-text">"Philippe est vraiment à l'écoute et très professionnel. Je recommande !"</p></div>
+      <div class="review-card reveal"><div class="review-header"><div class="review-avatar">SC</div><div><div class="review-name">Serena Ceccano</div><div class="review-stars">★★★★★</div></div><div class="review-date">Fév. 2026</div></div><p class="review-text">"Je recommande à 1000% ! Grâce à Philippe, j'ai internet qui fonctionne parfaitement et mes factures sont nettement moins chères."</p></div>
+      <div class="review-card reveal"><div class="review-header"><div class="review-avatar">BG</div><div><div class="review-name">Bruno Gérard</div><div class="review-stars">★★★★★</div></div><div class="review-date">Mai 2026</div></div><p class="review-text">"Conseiller vraiment au top, toujours à l'écoute et de très bon conseil. Entièrement satisfait !"</p></div>
+      <div class="review-card reveal"><div class="review-header"><div class="review-avatar">NJ</div><div><div class="review-name">Nora Juste</div><div class="review-stars">★★★★★</div></div><div class="review-date">Mai 2026</div></div><p class="review-text">"Disponible, à l'écoute, règle les problèmes le plus rapidement possible. Très professionnel."</p></div>
+      <div class="review-card reveal"><div class="review-header"><div class="review-avatar">D</div><div><div class="review-name">David</div><div class="review-stars">★★★★★</div></div><div class="review-date">Mars 2026</div></div><p class="review-text">"Service au top, patron à l'écoute et toujours disponible avec sourire et sympathie. Je recommande à 100% !"</p></div>
+      <div class="review-card reveal"><div class="review-header"><div class="review-avatar">AB</div><div><div class="review-name">Arthur Bertholomé</div><div class="review-stars">★★★★★</div></div><div class="review-date">Mai 2026</div></div><p class="review-text">"Une expertise au top et des prix imbattables !"</p></div>
+      <div class="review-card reveal"><div class="review-header"><div class="review-avatar">VL</div><div><div class="review-name">Vincent Leclercq</div><div class="review-stars">★★★★★</div></div><div class="review-date">Mars 2026</div></div><p class="review-text">"Excellent service, rapidité, efficacité."</p></div>
+      <div class="review-card reveal"><div class="review-header"><div class="review-avatar">NE</div><div><div class="review-name">Nourdine El Morabet</div><div class="review-stars">★★★★★</div></div><div class="review-date">Avr. 2026</div></div><p class="review-text">"Très réactif ! Et de très bon conseil."</p></div>
+      <div class="review-card reveal"><div class="review-header"><div class="review-avatar">RB</div><div><div class="review-name">Richard Bodart</div><div class="review-stars">★★★★★</div></div><div class="review-date">Avr. 2026</div></div><p class="review-text">"Chouette rencontre, personne très agréable, à l'écoute et professionnel."</p></div>
+      <div class="review-card reveal"><div class="review-header"><div class="review-avatar">RC</div><div><div class="review-name">Raymond Carabin</div><div class="review-stars">★★★★★</div></div><div class="review-date">Mai 2026</div></div><p class="review-text">"Super service !!!"</p></div>
+      <div class="review-card reveal"><div class="review-header"><div class="review-avatar">S</div><div><div class="review-name">Sauron 701</div><div class="review-stars">★★★★★</div></div><div class="review-date">Juin 2026</div></div><p class="review-text">"Super service et professionnalisme. Merci Phillipe !"</p></div>
+      <div class="review-card reveal"><div class="review-header"><div class="review-avatar">JH</div><div><div class="review-name">Jessica Hanquet</div><div class="review-stars">★★★★★</div></div><div class="review-date">Mai 2026</div></div><p class="review-text">"Philippe est vraiment à l'écoute et très professionnel. Je recommande !"</p></div>
     </div>
     <a href="https://search.google.com/local/reviews?placeid=ChIJf9P2ZBGgkKcRmwuLgkfejME" target="_blank" class="btn-more">Voir tous les avis Google ↗</a>
   </div>
@@ -544,7 +559,7 @@ footer { background: var(--blue-pale); border-top: 2px solid var(--blue-border);
     </div>
 
     <div id="panel-client" class="form-panel active">
-      <div class="form-card">
+      <div class="form-card reveal">
         <form onsubmit="handleSubmit(event,'client')">
           <div class="form-row">
             <div class="form-group"><label>Prénom *</label><input type="text" name="prenom" required placeholder="Philippe"></div>
@@ -614,7 +629,7 @@ footer { background: var(--blue-pale); border-top: 2px solid var(--blue-border);
     </div>
 
     <div id="panel-opport" class="form-panel">
-      <div class="form-card">
+      <div class="form-card reveal">
         <div style="background:var(--blue-pale);border:1.5px solid var(--blue-border);border-radius:12px;padding:14px 16px;margin-bottom:20px;">
           <div style="font-size:14px;font-weight:800;color:var(--blue);margin-bottom:4px;">🚀 Devenez Consultant Smart SN</div>
           <div style="font-size:13px;color:var(--muted);line-height:1.6;">Lancez votre activité indépendante dans les télécom & énergie. Smart SN prend en charge la création. Philippe vous contacte pour tout expliquer.</div>
@@ -696,6 +711,21 @@ function updateFields() {
 function toggleMenu() {
   document.getElementById('mobileMenu').classList.toggle('open');
 }
+
+/* Animation d'apparition au scroll */
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      revealObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.15 });
+
+function observeReveals(root = document) {
+  root.querySelectorAll('.reveal:not(.visible)').forEach(el => revealObserver.observe(el));
+}
+observeReveals();
 
 function switchForm(tab) {
   document.querySelectorAll('.form-tab').forEach((t,i) => {
@@ -800,8 +830,9 @@ async function loadAvisFromFirestore() {
     grid.innerHTML = list.map(a => {
       const noteNum = Number(a.note) || 5;
       const stars = '★'.repeat(noteNum) + '☆'.repeat(5 - noteNum);
-      return `<div class="review-card"><div class="review-header"><div class="review-avatar">${escapeHtmlSite(avisInitialesSite(a.nom))}</div><div><div class="review-name">${escapeHtmlSite(a.nom)}</div><div class="review-stars">${stars}</div></div><div class="review-date">${escapeHtmlSite(frMonthLabelSite(a.dateMonth))}</div></div><p class="review-text">"${escapeHtmlSite(a.texte)}"</p></div>`;
+      return `<div class="review-card reveal"><div class="review-header"><div class="review-avatar">${escapeHtmlSite(avisInitialesSite(a.nom))}</div><div><div class="review-name">${escapeHtmlSite(a.nom)}</div><div class="review-stars">${stars}</div></div><div class="review-date">${escapeHtmlSite(frMonthLabelSite(a.dateMonth))}</div></div><p class="review-text">"${escapeHtmlSite(a.texte)}"</p></div>`;
     }).join('');
+    if (typeof observeReveals === 'function') observeReveals(grid);
 
     const ratingSnap = await getDoc(doc(db, 'avisWeb', '_globalRating'));
     if (ratingSnap.exists()) {
