@@ -124,6 +124,14 @@ nav { background: var(--white); border-bottom: 1px solid var(--blue-border); pos
 .checkbox-row input[type="checkbox"] { width: 18px; height: 18px; margin-top: 2px; flex-shrink: 0; accent-color: var(--blue); }
 .checkbox-row label { font-size: 13px; font-weight: 700; color: var(--dark); margin: 0; line-height: 1.5; }
 .field-hint { font-size: 12px; color: var(--muted); font-weight: 600; margin-top: -8px; margin-bottom: 14px; }
+.btn-suggestion {
+  display: inline-block; margin: 0 6px 6px 0; padding: 6px 12px;
+  border: 1.5px solid var(--blue-border); border-radius: 20px;
+  background: var(--blue-pale); color: var(--blue);
+  font-family: 'Nunito', sans-serif; font-size: 12px; font-weight: 700;
+  cursor: pointer; transition: all 0.15s;
+}
+.btn-suggestion:hover { background: var(--blue); color: white; }
 .form-card {
   background: white; border-radius: var(--radius); padding: 28px 24px;
   box-shadow: 0 2px 20px rgba(15,23,42,0.06); border: 1px solid var(--blue-border);
@@ -243,9 +251,64 @@ footer { background: var(--blue-pale); border-top: 2px solid var(--blue-border);
         <div class="wizard-actions"><button type="button" class="btn-submit" onclick="nextStep(1)">Continuer →</button></div>
       </div>
 
-      <!-- 2. Statut actuel -->
+      <!-- 2. Commune + code postal -->
       <div class="wizard-step" data-step="2">
-        <label>2. Quel est votre statut actuel ?</label>
+        <label>2. Dans quelle commune et quel code postal résidez-vous ?</label>
+        <div class="form-row">
+          <div class="form-group"><input type="text" id="q-codepostal" placeholder="Code postal (ex : 4052)" maxlength="4" inputmode="numeric" oninput="handleCodePostalInput()"></div>
+          <div class="form-group"><input type="text" id="q-commune" placeholder="Commune (ex : Beaufays)"></div>
+        </div>
+        <div id="commune-suggestions" style="display:none;margin-top:-8px;margin-bottom:16px;"></div>
+        <div class="form-group">
+          <label>Région</label>
+          <select id="q-region">
+            <option value="">-- Sélectionnez --</option>
+            <option value="liegeoise">Région Liégeoise</option>
+            <option value="flamande">Région Flamande</option>
+            <option value="bruxelles">Bruxelles</option>
+          </select>
+        </div>
+        <div class="wizard-actions">
+          <button type="button" class="btn-submit" onclick="nextStep(2)">Continuer →</button>
+          <button type="button" class="wizard-back" onclick="prevStep(2)">← Retour</button>
+        </div>
+      </div>
+
+      <!-- 3. Statut indépendant -->
+      <div class="wizard-step" data-step="3">
+        <label>3. Comprenez-vous qu'il s'agit d'une activité indépendante, et non d'un emploi salarié ?</label>
+        <div class="form-group">
+          <select id="q-independant">
+            <option value="">-- Sélectionnez --</option>
+            <option value="oui">✅ Oui, je comprends et je recherche une activité indépendante</option>
+            <option value="non">❌ Non, je recherche un emploi salarié</option>
+          </select>
+        </div>
+        <div class="wizard-actions">
+          <button type="button" class="btn-submit" onclick="nextStep(3)">Continuer →</button>
+          <button type="button" class="wizard-back" onclick="prevStep(3)">← Retour</button>
+        </div>
+      </div>
+
+      <!-- 4. Terrain -->
+      <div class="wizard-step" data-step="4">
+        <label>4. Acceptez-vous une activité commerciale sur le terrain, sans télétravail ?</label>
+        <div class="form-group">
+          <select id="q-terrain">
+            <option value="">-- Sélectionnez --</option>
+            <option value="oui">✅ Oui, je suis à l'aise sur le terrain</option>
+            <option value="non">❌ Non, je cherche uniquement du télétravail</option>
+          </select>
+        </div>
+        <div class="wizard-actions">
+          <button type="button" class="btn-submit" onclick="nextStep(4)">Continuer →</button>
+          <button type="button" class="wizard-back" onclick="prevStep(4)">← Retour</button>
+        </div>
+      </div>
+
+      <!-- 5. Statut actuel -->
+      <div class="wizard-step" data-step="5">
+        <label>5. Quel est votre statut actuel ?</label>
         <div class="form-group">
           <select id="q-statut" onchange="updateStatutInfo()">
             <option value="">-- Sélectionnez --</option>
@@ -258,50 +321,16 @@ footer { background: var(--blue-pale); border-top: 2px solid var(--blue-border);
         <div class="field-hint" id="statut-info-chomage" style="display:none;">
           ℹ️ En tant que demandeur d'emploi, une activité indépendante complémentaire nécessite une autorisation préalable (déclaration à l'ONEM / au FOREM / à Actiris selon votre région). Nous vous accompagnons dans cette démarche.
         </div>
-        <div class="wizard-actions">
-          <button type="button" class="btn-submit" onclick="nextStep(2)">Continuer →</button>
-          <button type="button" class="wizard-back" onclick="prevStep(2)">← Retour</button>
+        <div class="field-hint" id="statut-info-cpas" style="display:none;">
+          ℹ️ En tant que bénéficiaire du CPAS, une activité indépendante complémentaire nécessite également une déclaration préalable auprès de votre CPAS. Nous vous accompagnons dans cette démarche.
         </div>
-      </div>
-
-      <!-- 3. Commune + code postal -->
-      <div class="wizard-step" data-step="3">
-        <label>3. Dans quelle commune et quel code postal résidez-vous ?</label>
-        <div class="form-row">
-          <div class="form-group"><input type="text" id="q-commune" placeholder="Commune (ex : Beaufays)"></div>
-          <div class="form-group"><input type="text" id="q-codepostal" placeholder="Code postal (ex : 4052)" maxlength="4" inputmode="numeric"></div>
-        </div>
-        <div class="wizard-actions">
-          <button type="button" class="btn-submit" onclick="nextStep(3)">Continuer →</button>
-          <button type="button" class="wizard-back" onclick="prevStep(3)">← Retour</button>
-        </div>
-      </div>
-
-      <!-- 4. Statut indépendant -->
-      <div class="wizard-step" data-step="4">
-        <label>4. Comprenez-vous qu'il s'agit d'une activité indépendante, et non d'un emploi salarié ?</label>
-        <div class="form-group">
-          <select id="q-independant">
-            <option value="">-- Sélectionnez --</option>
-            <option value="oui">✅ Oui, je comprends et je recherche une activité indépendante</option>
-            <option value="non">❌ Non, je recherche un emploi salarié</option>
-          </select>
-        </div>
-        <div class="wizard-actions">
-          <button type="button" class="btn-submit" onclick="nextStep(4)">Continuer →</button>
-          <button type="button" class="wizard-back" onclick="prevStep(4)">← Retour</button>
-        </div>
-      </div>
-
-      <!-- 5. Terrain -->
-      <div class="wizard-step" data-step="5">
-        <label>5. Acceptez-vous une activité commerciale sur le terrain, sans télétravail ?</label>
-        <div class="form-group">
-          <select id="q-terrain">
-            <option value="">-- Sélectionnez --</option>
-            <option value="oui">✅ Oui, je suis à l'aise sur le terrain</option>
-            <option value="non">❌ Non, je cherche uniquement du télétravail</option>
-          </select>
+        <div class="gate-blocked" id="statut-warning-sans-revenus" style="display:none;">
+          <strong>⚠️ Sans revenus, le statut "complémentaire" n'est pas possible</strong>
+          <p>Si vous n'avez pas de revenus, vous ne pourrez pas être indépendant à titre complémentaire : vous passerez automatiquement en indépendant à titre principal (temps plein).</p>
+          <div class="checkbox-row" style="margin-top:12px;margin-bottom:0;">
+            <input type="checkbox" id="q-sans-revenus-accord">
+            <label for="q-sans-revenus-accord">J'accepte de m'inscrire en tant qu'indépendant à titre principal (temps plein).</label>
+          </div>
         </div>
         <div class="wizard-actions">
           <button type="button" class="btn-submit" onclick="nextStep(5)">Continuer →</button>
@@ -433,10 +462,53 @@ document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 
 const TOTAL_STEPS = 9;
 
-/* Affiche une info complémentaire si la personne est au chômage (déclaration ONEM/FOREM/Actiris requise) */
+/* Affiche une info complémentaire selon le statut choisi (déclaration ONEM/CPAS requise, ou avertissement sans-revenus) */
+/* Suggestion automatique de commune(s) à partir du code postal saisi.
+   Utilise l'API publique zippopotam.us (gratuite, sans clé) ; en cas d'échec réseau,
+   le champ commune reste simplement modifiable à la main, sans bloquer le formulaire. */
+let communeSuggestTimer = null;
+function handleCodePostalInput() {
+  const cp = document.getElementById('q-codepostal').value.trim();
+  clearTimeout(communeSuggestTimer);
+  const box = document.getElementById('commune-suggestions');
+  box.style.display = 'none';
+  box.innerHTML = '';
+  if (!/^\d{4}$/.test(cp)) return;
+  communeSuggestTimer = setTimeout(() => fetchCommunesForCP(cp), 350);
+}
+
+async function fetchCommunesForCP(cp) {
+  const box = document.getElementById('commune-suggestions');
+  try {
+    const res = await fetch(`https://api.zippopotam.us/BE/${cp}`);
+    if (!res.ok) return;
+    const data = await res.json();
+    const places = [...new Set((data.places || []).map(p => p['place name']).filter(Boolean))];
+    if (places.length === 0) return;
+
+    if (places.length === 1) {
+      document.getElementById('q-commune').value = places[0];
+      return;
+    }
+
+    box.innerHTML = '<div class="field-hint" style="margin-top:0;">Plusieurs localités correspondent à ce code postal, cliquez sur la vôtre :</div>' +
+      places.map(name => `<button type="button" class="btn-suggestion" onclick="selectCommune('${name.replace(/'/g, "\\'")}')">${name}</button>`).join('');
+    box.style.display = 'block';
+  } catch (err) {
+    console.log('Suggestion de commune indisponible (réseau) :', err.message);
+  }
+}
+
+function selectCommune(name) {
+  document.getElementById('q-commune').value = name;
+  document.getElementById('commune-suggestions').style.display = 'none';
+}
+
 function updateStatutInfo() {
   const val = document.getElementById('q-statut').value;
   document.getElementById('statut-info-chomage').style.display = (val === 'chomage') ? 'block' : 'none';
+  document.getElementById('statut-info-cpas').style.display = (val === 'cpas') ? 'block' : 'none';
+  document.getElementById('statut-warning-sans-revenus').style.display = (val === 'sans-revenus') ? 'block' : 'none';
 }
 
 /* Détection de l'origine du candidat : priorité au paramètre ?source= dans le lien partagé
@@ -491,21 +563,23 @@ function nextStep(current) {
     if (val('q-residence') === 'non') return blockForm("Le poste de Consultant Smart SN nécessite de résider actuellement en Belgique. Si votre situation évolue, revenez postuler à tout moment.");
   }
   if (current === 2) {
-    if (!val('q-statut')) return alert('Merci de répondre à cette question avant de continuer.');
-    if (val('q-statut') === 'sans-revenus') return blockForm("Le statut de Consultant Smart SN est une activité indépendante complémentaire : elle nécessite d'avoir déjà une source de revenus (salaire, chômage ou CPAS) pour être déclarée en complément. Si votre situation évolue, revenez postuler à tout moment.");
-  }
-  if (current === 3) {
     const commune = val('q-commune').trim();
     const cp = val('q-codepostal').trim();
     if (!commune || !cp) return alert('Merci de renseigner votre commune et votre code postal.');
   }
-  if (current === 4) {
+  if (current === 3) {
     if (!val('q-independant')) return alert('Merci de répondre à cette question avant de continuer.');
     if (val('q-independant') === 'non') return blockForm("Le poste de Consultant Smart SN est une activité indépendante et non un emploi salarié. Si votre situation évolue, revenez postuler à tout moment.");
   }
-  if (current === 5) {
+  if (current === 4) {
     if (!val('q-terrain')) return alert('Merci de répondre à cette question avant de continuer.');
     if (val('q-terrain') === 'non') return blockForm("Le poste de Consultant Smart SN implique une activité commerciale sur le terrain, sans télétravail. Si votre situation évolue, revenez postuler à tout moment.");
+  }
+  if (current === 5) {
+    if (!val('q-statut')) return alert('Merci de répondre à cette question avant de continuer.');
+    if (val('q-statut') === 'sans-revenus' && !document.getElementById('q-sans-revenus-accord').checked) {
+      return blockForm("Sans revenus, il n'est pas possible de devenir indépendant à titre complémentaire. Si vous acceptez de vous inscrire en tant qu'indépendant à titre principal (temps plein), cochez la case proposée et continuez. Si votre situation évolue, revenez postuler à tout moment.");
+    }
   }
   if (current === 6) {
     if (!val('q-tva')) return alert('Merci de répondre à cette question avant de continuer.');
@@ -528,7 +602,8 @@ async function handleSubmitRecrutement(e) {
 
   // Double vérification de sécurité : on ne soumet jamais si un critère bloquant n'est pas rempli.
   const val = (id) => document.getElementById(id).value;
-  if (val('q-residence') !== 'oui' || val('q-statut') === 'sans-revenus' || !val('q-statut') || val('q-independant') !== 'oui' || val('q-terrain') !== 'oui' || val('q-tva') === 'non' || !val('q-tva')) {
+  const sansRevenusOk = val('q-statut') !== 'sans-revenus' || document.getElementById('q-sans-revenus-accord').checked;
+  if (val('q-residence') !== 'oui' || !val('q-statut') || !sansRevenusOk || val('q-independant') !== 'oui' || val('q-terrain') !== 'oui' || val('q-tva') === 'non' || !val('q-tva')) {
     return blockForm("Certaines réponses ne correspondent pas aux critères du poste. Contactez-nous directement sur WhatsApp pour toute question.");
   }
   if (!document.getElementById('q-confirmation').checked) {
@@ -539,13 +614,15 @@ async function handleSubmitRecrutement(e) {
   const data = new FormData(form);
   const get = (k) => (data.get(k) || '').toString().trim();
   const tvaLabels = { oui: 'Oui', creation: 'En cours de création', pret: "Je suis prêt(e) à en créer une" };
-  const statutLabels = { salarie: 'Salarié', chomage: 'Chômage', cpas: 'CPAS' };
+  const statutLabels = { salarie: 'Salarié', chomage: 'Chômage', cpas: 'CPAS', 'sans-revenus': 'Sans revenus (accepte indépendant à titre principal)' };
+  const regionLabels = { liegeoise: 'Région Liégeoise', flamande: 'Région Flamande', bruxelles: 'Bruxelles' };
 
   const payload = {
     type: 'consultant',
     prenom: get('prenom'), nom: get('nom'), email: get('email'), telephone: get('telephone'),
     residence: 'Oui', statutActuel: statutLabels[val('q-statut')] || val('q-statut'),
     commune: val('q-commune').trim(), codePostal: val('q-codepostal').trim(),
+    region: regionLabels[val('q-region')] || '',
     independant: 'Oui', terrain: 'Oui',
     tva: tvaLabels[val('q-tva')] || val('q-tva'),
     deplacement: val('q-deplacement') === 'oui' ? 'Oui' : 'Non',
