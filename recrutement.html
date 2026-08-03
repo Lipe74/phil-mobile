@@ -110,11 +110,12 @@ nav { background: var(--white); border-bottom: 1px solid var(--blue-border); pos
   box-shadow: 0 4px 16px rgba(245,158,11,0.5);
 }
 .video-preview-caption { text-align: center; font-size: 13px; font-weight: 700; color: var(--muted); margin-top: 12px; }
-.video-preview-badge {
-  position: absolute; top: 10px; left: 10px; z-index: 2;
-  background: rgba(0,0,0,0.55); color: white; font-size: 11px; font-weight: 800;
-  padding: 5px 10px; border-radius: 20px;
+.video-rewind-btn {
+  display: block; margin: 8px auto 0; background: none; border: none;
+  font-family: 'Nunito', sans-serif; font-size: 12px; font-weight: 700; color: var(--blue);
+  cursor: pointer; padding: 4px 8px;
 }
+.video-rewind-btn:hover { text-decoration: underline; }
 @media (max-width: 860px) {
   .section-inner-wide { flex-direction: column; }
   .video-col { position: static; width: 100%; order: -1; }
@@ -455,8 +456,7 @@ footer { background: var(--blue-pale); border-top: 2px solid var(--blue-border);
 
     <div class="video-col">
       <div class="video-preview-box reveal" onclick="toggleVideoPlayback()">
-        <iframe id="hero-video-iframe" src="https://player.vimeo.com/video/1214945528?background=1&autoplay=1&loop=1&byline=0&title=0&portrait=0"></iframe>
-        <div class="video-preview-badge" id="video-preview-badge">🔇 Aperçu silencieux</div>
+        <iframe id="hero-video-iframe" src="https://player.vimeo.com/video/1214945528?autoplay=0&background=0&controls=0&byline=0&title=0&portrait=0"></iframe>
         <div class="video-preview-play" id="video-preview-play-btn">
           <div class="video-preview-play-icon" id="video-preview-play-icon">
             <svg width="26" height="26" viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg>
@@ -464,6 +464,7 @@ footer { background: var(--blue-pale); border-top: 2px solid var(--blue-border);
         </div>
       </div>
       <div class="video-preview-caption">🎥 Découvrez l'opportunité en vidéo — cliquez pour lancer le son</div>
+      <button type="button" class="video-rewind-btn" onclick="rewindVideo(event)">⏮ Revenir au début</button>
     </div>
 
   </div>
@@ -501,28 +502,13 @@ function toggleMenu() {
 }
 
 /* Contrôle play/pause directement dans le cadre vidéo (via l'API Vimeo Player).
-   Au premier clic : on coupe la boucle muette et on lance le son. Ensuite, chaque
-   clic bascule simplement entre lecture et pause. */
+   La vidéo ne démarre jamais toute seule : elle attend un clic de l'utilisateur. */
 const heroVideoPlayer = new Vimeo.Player(document.getElementById('hero-video-iframe'));
-let heroVideoStarted = false;
 const PAUSE_ICON = '<svg width="26" height="26" viewBox="0 0 24 24" fill="white"><rect x="6" y="5" width="4" height="14"/><rect x="14" y="5" width="4" height="14"/></svg>';
 const PLAY_ICON = '<svg width="26" height="26" viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg>';
 
 function toggleVideoPlayback() {
   const icon = document.getElementById('video-preview-play-icon');
-  if (!heroVideoStarted) {
-    heroVideoStarted = true;
-    document.getElementById('video-preview-badge').style.display = 'none';
-    heroVideoPlayer.setLoop(false).catch(() => {});
-    heroVideoPlayer.setCurrentTime(0)
-      .catch(() => {})
-      .then(() => {
-        heroVideoPlayer.setVolume(1).catch(() => {});
-        heroVideoPlayer.play().catch(() => {});
-      });
-    icon.innerHTML = PAUSE_ICON;
-    return;
-  }
   heroVideoPlayer.getPaused().then((paused) => {
     if (paused) {
       heroVideoPlayer.play();
@@ -533,6 +519,16 @@ function toggleVideoPlayback() {
     }
   });
 }
+
+/* Revient au tout début de la vidéo (et relance la lecture) */
+function rewindVideo(e) {
+  e.stopPropagation();
+  heroVideoPlayer.setCurrentTime(0).then(() => heroVideoPlayer.play());
+  document.getElementById('video-preview-play-icon').innerHTML = PAUSE_ICON;
+}
+heroVideoPlayer.on('ended', () => {
+  document.getElementById('video-preview-play-icon').innerHTML = PLAY_ICON;
+});
 
 /* Animation d'apparition au scroll */
 const revealObserver = new IntersectionObserver((entries) => {
