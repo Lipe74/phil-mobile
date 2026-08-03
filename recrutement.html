@@ -73,6 +73,50 @@ nav { background: var(--white); border-bottom: 1px solid var(--blue-border); pos
   padding: 56px 20px 60px; text-align: center; color: white;
 }
 .hero-inner { max-width: 720px; margin: 0 auto; }
+.hero-flex {
+  max-width: 1000px; margin: 0 auto; display: flex; align-items: center;
+  gap: 40px; text-align: left;
+}
+.hero-flex .hero-text { flex: 1.3; text-align: left; }
+.hero-flex .hero-tagline { margin-left: 0; }
+.hero-video-preview {
+  flex: 1; max-width: 300px; position: relative; border-radius: 16px; overflow: hidden;
+  cursor: pointer; box-shadow: 0 12px 40px rgba(0,0,0,0.35); border: 3px solid rgba(255,255,255,0.25);
+  aspect-ratio: 9/16; background: #000;
+}
+.hero-video-preview iframe { width: 100%; height: 100%; pointer-events: none; }
+.hero-video-play {
+  position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+  background: rgba(0,0,0,0.25); transition: background 0.2s;
+}
+.hero-video-preview:hover .hero-video-play { background: rgba(0,0,0,0.4); }
+.hero-video-play-icon {
+  width: 56px; height: 56px; border-radius: 50%; background: var(--accent);
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 4px 16px rgba(245,158,11,0.5);
+}
+.hero-video-label {
+  position: absolute; bottom: 10px; left: 0; right: 0; text-align: center;
+  color: white; font-size: 11px; font-weight: 800; text-shadow: 0 1px 3px rgba(0,0,0,0.6);
+}
+@media (max-width: 760px) {
+  .hero-flex { flex-direction: column; text-align: center; }
+  .hero-flex .hero-text { text-align: center; }
+  .hero-video-preview { max-width: 220px; }
+}
+
+/* Modale vidéo plein écran */
+.video-modal-overlay {
+  display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85);
+  z-index: 2000; align-items: center; justify-content: center; padding: 20px;
+}
+.video-modal-overlay.open { display: flex; }
+.video-modal-box { width: 100%; max-width: 420px; aspect-ratio: 9/16; position: relative; }
+.video-modal-box iframe { width: 100%; height: 100%; border-radius: 12px; }
+.video-modal-close {
+  position: absolute; top: -44px; right: 0; background: none; border: none;
+  color: white; font-size: 32px; cursor: pointer; line-height: 1;
+}
 .hero-tagline {
   display: inline-block; font-size: 13px; font-weight: 800; color: #2c1a02;
   background: linear-gradient(90deg, var(--accent) 0%, #fbbf24 100%);
@@ -217,10 +261,29 @@ footer { background: var(--blue-pale); border-top: 2px solid var(--blue-border);
 
 <!-- HERO -->
 <div class="hero">
-  <div class="hero-inner">
-    <div class="hero-tagline">Recrutement · Consultant Indépendant</div>
-    <h1>Devenez Consultant Smart SN</h1>
-    <p>Lancez votre activité indépendante dans les télécom &amp; énergie aux côtés de Phil-Mobile. Accompagnement, formation, revenus récurrents. Vérifiez votre éligibilité ci-dessous en 30 secondes.</p>
+  <div class="hero-flex">
+    <div class="hero-text">
+      <div class="hero-tagline">Recrutement · Consultant Indépendant</div>
+      <h1>Devenez Consultant Smart SN</h1>
+      <p>Lancez votre activité indépendante dans les télécom &amp; énergie aux côtés de Phil-Mobile. Accompagnement, formation, revenus récurrents. Vérifiez votre éligibilité ci-dessous en 30 secondes.</p>
+    </div>
+    <div class="hero-video-preview" onclick="openVideoModal()">
+      <iframe src="https://player.vimeo.com/video/1214945528" allow="autoplay; fullscreen; picture-in-picture"></iframe>
+      <div class="hero-video-play">
+        <div class="hero-video-play-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg>
+        </div>
+      </div>
+      <div class="hero-video-label">🎥 Voir la présentation</div>
+    </div>
+  </div>
+</div>
+
+<!-- Modale vidéo plein écran -->
+<div class="video-modal-overlay" id="video-modal">
+  <div class="video-modal-box">
+    <button class="video-modal-close" onclick="closeVideoModal()">×</button>
+    <div id="video-modal-content"></div>
   </div>
 </div>
 
@@ -448,6 +511,21 @@ footer { background: var(--blue-pale); border-top: 2px solid var(--blue-border);
 function toggleMenu() {
   document.getElementById('mobileMenu').classList.toggle('open');
 }
+
+/* Modale vidéo plein écran : l'iframe n'est injectée qu'à l'ouverture (autoplay),
+   et retirée à la fermeture pour couper le son/la lecture proprement. */
+function openVideoModal() {
+  document.getElementById('video-modal-content').innerHTML =
+    '<iframe src="https://player.vimeo.com/video/1214945528?autoplay=1" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>';
+  document.getElementById('video-modal').classList.add('open');
+}
+function closeVideoModal() {
+  document.getElementById('video-modal').classList.remove('open');
+  document.getElementById('video-modal-content').innerHTML = '';
+}
+document.getElementById('video-modal').addEventListener('click', (e) => {
+  if (e.target.id === 'video-modal') closeVideoModal();
+});
 
 /* Animation d'apparition au scroll */
 const revealObserver = new IntersectionObserver((entries) => {

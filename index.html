@@ -233,25 +233,6 @@ nav {
   text-decoration: none;
 }
 
-/* ===== VIDEO ===== */
-.video-section {
-  background: linear-gradient(135deg, var(--navy) 0%, var(--blue) 100%);
-  padding: 0 0 16px 0;
-}
-.video-section .section-label { color: rgba(255,255,255,0.7); }
-.video-section .section-title { color: white; }
-.video-wrap {
-  max-width: 100%; margin: 0;
-  border-radius: 0; overflow: hidden;
-  box-shadow: none;
-  position: relative; padding-bottom: 56.25%; height: 0;
-}
-.video-wrap iframe {
-  position: absolute; top: 0; left: 0;
-  width: 100%; height: 100%; border: none;
-}
-.video-cta { text-align: center; margin-top: 28px; }
-
 /* ===== AVIS ===== */
 .reviews-section { background: var(--white); padding: 60px 20px; }
 .rating-bar {
@@ -363,7 +344,7 @@ footer { background: var(--blue-pale); border-top: 2px solid var(--blue-border);
     <div class="nav-links">
       <a href="#">🏠 Accueil</a>
       <a href="#services">Services</a>
-      <a href="#video">Opportunité</a>
+      <a href="recrutement.html">Opportunité</a>
       <a href="#avis">Avis</a>
       <a href="#contact">Contact</a>
       <a href="https://wa.me/32475240205" class="nav-cta">
@@ -378,7 +359,7 @@ footer { background: var(--blue-pale); border-top: 2px solid var(--blue-border);
   <div class="mobile-menu" id="mobileMenu">
     <a href="#" onclick="toggleMenu()">🏠 Accueil</a>
     <a href="#services" onclick="toggleMenu()">🧩 Services</a>
-    <a href="#video" onclick="toggleMenu()">🚀 Opportunité</a>
+    <a href="recrutement.html" onclick="toggleMenu()">🚀 Opportunité</a>
     <a href="#avis" onclick="toggleMenu()">⭐ Avis clients</a>
     <a href="#contact" onclick="toggleMenu()">📋 Contact</a>
     <a href="https://wa.me/32475240205" class="mob-cta">💬 WhatsApp</a>
@@ -403,7 +384,7 @@ footer { background: var(--blue-pale); border-top: 2px solid var(--blue-border);
         Analyse gratuite
       </a>
       <a href="recrutement.html" class="btn-white">🚀 Rejoindre l'équipe</a>
-      <a href="#video" class="btn-white">🎥 Présentation opportunité</a>
+      <a href="recrutement.html" class="btn-white">🎥 Présentation opportunité</a>
 
       <a href="#" onclick="downloadVcard();return false;" class="btn-white">
         📇 Mes coordonnées
@@ -443,23 +424,11 @@ footer { background: var(--blue-pale); border-top: 2px solid var(--blue-border);
           <span class="service-tag tag-recruit">🚀 Opportunité</span>
           <h3>Devenez Consultant Smart SN</h3>
           <p>Lancez une activité indépendante dans les télécom & énergie. Accompagnement, formation, revenus récurrents.</p>
-          <a href="#video" class="service-link">En savoir plus →</a>
+          <a href="recrutement.html" class="service-link">En savoir plus →</a>
         </div>
       </div>
 
     </div>
-  </div>
-</div>
-
-<!-- VIDEO -->
-<div class="video-section" id="video">
-  <div class="video-wrap">
-    <iframe src="https://player.vimeo.com/video/1214945528" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
-  </div>
-  <div class="video-cta">
-    <a href="recrutement.html" class="btn-green" style="display:inline-flex;margin-top:16px;">
-      🚀 Je suis intéressé(e) !
-    </a>
   </div>
 </div>
 
