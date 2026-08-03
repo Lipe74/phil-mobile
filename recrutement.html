@@ -11,6 +11,7 @@
 <meta name="description" content="Devenez consultant indépendant Smart SN aux côtés de Phil-Mobile. Vérifiez votre éligibilité et postulez en quelques minutes.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<script src="https://player.vimeo.com/api/player.js"></script>
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
 :root {
@@ -74,18 +75,6 @@ nav { background: var(--white); border-bottom: 1px solid var(--blue-border); pos
 }
 .hero-inner { max-width: 720px; margin: 0 auto; }
 
-/* Modale vidéo plein écran */
-.video-modal-overlay {
-  display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85);
-  z-index: 2000; align-items: center; justify-content: center; padding: 20px;
-}
-.video-modal-overlay.open { display: flex; }
-.video-modal-box { width: 100%; max-width: 420px; aspect-ratio: 9/16; position: relative; }
-.video-modal-box iframe { width: 100%; height: 100%; border-radius: 12px; }
-.video-modal-close {
-  position: absolute; top: -44px; right: 0; background: none; border: none;
-  color: white; font-size: 32px; cursor: pointer; line-height: 1;
-}
 .hero-tagline {
   display: inline-block; font-size: 13px; font-weight: 800; color: #2c1a02;
   background: linear-gradient(90deg, var(--accent) 0%, #fbbf24 100%);
@@ -262,14 +251,6 @@ footer { background: var(--blue-pale); border-top: 2px solid var(--blue-border);
     <div class="hero-tagline">Recrutement · Consultant Indépendant</div>
     <h1>Devenez Consultant Smart SN</h1>
     <p>Lancez votre activité indépendante dans les télécom &amp; énergie aux côtés de Phil-Mobile. Accompagnement, formation, revenus récurrents. Vérifiez votre éligibilité ci-dessous en 30 secondes.</p>
-  </div>
-</div>
-
-<!-- Modale vidéo plein écran -->
-<div class="video-modal-overlay" id="video-modal">
-  <div class="video-modal-box">
-    <button class="video-modal-close" onclick="closeVideoModal()">×</button>
-    <div id="video-modal-content"></div>
   </div>
 </div>
 
@@ -468,15 +449,15 @@ footer { background: var(--blue-pale); border-top: 2px solid var(--blue-border);
     </div>
 
     <div class="video-col">
-      <div class="video-preview-box reveal" onclick="openVideoModal()">
-        <iframe src="https://player.vimeo.com/video/1214945528?background=1&autoplay=1&loop=1&byline=0&title=0&portrait=0"></iframe>
-        <div class="video-preview-play">
-          <div class="video-preview-play-icon">
+      <div class="video-preview-box reveal" onclick="toggleVideoPlayback()">
+        <iframe id="hero-video-iframe" src="https://player.vimeo.com/video/1214945528?background=1&autoplay=1&loop=1&byline=0&title=0&portrait=0"></iframe>
+        <div class="video-preview-play" id="video-preview-play-btn">
+          <div class="video-preview-play-icon" id="video-preview-play-icon">
             <svg width="26" height="26" viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg>
           </div>
         </div>
       </div>
-      <div class="video-preview-caption">🎥 Découvrez l'opportunité en vidéo</div>
+      <div class="video-preview-caption">🎥 Découvrez l'opportunité en vidéo — cliquez pour lancer le son</div>
     </div>
 
   </div>
@@ -513,20 +494,34 @@ function toggleMenu() {
   document.getElementById('mobileMenu').classList.toggle('open');
 }
 
-/* Modale vidéo plein écran : l'iframe n'est injectée qu'à l'ouverture (autoplay),
-   et retirée à la fermeture pour couper le son/la lecture proprement. */
-function openVideoModal() {
-  document.getElementById('video-modal-content').innerHTML =
-    '<iframe src="https://player.vimeo.com/video/1214945528?autoplay=1" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>';
-  document.getElementById('video-modal').classList.add('open');
+/* Contrôle play/pause directement dans le cadre vidéo (via l'API Vimeo Player).
+   Au premier clic : on coupe la boucle muette et on lance le son. Ensuite, chaque
+   clic bascule simplement entre lecture et pause. */
+const heroVideoPlayer = new Vimeo.Player(document.getElementById('hero-video-iframe'));
+let heroVideoStarted = false;
+const PAUSE_ICON = '<svg width="26" height="26" viewBox="0 0 24 24" fill="white"><rect x="6" y="5" width="4" height="14"/><rect x="14" y="5" width="4" height="14"/></svg>';
+const PLAY_ICON = '<svg width="26" height="26" viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg>';
+
+function toggleVideoPlayback() {
+  const icon = document.getElementById('video-preview-play-icon');
+  if (!heroVideoStarted) {
+    heroVideoStarted = true;
+    heroVideoPlayer.setLoop(false).catch(() => {});
+    heroVideoPlayer.setVolume(1).catch(() => {});
+    heroVideoPlayer.play().catch(() => {});
+    icon.innerHTML = PAUSE_ICON;
+    return;
+  }
+  heroVideoPlayer.getPaused().then((paused) => {
+    if (paused) {
+      heroVideoPlayer.play();
+      icon.innerHTML = PAUSE_ICON;
+    } else {
+      heroVideoPlayer.pause();
+      icon.innerHTML = PLAY_ICON;
+    }
+  });
 }
-function closeVideoModal() {
-  document.getElementById('video-modal').classList.remove('open');
-  document.getElementById('video-modal-content').innerHTML = '';
-}
-document.getElementById('video-modal').addEventListener('click', (e) => {
-  if (e.target.id === 'video-modal') closeVideoModal();
-});
 
 /* Animation d'apparition au scroll */
 const revealObserver = new IntersectionObserver((entries) => {
