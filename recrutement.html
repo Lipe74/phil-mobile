@@ -228,7 +228,7 @@ footer { background: var(--blue-pale); border-top: 2px solid var(--blue-border);
 
     <!-- Parcours de candidature séquentiel -->
     <div class="wizard-card reveal" id="wizard">
-      <div class="wizard-progress" id="wizard-progress">Étape 1 / 8</div>
+      <div class="wizard-progress" id="wizard-progress">Étape 1 / 9</div>
 
       <!-- 1. Résidence Belgique -->
       <div class="wizard-step active" data-step="1">
@@ -243,12 +243,20 @@ footer { background: var(--blue-pale); border-top: 2px solid var(--blue-border);
         <div class="wizard-actions"><button type="button" class="btn-submit" onclick="nextStep(1)">Continuer →</button></div>
       </div>
 
-      <!-- 2. Commune + code postal -->
+      <!-- 2. Statut actuel -->
       <div class="wizard-step" data-step="2">
-        <label>2. Dans quelle commune et quel code postal résidez-vous ?</label>
-        <div class="form-row">
-          <div class="form-group"><input type="text" id="q-commune" placeholder="Commune (ex : Beaufays)"></div>
-          <div class="form-group"><input type="text" id="q-codepostal" placeholder="Code postal (ex : 4052)" maxlength="4" inputmode="numeric"></div>
+        <label>2. Quel est votre statut actuel ?</label>
+        <div class="form-group">
+          <select id="q-statut" onchange="updateStatutInfo()">
+            <option value="">-- Sélectionnez --</option>
+            <option value="salarie">Salarié</option>
+            <option value="chomage">Chômage</option>
+            <option value="cpas">CPAS</option>
+            <option value="sans-revenus">Sans revenus</option>
+          </select>
+        </div>
+        <div class="field-hint" id="statut-info-chomage" style="display:none;">
+          ℹ️ En tant que demandeur d'emploi, une activité indépendante complémentaire nécessite une autorisation préalable (déclaration à l'ONEM / au FOREM / à Actiris selon votre région). Nous vous accompagnons dans cette démarche.
         </div>
         <div class="wizard-actions">
           <button type="button" class="btn-submit" onclick="nextStep(2)">Continuer →</button>
@@ -256,9 +264,22 @@ footer { background: var(--blue-pale); border-top: 2px solid var(--blue-border);
         </div>
       </div>
 
-      <!-- 3. Statut indépendant -->
+      <!-- 3. Commune + code postal -->
       <div class="wizard-step" data-step="3">
-        <label>3. Comprenez-vous qu'il s'agit d'une activité indépendante, et non d'un emploi salarié ?</label>
+        <label>3. Dans quelle commune et quel code postal résidez-vous ?</label>
+        <div class="form-row">
+          <div class="form-group"><input type="text" id="q-commune" placeholder="Commune (ex : Beaufays)"></div>
+          <div class="form-group"><input type="text" id="q-codepostal" placeholder="Code postal (ex : 4052)" maxlength="4" inputmode="numeric"></div>
+        </div>
+        <div class="wizard-actions">
+          <button type="button" class="btn-submit" onclick="nextStep(3)">Continuer →</button>
+          <button type="button" class="wizard-back" onclick="prevStep(3)">← Retour</button>
+        </div>
+      </div>
+
+      <!-- 4. Statut indépendant -->
+      <div class="wizard-step" data-step="4">
+        <label>4. Comprenez-vous qu'il s'agit d'une activité indépendante, et non d'un emploi salarié ?</label>
         <div class="form-group">
           <select id="q-independant">
             <option value="">-- Sélectionnez --</option>
@@ -267,14 +288,14 @@ footer { background: var(--blue-pale); border-top: 2px solid var(--blue-border);
           </select>
         </div>
         <div class="wizard-actions">
-          <button type="button" class="btn-submit" onclick="nextStep(3)">Continuer →</button>
-          <button type="button" class="wizard-back" onclick="prevStep(3)">← Retour</button>
+          <button type="button" class="btn-submit" onclick="nextStep(4)">Continuer →</button>
+          <button type="button" class="wizard-back" onclick="prevStep(4)">← Retour</button>
         </div>
       </div>
 
-      <!-- 4. Terrain -->
-      <div class="wizard-step" data-step="4">
-        <label>4. Acceptez-vous une activité commerciale sur le terrain, sans télétravail ?</label>
+      <!-- 5. Terrain -->
+      <div class="wizard-step" data-step="5">
+        <label>5. Acceptez-vous une activité commerciale sur le terrain, sans télétravail ?</label>
         <div class="form-group">
           <select id="q-terrain">
             <option value="">-- Sélectionnez --</option>
@@ -283,14 +304,14 @@ footer { background: var(--blue-pale); border-top: 2px solid var(--blue-border);
           </select>
         </div>
         <div class="wizard-actions">
-          <button type="button" class="btn-submit" onclick="nextStep(4)">Continuer →</button>
-          <button type="button" class="wizard-back" onclick="prevStep(4)">← Retour</button>
+          <button type="button" class="btn-submit" onclick="nextStep(5)">Continuer →</button>
+          <button type="button" class="wizard-back" onclick="prevStep(5)">← Retour</button>
         </div>
       </div>
 
-      <!-- 5. TVA belge -->
-      <div class="wizard-step" data-step="5">
-        <label>5. Avez-vous un numéro de TVA belge ?</label>
+      <!-- 6. TVA belge -->
+      <div class="wizard-step" data-step="6">
+        <label>6. Avez-vous un numéro de TVA belge ?</label>
         <div class="form-group">
           <select id="q-tva">
             <option value="">-- Sélectionnez --</option>
@@ -301,14 +322,14 @@ footer { background: var(--blue-pale); border-top: 2px solid var(--blue-border);
           </select>
         </div>
         <div class="wizard-actions">
-          <button type="button" class="btn-submit" onclick="nextStep(5)">Continuer →</button>
-          <button type="button" class="wizard-back" onclick="prevStep(5)">← Retour</button>
+          <button type="button" class="btn-submit" onclick="nextStep(6)">Continuer →</button>
+          <button type="button" class="wizard-back" onclick="prevStep(6)">← Retour</button>
         </div>
       </div>
 
-      <!-- 6. Moyen de déplacement -->
-      <div class="wizard-step" data-step="6">
-        <label>6. Disposez-vous d'un moyen de déplacement ?</label>
+      <!-- 7. Moyen de déplacement -->
+      <div class="wizard-step" data-step="7">
+        <label>7. Disposez-vous d'un moyen de déplacement ?</label>
         <div class="form-group">
           <select id="q-deplacement">
             <option value="">-- Sélectionnez --</option>
@@ -317,24 +338,24 @@ footer { background: var(--blue-pale); border-top: 2px solid var(--blue-border);
           </select>
         </div>
         <div class="wizard-actions">
-          <button type="button" class="btn-submit" onclick="nextStep(6)">Continuer →</button>
-          <button type="button" class="wizard-back" onclick="prevStep(6)">← Retour</button>
-        </div>
-      </div>
-
-      <!-- 7. Expérience -->
-      <div class="wizard-step" data-step="7">
-        <label>7. Quelle expérience avez-vous en vente, télécom ou énergie ?</label>
-        <div class="form-group"><textarea id="q-experience" placeholder="Décrivez brièvement votre expérience (facultatif si aucune)"></textarea></div>
-        <div class="wizard-actions">
           <button type="button" class="btn-submit" onclick="nextStep(7)">Continuer →</button>
           <button type="button" class="wizard-back" onclick="prevStep(7)">← Retour</button>
         </div>
       </div>
 
-      <!-- 8. Coordonnées + confirmation -->
+      <!-- 8. Expérience -->
       <div class="wizard-step" data-step="8">
-        <label>8. Vos coordonnées</label>
+        <label>8. Quelle expérience avez-vous en vente, télécom ou énergie ?</label>
+        <div class="form-group"><textarea id="q-experience" placeholder="Décrivez brièvement votre expérience (facultatif si aucune)"></textarea></div>
+        <div class="wizard-actions">
+          <button type="button" class="btn-submit" onclick="nextStep(8)">Continuer →</button>
+          <button type="button" class="wizard-back" onclick="prevStep(8)">← Retour</button>
+        </div>
+      </div>
+
+      <!-- 9. Coordonnées + confirmation -->
+      <div class="wizard-step" data-step="9">
+        <label>9. Vos coordonnées</label>
         <form id="recrut-form" onsubmit="handleSubmitRecrutement(event)">
           <div class="form-row">
             <div class="form-group"><input type="text" name="prenom" required placeholder="Prénom *"></div>
@@ -353,7 +374,7 @@ footer { background: var(--blue-pale); border-top: 2px solid var(--blue-border);
           <div class="wizard-actions" style="margin-top:0;">
             <button type="submit" class="btn-submit" style="margin-top:0;">🚀 Envoyer ma candidature</button>
           </div>
-          <button type="button" class="wizard-back" onclick="prevStep(8)" style="margin-top:12px;">← Retour</button>
+          <button type="button" class="wizard-back" onclick="prevStep(9)" style="margin-top:12px;">← Retour</button>
           <div id="success-recrut" class="form-success">✅ Merci ! Votre candidature a bien été reçue. Philippe vous contacte très vite.</div>
         </form>
         <div class="form-or"><span>OU</span></div>
@@ -410,7 +431,13 @@ const revealObserver = new IntersectionObserver((entries) => {
 }, { threshold: 0.15 });
 document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 
-const TOTAL_STEPS = 8;
+const TOTAL_STEPS = 9;
+
+/* Affiche une info complémentaire si la personne est au chômage (déclaration ONEM/FOREM/Actiris requise) */
+function updateStatutInfo() {
+  const val = document.getElementById('q-statut').value;
+  document.getElementById('statut-info-chomage').style.display = (val === 'chomage') ? 'block' : 'none';
+}
 
 /* Détection de l'origine du candidat : priorité au paramètre ?source= dans le lien partagé
    (ex: recrutement.html?source=linkedin), sinon on retombe sur le référent du navigateur,
@@ -464,26 +491,30 @@ function nextStep(current) {
     if (val('q-residence') === 'non') return blockForm("Le poste de Consultant Smart SN nécessite de résider actuellement en Belgique. Si votre situation évolue, revenez postuler à tout moment.");
   }
   if (current === 2) {
+    if (!val('q-statut')) return alert('Merci de répondre à cette question avant de continuer.');
+    if (val('q-statut') === 'sans-revenus') return blockForm("Le statut de Consultant Smart SN est une activité indépendante complémentaire : elle nécessite d'avoir déjà une source de revenus (salaire, chômage ou CPAS) pour être déclarée en complément. Si votre situation évolue, revenez postuler à tout moment.");
+  }
+  if (current === 3) {
     const commune = val('q-commune').trim();
     const cp = val('q-codepostal').trim();
     if (!commune || !cp) return alert('Merci de renseigner votre commune et votre code postal.');
   }
-  if (current === 3) {
+  if (current === 4) {
     if (!val('q-independant')) return alert('Merci de répondre à cette question avant de continuer.');
     if (val('q-independant') === 'non') return blockForm("Le poste de Consultant Smart SN est une activité indépendante et non un emploi salarié. Si votre situation évolue, revenez postuler à tout moment.");
   }
-  if (current === 4) {
+  if (current === 5) {
     if (!val('q-terrain')) return alert('Merci de répondre à cette question avant de continuer.');
     if (val('q-terrain') === 'non') return blockForm("Le poste de Consultant Smart SN implique une activité commerciale sur le terrain, sans télétravail. Si votre situation évolue, revenez postuler à tout moment.");
   }
-  if (current === 5) {
+  if (current === 6) {
     if (!val('q-tva')) return alert('Merci de répondre à cette question avant de continuer.');
     if (val('q-tva') === 'non') return blockForm("Le poste de Consultant Smart SN nécessite un numéro de TVA belge (existant, en cours de création, ou que vous êtes prêt(e) à créer). Si votre situation évolue, revenez postuler à tout moment.");
   }
-  if (current === 6) {
+  if (current === 7) {
     if (!val('q-deplacement')) return alert('Merci de répondre à cette question avant de continuer.');
   }
-  // Étape 7 (expérience) : facultative, aucune validation bloquante.
+  // Étape 8 (expérience) : facultative, aucune validation bloquante.
 
   showStep(current + 1);
 }
@@ -497,7 +528,7 @@ async function handleSubmitRecrutement(e) {
 
   // Double vérification de sécurité : on ne soumet jamais si un critère bloquant n'est pas rempli.
   const val = (id) => document.getElementById(id).value;
-  if (val('q-residence') !== 'oui' || val('q-independant') !== 'oui' || val('q-terrain') !== 'oui' || val('q-tva') === 'non' || !val('q-tva')) {
+  if (val('q-residence') !== 'oui' || val('q-statut') === 'sans-revenus' || !val('q-statut') || val('q-independant') !== 'oui' || val('q-terrain') !== 'oui' || val('q-tva') === 'non' || !val('q-tva')) {
     return blockForm("Certaines réponses ne correspondent pas aux critères du poste. Contactez-nous directement sur WhatsApp pour toute question.");
   }
   if (!document.getElementById('q-confirmation').checked) {
@@ -508,11 +539,13 @@ async function handleSubmitRecrutement(e) {
   const data = new FormData(form);
   const get = (k) => (data.get(k) || '').toString().trim();
   const tvaLabels = { oui: 'Oui', creation: 'En cours de création', pret: "Je suis prêt(e) à en créer une" };
+  const statutLabels = { salarie: 'Salarié', chomage: 'Chômage', cpas: 'CPAS' };
 
   const payload = {
     type: 'consultant',
     prenom: get('prenom'), nom: get('nom'), email: get('email'), telephone: get('telephone'),
-    residence: 'Oui', commune: val('q-commune').trim(), codePostal: val('q-codepostal').trim(),
+    residence: 'Oui', statutActuel: statutLabels[val('q-statut')] || val('q-statut'),
+    commune: val('q-commune').trim(), codePostal: val('q-codepostal').trim(),
     independant: 'Oui', terrain: 'Oui',
     tva: tvaLabels[val('q-tva')] || val('q-tva'),
     deplacement: val('q-deplacement') === 'oui' ? 'Oui' : 'Non',
