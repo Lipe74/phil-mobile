@@ -289,22 +289,25 @@ footer { background: var(--blue-pale); border-top: 2px solid var(--blue-border);
           </div>
           <div class="form-group"><label>Nombre d'abonnements internet</label><input type="number" name="nombre_abonnements_internet" min="0" placeholder="Ex : 1"></div>
         </div>
-        <div class="checkbox-row">
-          <input type="checkbox" id="q-tv" name="tv">
-          <label for="q-tv">J'ai (ou je veux) la TV dans mon pack</label>
+        <div class="form-row">
+          <div class="form-group"><label>TV</label>
+            <select name="tv" id="q-tv">
+              <option value="">-- Sélectionnez --</option>
+              <option value="Oui">Oui</option>
+              <option value="Non">Non</option>
+            </select>
+          </div>
+          <div class="form-group"><label>Décodeur supplémentaire ?</label>
+            <select name="decodeur_supplementaire">
+              <option value="">-- Sélectionnez --</option>
+              <option value="Oui">Oui</option>
+              <option value="Non">Non</option>
+            </select>
+          </div>
         </div>
         <div class="form-group"><label>Autres options (assurance, roaming, stockage...)</label><input type="text" name="autres_options" placeholder="Facultatif"></div>
 
-        <div class="section-divider">⚡ Énergie</div>
-        <div class="form-group"><label>Fournisseur énergie actuel</label>
-          <select name="fournisseur_energie">
-            <option value="">-- Aucun --</option>
-            <option>Engie</option><option>Luminus</option><option>Mega</option>
-            <option>TotalEnergies</option><option>Octa+</option><option>Eneco</option><option>Autre</option>
-          </select>
-        </div>
-
-        <div class="section-divider">💶 Facture actuelle</div>
+        <div class="section-divider">💶 Facture actuelle (mobile &amp; internet)</div>
         <div class="form-row-3">
           <div class="form-group"><label>Montant total (€/mois)</label><input type="number" name="montant_total" min="0" step="0.01" placeholder="Ex : 85"></div>
           <div class="form-group"><label>dont mobile (facultatif)</label><input type="number" name="montant_mobile" min="0" step="0.01" placeholder="Ex : 35"></div>
@@ -314,6 +317,30 @@ footer { background: var(--blue-pale); border-top: 2px solid var(--blue-border);
           <label>📎 Facture actuelle (photo ou PDF, facultatif)</label>
           <input type="file" id="q-facture" accept=".pdf,.jpg,.jpeg,.png">
           <div class="field-hint">Ça nous permet de vous proposer une comparaison plus précise.</div>
+        </div>
+
+        <div class="section-divider">⚡ Énergie</div>
+        <div class="form-group"><label>Fournisseur énergie actuel</label>
+          <select name="fournisseur_energie">
+            <option value="">-- Aucun --</option>
+            <option>Engie</option><option>Luminus</option><option>Mega</option>
+            <option>TotalEnergies</option><option>Octa+</option><option>Eneco</option><option>Autre</option>
+          </select>
+        </div>
+        <div class="checkbox-row">
+          <input type="checkbox" id="q-energie-infos" onchange="toggleEnergieDetails()">
+          <label for="q-energie-infos">Je souhaite aussi des informations sur l'énergie</label>
+        </div>
+        <div id="energie-details" style="display:none;">
+          <div class="form-group"><label>Avez-vous des panneaux solaires ?</label>
+            <select name="panneaux_solaires">
+              <option value="">-- Sélectionnez --</option>
+              <option value="Oui">Oui</option>
+              <option value="Non">Non</option>
+            </select>
+          </div>
+          <div class="form-group"><label>Montant de vos mensualités énergie (€/mois)</label><input type="number" name="montant_energie" min="0" step="0.01" placeholder="Ex : 120"></div>
+          <div class="form-group"><label>Infos sur votre utilisation (consommation annuelle, type de chauffage...)</label><textarea name="infos_utilisation_energie" placeholder="Facultatif"></textarea></div>
         </div>
 
         <div class="form-group"><label>Votre message</label><textarea name="message" placeholder="Dites-nous en plus sur votre situation..."></textarea></div>
@@ -383,6 +410,11 @@ function showChoice() {
   document.getElementById('form-simulation').style.display = 'none';
 }
 
+function toggleEnergieDetails() {
+  const show = document.getElementById('q-energie-infos').checked;
+  document.getElementById('energie-details').style.display = show ? 'block' : 'none';
+}
+
 /* Détection de l'origine du visiteur : priorité au paramètre ?source= dans le lien partagé,
    sinon on retombe sur le référent du navigateur, sinon "Direct" par défaut. */
 function detectOrigineTrafic() {
@@ -449,9 +481,14 @@ async function handleSubmitSimulation(e) {
     vousEtes: get('profil'),
     operateurMobile: get('operateur_mobile'), nombreLignesMobile: get('nombre_lignes_mobile'),
     fournisseurInternet: get('fournisseur_internet'), nombreAbonnementsInternet: get('nombre_abonnements_internet'),
-    tv: document.getElementById('q-tv').checked ? 'Oui' : 'Non',
+    tv: get('tv'),
+    decodeurSupplementaire: get('decodeur_supplementaire'),
     autresOptions: get('autres_options'),
     fournisseurEnergie: get('fournisseur_energie'),
+    energieInfosSouhaitees: document.getElementById('q-energie-infos').checked ? 'Oui' : 'Non',
+    panneauxSolaires: get('panneaux_solaires'),
+    montantEnergie: get('montant_energie'),
+    infosUtilisationEnergie: get('infos_utilisation_energie'),
     montantTotal: get('montant_total'), montantMobile: get('montant_mobile'), montantInternet: get('montant_internet'),
     factureUrl: '', message: get('message'),
     origineTrafic: detectOrigineTrafic(),
