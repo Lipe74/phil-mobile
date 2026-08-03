@@ -456,7 +456,7 @@ footer { background: var(--blue-pale); border-top: 2px solid var(--blue-border);
 
     <div class="video-col">
       <div class="video-preview-box reveal" onclick="toggleVideoPlayback()">
-        <iframe id="hero-video-iframe" src="https://player.vimeo.com/video/1214945528?autoplay=0&background=0&controls=0&byline=0&title=0&portrait=0"></iframe>
+        <iframe id="hero-video-iframe" src="https://player.vimeo.com/video/1214945528?autoplay=0&background=0&controls=0&byline=0&title=0&portrait=0" allow="autoplay; fullscreen; picture-in-picture; encrypted-media"></iframe>
         <div class="video-preview-play" id="video-preview-play-btn">
           <div class="video-preview-play-icon" id="video-preview-play-icon">
             <svg width="26" height="26" viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg>
@@ -511,6 +511,7 @@ function toggleVideoPlayback() {
   const icon = document.getElementById('video-preview-play-icon');
   heroVideoPlayer.getPaused().then((paused) => {
     if (paused) {
+      heroVideoPlayer.setVolume(1).catch(() => {});
       heroVideoPlayer.play();
       icon.innerHTML = PAUSE_ICON;
     } else {
