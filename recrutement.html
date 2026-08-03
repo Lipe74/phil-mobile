@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Devenez Consultant Smart SN – Phil-Mobile</title>
+<meta name="theme-color" content="#1a56db">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="images/logo.png">
+<link rel="icon" href="images/logo.png">
+<meta name="description" content="Devenez consultant indépendant Smart SN aux côtés de Phil-Mobile. Vérifiez votre éligibilité et postulez en quelques minutes.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+:root {
+  --blue: #1a56db;
+  --blue2: #1e40af;
+  --blue-pale: #eff6ff;
+  --blue-border: #bfdbfe;
+  --navy: #0c1a4a;
+  --accent: #f59e0b;
+  --accent2: #d97706;
+  --accent-pale: #fff7ed;
+  --dark: #0f172a;
+  --muted: #64748b;
+  --white: #ffffff;
+  --bg: #f8fafc;
+  --green: #25d366;
+  --red: #dc2626;
+  --red-pale: #fef2f2;
+  --red-border: #fecaca;
+  --radius: 16px;
+  --max: 1100px;
+}
+body { font-family: 'Nunito', sans-serif; background: var(--bg); color: var(--dark); line-height: 1.5; }
+a { color: inherit; }
+.reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+.reveal.visible { opacity: 1; transform: none; }
+@keyframes waPulse {
+  0%, 100% { box-shadow: 0 4px 24px rgba(37,211,102,0.5); }
+  50% { box-shadow: 0 4px 34px rgba(37,211,102,0.85); }
+}
+
+/* ===== NAV ===== */
+nav { background: var(--white); border-bottom: 1px solid var(--blue-border); position: sticky; top: 0; z-index: 100; }
+.nav-inner { max-width: var(--max); margin: 0 auto; padding: 14px 20px; display: flex; align-items: center; justify-content: space-between; }
+.nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+.logo-text span { font-size: 19px; font-weight: 900; color: var(--blue); display: block; }
+.site-version { font-size: 10px; color: var(--muted); font-weight: 700; }
+.nav-links { display: flex; align-items: center; gap: 22px; }
+.nav-links a { text-decoration: none; color: var(--dark); font-weight: 700; font-size: 14px; }
+.nav-links a.active { color: var(--blue); }
+.nav-cta {
+  display: flex; align-items: center; gap: 6px;
+  background: var(--green); color: white !important;
+  padding: 9px 16px; border-radius: 30px; font-weight: 800 !important;
+}
+.burger { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 6px; }
+.burger span { width: 24px; height: 3px; background: var(--dark); border-radius: 2px; }
+.mobile-menu { display: none; flex-direction: column; background: var(--white); border-top: 1px solid var(--blue-border); padding: 10px 20px 16px; }
+.mobile-menu.open { display: flex; }
+.mobile-menu a { padding: 12px 0; text-decoration: none; color: var(--dark); font-weight: 700; font-size: 15px; border-bottom: 1px solid var(--blue-pale); }
+.mob-cta { color: var(--green) !important; }
+@media (max-width: 860px) {
+  .nav-links { display: none; }
+  .burger { display: flex; }
+}
+
+/* ===== HERO ===== */
+.hero {
+  background: linear-gradient(135deg, var(--navy) 0%, var(--blue) 65%, #3b82f6 100%);
+  padding: 56px 20px 60px; text-align: center; color: white;
+}
+.hero-inner { max-width: 720px; margin: 0 auto; }
+.hero-tagline {
+  display: inline-block; font-size: 13px; font-weight: 800; color: #2c1a02;
+  background: linear-gradient(90deg, var(--accent) 0%, #fbbf24 100%);
+  border-radius: 20px; padding: 6px 18px; margin-bottom: 18px;
+  box-shadow: 0 4px 16px rgba(245,158,11,0.4);
+}
+.hero h1 { font-size: 32px; font-weight: 900; margin-bottom: 14px; }
+.hero p { font-size: 15px; color: rgba(255,255,255,0.9); line-height: 1.7; }
+
+/* ===== SECTION ===== */
+.section { padding: 48px 20px 60px; }
+.section-inner { max-width: 640px; margin: 0 auto; }
+
+/* ===== FORMULAIRE FILTRANT ===== */
+.form-group { margin-bottom: 16px; }
+.form-group label { display: block; font-size: 13px; font-weight: 700; color: var(--dark); margin-bottom: 6px; }
+.form-group select, .form-group input, .form-group textarea {
+  width: 100%; padding: 12px 14px; border: 1.5px solid var(--blue-border);
+  border-radius: 10px; font-family: 'Nunito', sans-serif; font-size: 14px;
+  background: white; color: var(--dark);
+}
+.form-group select:focus, .form-group input:focus, .form-group textarea:focus { outline: none; border-color: var(--blue); }
+.form-group textarea { min-height: 90px; resize: vertical; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+@media (max-width: 480px) { .form-row { grid-template-columns: 1fr; } }
+
+/* Message de blocage */
+.gate-blocked {
+  display: none; background: var(--red-pale); border: 1.5px solid var(--red-border);
+  border-radius: 12px; padding: 20px 22px;
+}
+.gate-blocked.show { display: block; }
+.gate-blocked strong { color: var(--red); font-size: 15px; }
+.gate-blocked p { font-size: 13px; color: #7f1d1d; margin-top: 8px; line-height: 1.6; }
+
+/* ===== WIZARD (formulaire séquentiel) ===== */
+.wizard-card {
+  background: white; border-radius: var(--radius); padding: 28px 24px;
+  box-shadow: 0 2px 20px rgba(15,23,42,0.06); border: 1px solid var(--blue-border);
+}
+.wizard-progress { font-size: 12px; font-weight: 800; color: var(--blue); letter-spacing: 0.5px; margin-bottom: 18px; }
+.wizard-step { display: none; }
+.wizard-step.active { display: block; }
+.wizard-step label { display: block; font-size: 15px; font-weight: 800; color: var(--dark); margin-bottom: 12px; line-height: 1.4; }
+.wizard-actions { display: flex; align-items: center; gap: 16px; margin-top: 20px; }
+.wizard-back { font-size: 13px; font-weight: 700; color: var(--muted); background: none; border: none; cursor: pointer; padding: 6px 0; }
+.wizard-back:hover { color: var(--blue); }
+.checkbox-row { display: flex; align-items: flex-start; gap: 10px; margin: 18px 0; }
+.checkbox-row input[type="checkbox"] { width: 18px; height: 18px; margin-top: 2px; flex-shrink: 0; accent-color: var(--blue); }
+.checkbox-row label { font-size: 13px; font-weight: 700; color: var(--dark); margin: 0; line-height: 1.5; }
+.field-hint { font-size: 12px; color: var(--muted); font-weight: 600; margin-top: -8px; margin-bottom: 14px; }
+.form-card {
+  background: white; border-radius: var(--radius); padding: 28px 24px;
+  box-shadow: 0 2px 20px rgba(15,23,42,0.06); border: 1px solid var(--blue-border);
+}
+.btn-submit {
+  width: 100%; padding: 15px; background: var(--blue); color: white;
+  border: none; border-radius: 12px; font-family: 'Nunito', sans-serif;
+  font-size: 15px; font-weight: 800; cursor: pointer; transition: all 0.2s; margin-top: 8px;
+}
+.btn-submit:hover { background: var(--blue2); transform: translateY(-1px); }
+.form-success {
+  display: none; text-align: center; padding: 20px; background: #f0fdf4;
+  border: 1px solid #86efac; border-radius: 12px; margin-top: 16px;
+  font-size: 14px; color: #166534; font-weight: 700;
+}
+.form-or { text-align: center; margin: 20px 0; position: relative; font-size: 12px; color: var(--muted); font-weight: 700; letter-spacing: 1px; }
+.form-or::before { content: ''; position: absolute; top: 50%; left: 0; right: 0; height: 1px; background: var(--blue-border); }
+.form-or span { background: var(--white); padding: 0 14px; position: relative; z-index: 1; }
+.btn-wa-full {
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+  background: var(--green); color: white; padding: 14px; border-radius: 12px;
+  font-size: 15px; font-weight: 800; text-decoration: none; transition: transform 0.2s;
+}
+.btn-wa-full:hover { transform: translateY(-1px); }
+.ico-wa { width: 22px; height: 22px; fill: white; flex-shrink: 0; }
+
+/* ===== FOOTER ===== */
+footer { background: var(--blue-pale); border-top: 2px solid var(--blue-border); padding: 48px 20px 28px; }
+.footer-inner { max-width: var(--max); margin: 0 auto; text-align: center; }
+.footer-logo img { width: 80px; height: 80px; border-radius: 50%; object-fit: cover; border: 3px solid var(--blue-border); margin: 0 auto 16px; background: white; }
+.footer-name { font-size: 22px; font-weight: 900; color: var(--dark); margin-bottom: 12px; }
+.footer-info p { font-size: 13px; color: var(--muted); line-height: 2; }
+.footer-info a { color: var(--blue); text-decoration: none; font-weight: 700; }
+.footer-links { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin: 20px 0 0; padding-top: 20px; border-top: 1px solid var(--blue-border); }
+.footer-links a { font-size: 12px; color: var(--muted); text-decoration: none; }
+.footer-copy { font-size: 11px; color: var(--muted); margin-top: 12px; }
+
+/* WA FLOAT */
+.wa-float {
+  position: fixed; bottom: 22px; right: 22px; z-index: 999; width: 60px; height: 60px;
+  border-radius: 50%; background: var(--green); display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 4px 24px rgba(37,211,102,0.5); text-decoration: none; transition: transform 0.2s;
+  animation: waPulse 2.5s ease-in-out infinite;
+}
+.wa-float:hover { transform: scale(1.1); animation: none; }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <div class="logo-text">
+        <span>Phil-Mobile</span>
+        <div class="site-version">Version 2.3</div>
+      </div>
+    </a>
+    <div class="nav-links">
+      <a href="index.html">🏠 Accueil</a>
+      <a href="index.html#services">Services</a>
+      <a href="index.html#avis">Avis</a>
+      <a href="recrutement.html" class="active">Recrutement</a>
+      <a href="https://wa.me/32475240205" class="nav-cta">
+        <svg class="ico-wa" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.125.558 4.126 1.535 5.862L.057 23.737a.75.75 0 00.921.921l5.875-1.478A11.944 11.944 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.886 0-3.66-.499-5.197-1.373l-.373-.217-3.876.974.993-3.768-.237-.388A9.956 9.956 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+        WhatsApp
+      </a>
+    </div>
+    <button class="burger" onclick="toggleMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="index.html" onclick="toggleMenu()">🏠 Accueil</a>
+    <a href="index.html#services" onclick="toggleMenu()">🧩 Services</a>
+    <a href="index.html#avis" onclick="toggleMenu()">⭐ Avis clients</a>
+    <a href="recrutement.html" onclick="toggleMenu()">🚀 Recrutement</a>
+    <a href="https://wa.me/32475240205" class="mob-cta">💬 WhatsApp</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-tagline">Recrutement · Consultant Indépendant</div>
+    <h1>Devenez Consultant Smart SN</h1>
+    <p>Lancez votre activité indépendante dans les télécom &amp; énergie aux côtés de Phil-Mobile. Accompagnement, formation, revenus récurrents. Vérifiez votre éligibilité ci-dessous en 30 secondes.</p>
+  </div>
+</div>
+
+<!-- FORMULAIRE -->
+<div class="section" id="postuler">
+  <div class="section-inner">
+
+    <!-- Message de blocage (affiché si une réponse ne correspond pas) -->
+    <div class="gate-blocked" id="gate-blocked-msg">
+      <strong>⚠️ Ce poste ne correspond pas (encore) à votre situation</strong>
+      <p id="gate-blocked-text">Le poste de Consultant Smart SN nécessite de résider en Belgique, d'exercer sous statut indépendant (sans contrat salarié), d'accepter une activité commerciale sur le terrain et de disposer (ou pouvoir disposer) d'un numéro de TVA belge. Si votre situation évolue, revenez postuler à tout moment. Pour toute question, contactez-nous directement sur WhatsApp.</p>
+    </div>
+
+    <!-- Parcours de candidature séquentiel -->
+    <div class="wizard-card reveal" id="wizard">
+      <div class="wizard-progress" id="wizard-progress">Étape 1 / 8</div>
+
+      <!-- 1. Résidence Belgique -->
+      <div class="wizard-step active" data-step="1">
+        <label>1. Résidez-vous actuellement en Belgique ?</label>
+        <div class="form-group">
+          <select id="q-residence">
+            <option value="">-- Sélectionnez --</option>
+            <option value="oui">✅ Oui, je réside en Belgique</option>
+            <option value="non">❌ Non, je ne réside pas en Belgique</option>
+          </select>
+        </div>
+        <div class="wizard-actions"><button type="button" class="btn-submit" onclick="nextStep(1)">Continuer →</button></div>
+      </div>
+
+      <!-- 2. Commune + code postal -->
+      <div class="wizard-step" data-step="2">
+        <label>2. Dans quelle commune et quel code postal résidez-vous ?</label>
+        <div class="form-row">
+          <div class="form-group"><input type="text" id="q-commune" placeholder="Commune (ex : Beaufays)"></div>
+          <div class="form-group"><input type="text" id="q-codepostal" placeholder="Code postal (ex : 4052)" maxlength="4" inputmode="numeric"></div>
+        </div>
+        <div class="wizard-actions">
+          <button type="button" class="btn-submit" onclick="nextStep(2)">Continuer →</button>
+          <button type="button" class="wizard-back" onclick="prevStep(2)">← Retour</button>
+        </div>
+      </div>
+
+      <!-- 3. Statut indépendant -->
+      <div class="wizard-step" data-step="3">
+        <label>3. Comprenez-vous qu'il s'agit d'une activité indépendante, et non d'un emploi salarié ?</label>
+        <div class="form-group">
+          <select id="q-independant">
+            <option value="">-- Sélectionnez --</option>
+            <option value="oui">✅ Oui, je comprends et je recherche une activité indépendante</option>
+            <option value="non">❌ Non, je recherche un emploi salarié</option>
+          </select>
+        </div>
+        <div class="wizard-actions">
+          <button type="button" class="btn-submit" onclick="nextStep(3)">Continuer →</button>
+          <button type="button" class="wizard-back" onclick="prevStep(3)">← Retour</button>
+        </div>
+      </div>
+
+      <!-- 4. Terrain -->
+      <div class="wizard-step" data-step="4">
+        <label>4. Acceptez-vous une activité commerciale sur le terrain, sans télétravail ?</label>
+        <div class="form-group">
+          <select id="q-terrain">
+            <option value="">-- Sélectionnez --</option>
+            <option value="oui">✅ Oui, je suis à l'aise sur le terrain</option>
+            <option value="non">❌ Non, je cherche uniquement du télétravail</option>
+          </select>
+        </div>
+        <div class="wizard-actions">
+          <button type="button" class="btn-submit" onclick="nextStep(4)">Continuer →</button>
+          <button type="button" class="wizard-back" onclick="prevStep(4)">← Retour</button>
+        </div>
+      </div>
+
+      <!-- 5. TVA belge -->
+      <div class="wizard-step" data-step="5">
+        <label>5. Avez-vous un numéro de TVA belge ?</label>
+        <div class="form-group">
+          <select id="q-tva">
+            <option value="">-- Sélectionnez --</option>
+            <option value="oui">✅ Oui</option>
+            <option value="creation">🔄 En cours de création</option>
+            <option value="pret">👍 Je suis prêt(e) à en créer une</option>
+            <option value="non">❌ Non</option>
+          </select>
+        </div>
+        <div class="wizard-actions">
+          <button type="button" class="btn-submit" onclick="nextStep(5)">Continuer →</button>
+          <button type="button" class="wizard-back" onclick="prevStep(5)">← Retour</button>
+        </div>
+      </div>
+
+      <!-- 6. Moyen de déplacement -->
+      <div class="wizard-step" data-step="6">
+        <label>6. Disposez-vous d'un moyen de déplacement ?</label>
+        <div class="form-group">
+          <select id="q-deplacement">
+            <option value="">-- Sélectionnez --</option>
+            <option value="oui">✅ Oui</option>
+            <option value="non">❌ Non</option>
+          </select>
+        </div>
+        <div class="wizard-actions">
+          <button type="button" class="btn-submit" onclick="nextStep(6)">Continuer →</button>
+          <button type="button" class="wizard-back" onclick="prevStep(6)">← Retour</button>
+        </div>
+      </div>
+
+      <!-- 7. Expérience -->
+      <div class="wizard-step" data-step="7">
+        <label>7. Quelle expérience avez-vous en vente, télécom ou énergie ?</label>
+        <div class="form-group"><textarea id="q-experience" placeholder="Décrivez brièvement votre expérience (facultatif si aucune)"></textarea></div>
+        <div class="wizard-actions">
+          <button type="button" class="btn-submit" onclick="nextStep(7)">Continuer →</button>
+          <button type="button" class="wizard-back" onclick="prevStep(7)">← Retour</button>
+        </div>
+      </div>
+
+      <!-- 8. Coordonnées + confirmation -->
+      <div class="wizard-step" data-step="8">
+        <label>8. Vos coordonnées</label>
+        <form id="recrut-form" onsubmit="handleSubmitRecrutement(event)">
+          <div class="form-row">
+            <div class="form-group"><input type="text" name="prenom" required placeholder="Prénom *"></div>
+            <div class="form-group"><input type="text" name="nom" required placeholder="Nom *"></div>
+          </div>
+          <div class="form-group"><input type="tel" name="telephone" required placeholder="Téléphone *"></div>
+          <div class="form-group"><input type="email" name="email" required placeholder="Email *"></div>
+          <div class="form-group">
+            <label style="font-size:13px;font-weight:700;margin-bottom:6px;">CV (facultatif)</label>
+            <input type="file" id="q-cv" accept=".pdf,.doc,.docx">
+          </div>
+          <div class="checkbox-row">
+            <input type="checkbox" id="q-confirmation" required>
+            <label for="q-confirmation">Je certifie l'exactitude des informations fournies et j'accepte d'être contacté(e) par Phil-Mobile. *</label>
+          </div>
+          <div class="wizard-actions" style="margin-top:0;">
+            <button type="submit" class="btn-submit" style="margin-top:0;">🚀 Envoyer ma candidature</button>
+          </div>
+          <button type="button" class="wizard-back" onclick="prevStep(8)" style="margin-top:12px;">← Retour</button>
+          <div id="success-recrut" class="form-success">✅ Merci ! Votre candidature a bien été reçue. Philippe vous contacte très vite.</div>
+        </form>
+        <div class="form-or"><span>OU</span></div>
+        <a href="https://wa.me/32475240205?text=Bonjour%20Philippe,%20je%20souhaite%20postuler%20comme%20Consultant%20Smart%20SN%20!" class="btn-wa-full">
+          <svg class="ico-wa" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.125.558 4.126 1.535 5.862L.057 23.737a.75.75 0 00.921.921l5.875-1.478A11.944 11.944 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.886 0-3.66-.499-5.197-1.373l-.373-.217-3.876.974.993-3.768-.237-.388A9.956 9.956 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+          Discuter sur WhatsApp
+        </a>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo"><img src="images/logo.png" alt="Phil-Mobile"></div>
+    <div class="footer-name">Phil-Mobile</div>
+    <div class="footer-info">
+      <p>Revendeur Officiel Orange &amp; Eneco</p>
+      <p><a href="tel:+32475240205">+32 475 24 02 05</a> · <a href="mailto:infos@phil-mobile.be">infos@phil-Mobile.be</a></p>
+      <p>Rue de Trooz 1 Bte 21, 4052 Beaufays (Liège)</p>
+      <p>Lun–Ven : 9h00 – 19h00</p>
+    </div>
+    <div class="footer-links">
+      <a href="index.html">Retour à l'accueil</a>
+      <a href="https://phil-fixit.be">Visitez Phil-Fixit.be</a>
+      <a href="https://lylou-vely.be">Lylou-Vely</a>
+      <a href="https://app.phil-mobile.be/admin.html">Admin</a>
+    </div>
+    <div class="footer-copy">© 2026 Phil-Mobile · Tous droits réservés</div>
+  </div>
+</footer>
+
+<!-- WA FLOTTANT -->
+<a href="https://wa.me/32475240205" class="wa-float" target="_blank">
+  <svg width="30" height="30" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.125.558 4.126 1.535 5.862L.057 23.737a.75.75 0 00.921.921l5.875-1.478A11.944 11.944 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.886 0-3.66-.499-5.197-1.373l-.373-.217-3.876.974.993-3.768-.237-.388A9.956 9.956 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+</a>
+
+<script>
+function toggleMenu() {
+  document.getElementById('mobileMenu').classList.toggle('open');
+}
+
+/* Animation d'apparition au scroll */
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      revealObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.15 });
+document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+const TOTAL_STEPS = 8;
+
+function showStep(n) {
+  document.querySelectorAll('.wizard-step').forEach(el => el.classList.remove('active'));
+  document.querySelector(`.wizard-step[data-step="${n}"]`).classList.add('active');
+  document.getElementById('wizard-progress').textContent = `Étape ${n} / ${TOTAL_STEPS}`;
+}
+
+function blockForm(message) {
+  document.getElementById('gate-blocked-text').textContent = message;
+  document.getElementById('gate-blocked-msg').classList.add('show');
+  document.getElementById('wizard').style.display = 'none';
+}
+
+/* Navigation séquentielle : chaque étape est validée avant de passer à la suivante.
+   Les questions filtrantes bloquent immédiatement le parcours si la réponse ne convient pas. */
+function nextStep(current) {
+  const val = (id) => document.getElementById(id).value;
+
+  if (current === 1) {
+    if (!val('q-residence')) return alert('Merci de répondre à cette question avant de continuer.');
+    if (val('q-residence') === 'non') return blockForm("Le poste de Consultant Smart SN nécessite de résider actuellement en Belgique. Si votre situation évolue, revenez postuler à tout moment.");
+  }
+  if (current === 2) {
+    const commune = val('q-commune').trim();
+    const cp = val('q-codepostal').trim();
+    if (!commune || !cp) return alert('Merci de renseigner votre commune et votre code postal.');
+  }
+  if (current === 3) {
+    if (!val('q-independant')) return alert('Merci de répondre à cette question avant de continuer.');
+    if (val('q-independant') === 'non') return blockForm("Le poste de Consultant Smart SN est une activité indépendante et non un emploi salarié. Si votre situation évolue, revenez postuler à tout moment.");
+  }
+  if (current === 4) {
+    if (!val('q-terrain')) return alert('Merci de répondre à cette question avant de continuer.');
+    if (val('q-terrain') === 'non') return blockForm("Le poste de Consultant Smart SN implique une activité commerciale sur le terrain, sans télétravail. Si votre situation évolue, revenez postuler à tout moment.");
+  }
+  if (current === 5) {
+    if (!val('q-tva')) return alert('Merci de répondre à cette question avant de continuer.');
+    if (val('q-tva') === 'non') return blockForm("Le poste de Consultant Smart SN nécessite un numéro de TVA belge (existant, en cours de création, ou que vous êtes prêt(e) à créer). Si votre situation évolue, revenez postuler à tout moment.");
+  }
+  if (current === 6) {
+    if (!val('q-deplacement')) return alert('Merci de répondre à cette question avant de continuer.');
+  }
+  // Étape 7 (expérience) : facultative, aucune validation bloquante.
+
+  showStep(current + 1);
+}
+
+function prevStep(current) {
+  showStep(current - 1);
+}
+
+async function handleSubmitRecrutement(e) {
+  e.preventDefault();
+
+  // Double vérification de sécurité : on ne soumet jamais si un critère bloquant n'est pas rempli.
+  const val = (id) => document.getElementById(id).value;
+  if (val('q-residence') !== 'oui' || val('q-independant') !== 'oui' || val('q-terrain') !== 'oui' || val('q-tva') === 'non' || !val('q-tva')) {
+    return blockForm("Certaines réponses ne correspondent pas aux critères du poste. Contactez-nous directement sur WhatsApp pour toute question.");
+  }
+  if (!document.getElementById('q-confirmation').checked) {
+    return alert("Merci de cocher la case de confirmation avant l'envoi.");
+  }
+
+  const form = e.target;
+  const data = new FormData(form);
+  const get = (k) => (data.get(k) || '').toString().trim();
+  const tvaLabels = { oui: 'Oui', creation: 'En cours de création', pret: "Je suis prêt(e) à en créer une" };
+
+  const payload = {
+    type: 'consultant',
+    prenom: get('prenom'), nom: get('nom'), email: get('email'), telephone: get('telephone'),
+    residence: 'Oui', commune: val('q-commune').trim(), codePostal: val('q-codepostal').trim(),
+    independant: 'Oui', terrain: 'Oui',
+    tva: tvaLabels[val('q-tva')] || val('q-tva'),
+    deplacement: val('q-deplacement') === 'oui' ? 'Oui' : 'Non',
+    experience: document.getElementById('q-experience').value.trim(),
+    confirmation: true, cvUrl: '',
+    status: 'nouveau', createdAt: new Date().toISOString()
+  };
+
+  // Upload facultatif du CV : ne bloque jamais l'envoi de la candidature s'il échoue.
+  const cvFile = document.getElementById('q-cv').files[0];
+  if (cvFile && typeof window.pmUploadCv === 'function') {
+    try {
+      payload.cvUrl = await window.pmUploadCv(cvFile);
+    } catch (err) {
+      console.log('Upload du CV impossible, candidature envoyée sans CV:', err.message);
+    }
+  }
+
+  try {
+    await window.pmAddWebLead(payload);
+    form.reset();
+    document.getElementById('success-recrut').style.display = 'block';
+  } catch (err) {
+    alert("Une erreur est survenue lors de l'envoi. Merci de réessayer, ou contactez-nous directement via WhatsApp.");
+    console.log('Erreur envoi formulaire recrutement:', err.message);
+  }
+}
+</script>
+
+<!-- Firestore : même collection tampon "webLeads" que le site principal (aucune lecture ici). -->
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-storage.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyDagghvP8ujE0fdUcYsOfmLaXps2ZSUexo",
+  authDomain: "phil-mobile.firebaseapp.com",
+  projectId: "phil-mobile",
+  storageBucket: "phil-mobile.firebasestorage.app",
+  messagingSenderId: "193213939481",
+  appId: "1:193213939481:web:f8a750e89f0e645b62cf88",
+  measurementId: "G-6TJR9GTK90"
+};
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+const storage = getStorage(app);
+
+window.pmAddWebLead = function (payload) {
+  return addDoc(collection(db, 'webLeads'), payload);
+};
+
+window.pmUploadCv = async function (file) {
+  const path = `candidatures-cv/${Date.now()}_${file.name}`;
+  const storageRef = ref(storage, path);
+  await uploadBytes(storageRef, file);
+  return await getDownloadURL(storageRef);
+};
+</script>
+</body>
+</html>
