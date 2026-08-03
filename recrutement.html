@@ -410,6 +410,34 @@ document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 
 const TOTAL_STEPS = 8;
 
+/* Détection de l'origine du candidat : priorité au paramètre ?source= dans le lien partagé
+   (ex: recrutement.html?source=linkedin), sinon on retombe sur le référent du navigateur. */
+function detectOrigineTrafic() {
+  const params = new URLSearchParams(window.location.search);
+  const urlSource = (params.get('source') || params.get('utm_source') || '').trim();
+  const labels = {
+    linkedin: 'LinkedIn', facebook: 'Facebook', instagram: 'Instagram',
+    google: 'Google', whatsapp: 'WhatsApp', flyer: 'Flyer / QR code',
+    indeed: 'Indeed', stepstone: 'StepStone', actiris: 'Actiris'
+  };
+  if (urlSource) return labels[urlSource.toLowerCase()] || (urlSource.charAt(0).toUpperCase() + urlSource.slice(1));
+
+  const ref = document.referrer || '';
+  if (ref) {
+    try {
+      const host = new URL(ref).hostname.replace('www.', '');
+      if (host.includes('linkedin')) return 'LinkedIn';
+      if (host.includes('facebook') || host.includes('fb.com')) return 'Facebook';
+      if (host.includes('instagram')) return 'Instagram';
+      if (host.includes('google')) return 'Google';
+      if (host.includes('whatsapp')) return 'WhatsApp';
+      if (host.includes('phil-mobile')) return 'Site Phil-Mobile';
+      return host;
+    } catch (e) { /* referrer non exploitable */ }
+  }
+  return 'Direct / Inconnu';
+}
+
 function showStep(n) {
   document.querySelectorAll('.wizard-step').forEach(el => el.classList.remove('active'));
   document.querySelector(`.wizard-step[data-step="${n}"]`).classList.add('active');
@@ -486,6 +514,7 @@ async function handleSubmitRecrutement(e) {
     deplacement: val('q-deplacement') === 'oui' ? 'Oui' : 'Non',
     experience: document.getElementById('q-experience').value.trim(),
     confirmation: true, cvUrl: '',
+    origineTrafic: detectOrigineTrafic(),
     status: 'nouveau', createdAt: new Date().toISOString()
   };
 
