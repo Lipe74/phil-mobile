@@ -502,34 +502,44 @@ function toggleMenu() {
 }
 
 /* Contrôle play/pause directement dans le cadre vidéo (via l'API Vimeo Player).
-   La vidéo ne démarre jamais toute seule : elle attend un clic de l'utilisateur. */
+   La vidéo ne démarre jamais toute seule : elle attend un clic de l'utilisateur.
+   IMPORTANT : play() doit être appelé de façon strictement synchrone dans le clic
+   (pas après un .then()), sinon certains navigateurs (Safari) bloquent le son. On
+   garde donc l'état "en lecture" localement plutôt que de le redemander à l'API. */
 const heroVideoPlayer = new Vimeo.Player(document.getElementById('hero-video-iframe'));
 const PAUSE_ICON = '<svg width="26" height="26" viewBox="0 0 24 24" fill="white"><rect x="6" y="5" width="4" height="14"/><rect x="14" y="5" width="4" height="14"/></svg>';
 const PLAY_ICON = '<svg width="26" height="26" viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg>';
+let heroVideoPlaying = false;
+
+heroVideoPlayer.on('play', () => {
+  heroVideoPlaying = true;
+  document.getElementById('video-preview-play-icon').innerHTML = PAUSE_ICON;
+});
+heroVideoPlayer.on('pause', () => {
+  heroVideoPlaying = false;
+  document.getElementById('video-preview-play-icon').innerHTML = PLAY_ICON;
+});
+heroVideoPlayer.on('ended', () => {
+  heroVideoPlaying = false;
+  document.getElementById('video-preview-play-icon').innerHTML = PLAY_ICON;
+});
 
 function toggleVideoPlayback() {
-  const icon = document.getElementById('video-preview-play-icon');
-  heroVideoPlayer.getPaused().then((paused) => {
-    if (paused) {
-      heroVideoPlayer.setVolume(1).catch(() => {});
-      heroVideoPlayer.play();
-      icon.innerHTML = PAUSE_ICON;
-    } else {
-      heroVideoPlayer.pause();
-      icon.innerHTML = PLAY_ICON;
-    }
-  });
+  if (heroVideoPlaying) {
+    heroVideoPlayer.pause();
+  } else {
+    heroVideoPlayer.setVolume(1);
+    heroVideoPlayer.play();
+  }
 }
 
 /* Revient au tout début de la vidéo (et relance la lecture) */
 function rewindVideo(e) {
   e.stopPropagation();
-  heroVideoPlayer.setCurrentTime(0).then(() => heroVideoPlayer.play());
-  document.getElementById('video-preview-play-icon').innerHTML = PAUSE_ICON;
+  heroVideoPlayer.setCurrentTime(0);
+  heroVideoPlayer.setVolume(1);
+  heroVideoPlayer.play();
 }
-heroVideoPlayer.on('ended', () => {
-  document.getElementById('video-preview-play-icon').innerHTML = PLAY_ICON;
-});
 
 /* Animation d'apparition au scroll */
 const revealObserver = new IntersectionObserver((entries) => {
