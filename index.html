@@ -311,62 +311,6 @@ nav {
 }
 .form-tab.active { color: var(--blue); background: var(--blue-pale); border-bottom-color: var(--blue); }
 a.form-tab { display: flex; align-items: center; justify-content: center; text-decoration: none; }
-.form-panel { display: none; }
-.form-panel.active { display: block; }
-.form-card {
-  background: var(--white); border: 1.5px solid var(--blue-border);
-  border-radius: var(--radius); padding: 28px 24px;
-  box-shadow: 0 4px 24px rgba(30,64,175,0.08);
-}
-.form-group { margin-bottom: 16px; }
-.form-group label { display: block; font-size: 13px; font-weight: 700; color: var(--dark); margin-bottom: 6px; }
-.form-group input,
-.form-group select,
-.form-group textarea {
-  width: 100%; padding: 12px 14px;
-  border: 1.5px solid var(--blue-border); border-radius: 10px;
-  font-family: 'Nunito', sans-serif; font-size: 14px;
-  background: var(--bg); color: var(--dark);
-  outline: none; transition: border-color 0.2s;
-}
-.form-group input:focus,
-.form-group select:focus,
-.form-group textarea:focus { border-color: var(--blue); background: white; }
-.form-group textarea { resize: vertical; min-height: 90px; }
-.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-@media (max-width: 480px) { .form-row { grid-template-columns: 1fr; } }
-.btn-submit {
-  width: 100%; padding: 15px;
-  background: var(--blue); color: white;
-  border: none; border-radius: 12px;
-  font-family: 'Nunito', sans-serif;
-  font-size: 15px; font-weight: 800; cursor: pointer;
-  transition: all 0.2s; margin-top: 8px;
-}
-.btn-submit:hover { background: var(--blue2); transform: translateY(-1px); }
-.form-success {
-  display: none; text-align: center; padding: 20px;
-  background: #f0fdf4; border: 1px solid #86efac;
-  border-radius: 12px; margin-top: 16px;
-  font-size: 14px; color: #166534; font-weight: 700;
-}
-.form-or {
-  text-align: center; margin: 20px 0; position: relative;
-  font-size: 12px; color: var(--muted); font-weight: 700; letter-spacing: 1px;
-}
-.form-or::before {
-  content: ''; position: absolute; top: 50%; left: 0; right: 0;
-  height: 1px; background: var(--blue-border);
-}
-.form-or span { background: var(--white); padding: 0 14px; position: relative; z-index: 1; }
-.btn-wa-full {
-  display: flex; align-items: center; justify-content: center; gap: 10px;
-  background: var(--green); color: white;
-  padding: 14px; border-radius: 12px;
-  font-size: 15px; font-weight: 800; text-decoration: none;
-  transition: transform 0.2s;
-}
-.btn-wa-full:hover { transform: translateY(-1px); }
 
 /* ===== FOOTER ===== */
 footer { background: var(--blue-pale); border-top: 2px solid var(--blue-border); padding: 48px 20px 28px; }
@@ -454,7 +398,7 @@ footer { background: var(--blue-pale); border-top: 2px solid var(--blue-border);
     </div>
     <p class="hero-desc">Nous analysons vos factures et vous proposons l'offre la plus adaptée à votre usage réel. Simulation gratuite, sans engagement.</p>
     <div class="hero-btns">
-      <a href="#contact" class="btn-green">
+      <a href="simulation.html" class="btn-green">
         <svg class="ico-wa" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.125.558 4.126 1.535 5.862L.057 23.737a.75.75 0 00.921.921l5.875-1.478A11.944 11.944 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.886 0-3.66-.499-5.197-1.373l-.373-.217-3.876.974.993-3.768-.237-.388A9.956 9.956 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
         Analyse gratuite
       </a>
@@ -480,7 +424,7 @@ footer { background: var(--blue-pale); border-top: 2px solid var(--blue-border);
           <span class="service-tag tag-eneco">⚡ Énergie & Gaz</span>
           <h3>Eneco – Le compagnon Belge</h3>
           <p>Avec Eneco, vous optez pour un fournisseur fiable et transparent. Des prix clairs et un accompagnement personnalisé pour réduire vos factures, sans mauvaises surprises.</p>
-          <a href="#contact" class="service-link">Demande gratuite →</a>
+          <a href="simulation.html" class="service-link">Demande gratuite →</a>
         </div>
       </div>
 
@@ -489,7 +433,7 @@ footer { background: var(--blue-pale); border-top: 2px solid var(--blue-border);
           <span class="service-tag tag-orange">📱 Télécommunications</span>
           <h3>Orange – Le meilleur réseau</h3>
           <p>Vos factures sont analysées en détail pour vous proposer l'abonnement Orange le plus adapté. Le meilleur réseau, au meilleur prix.</p>
-          <a href="#contact" class="service-link">Demande gratuite →</a>
+          <a href="simulation.html" class="service-link">Demande gratuite →</a>
         </div>
       </div>
 
@@ -554,78 +498,8 @@ footer { background: var(--blue-pale); border-top: 2px solid var(--blue-border);
   <h2 class="section-title">Parlons-en !</h2>
   <div class="forms-inner">
     <div class="form-tabs">
-      <button class="form-tab active" onclick="switchForm('client')">📋 Demande d'information</button>
+      <a href="simulation.html" class="form-tab active">📋 Demande d'information</a>
       <a href="recrutement.html" class="form-tab">🚀 Rejoindre l'équipe</a>
-    </div>
-
-    <div id="panel-client" class="form-panel active">
-      <div class="form-card reveal">
-        <form onsubmit="handleSubmit(event)">
-          <div class="form-row">
-            <div class="form-group"><label>Prénom *</label><input type="text" name="prenom" required placeholder="Philippe"></div>
-            <div class="form-group"><label>Nom *</label><input type="text" name="nom" required placeholder="Dupont"></div>
-          </div>
-          <div class="form-group"><label>Email *</label><input type="email" name="email" required placeholder="vous@exemple.be"></div>
-          <div class="form-group"><label>Téléphone *</label><input type="tel" name="telephone" required placeholder="+32 4xx xx xx xx"></div>
-          <div class="form-group"><label>Vous êtes</label><select name="profil"><option>Particulier</option><option>Indépendant</option><option>Société</option></select></div>
-          <div class="form-group"><label>Je souhaite des infos sur</label>
-            <select name="sujet" id="sujet" onchange="updateFields()">
-              <option value="mobile">📱 Abonnement mobile Orange</option>
-              <option value="internet">🌍 Internet & Packs</option>
-              <option value="energie">⚡ Énergie (Eneco)</option>
-              <option value="gaz">🔥 Gaz (Eneco)</option>
-              <option value="tout">📦 Tout comparer</option>
-            </select>
-          </div>
-
-          <!-- Champ mobile -->
-          <div class="form-group dyn-field" id="field-mobile">
-            <label>📱 Votre opérateur mobile actuel</label>
-            <select name="operateur_mobile">
-              <option>Proximus</option>
-              <option>Base</option>
-              <option>VOO</option>
-              <option>Orange</option>
-              <option>Mobile Vikings</option>
-              <option>Autre</option>
-            </select>
-          </div>
-
-          <!-- Champ internet -->
-          <div class="form-group dyn-field" id="field-internet" style="display:none;">
-            <label>🌍 Votre fournisseur internet actuel</label>
-            <select name="fournisseur_internet">
-              <option>Proximus</option>
-              <option>VOO</option>
-              <option>Telenet</option>
-              <option>Orange</option>
-              <option>Autre</option>
-            </select>
-          </div>
-
-          <!-- Champ énergie -->
-          <div class="form-group dyn-field" id="field-energie" style="display:none;">
-            <label>⚡ Votre fournisseur énergie actuel</label>
-            <select name="fournisseur_energie">
-              <option>Engie</option>
-              <option>Luminus</option>
-              <option>Mega</option>
-              <option>TotalEnergies</option>
-              <option>Octa+</option>
-              <option>Eneco</option>
-              <option>Autre</option>
-            </select>
-          </div>
-          <div class="form-group"><label>Votre message</label><textarea name="message" placeholder="Dites-nous en plus sur votre situation..."></textarea></div>
-          <button type="submit" class="btn-submit">✅ Recevoir mon analyse gratuite</button>
-          <div id="success-client" class="form-success">✅ Merci ! Philippe vous recontacte très vite.</div>
-        </form>
-        <div class="form-or"><span>OU</span></div>
-        <a href="https://wa.me/32475240205?text=Bonjour%20Philippe,%20je%20souhaite%20une%20analyse%20gratuite%20!" class="btn-wa-full">
-          <svg class="ico-wa" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.125.558 4.126 1.535 5.862L.057 23.737a.75.75 0 00.921.921l5.875-1.478A11.944 11.944 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.886 0-3.66-.499-5.197-1.373l-.373-.217-3.876.974.993-3.768-.237-.388A9.956 9.956 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
-          Contacter sur WhatsApp
-        </a>
-      </div>
     </div>
 
   </div>
@@ -658,17 +532,6 @@ footer { background: var(--blue-pale); border-top: 2px solid var(--blue-border);
 </a>
 
 <script>
-function updateFields() {
-  const val = document.getElementById('sujet').value;
-  const showMobile   = val === 'mobile'  || val === 'tout';
-  const showInternet = val === 'internet' || val === 'tout';
-  const showEnergie  = val === 'energie' || val === 'gaz' || val === 'tout';
-
-  document.getElementById('field-mobile').style.display   = showMobile   ? 'block' : 'none';
-  document.getElementById('field-internet').style.display = showInternet ? 'block' : 'none';
-  document.getElementById('field-energie').style.display  = showEnergie  ? 'block' : 'none';
-}
-
 function toggleMenu() {
   document.getElementById('mobileMenu').classList.toggle('open');
 }
@@ -687,75 +550,13 @@ function observeReveals(root = document) {
   root.querySelectorAll('.reveal:not(.visible)').forEach(el => revealObserver.observe(el));
 }
 observeReveals();
-
-function switchForm(tab) {
-  document.querySelectorAll('button.form-tab').forEach(t => t.classList.add('active'));
-  document.getElementById('panel-client').classList.add('active');
-}
-
-/* Détection de l'origine du visiteur : priorité au paramètre ?source= dans le lien partagé,
-   sinon on retombe sur le référent du navigateur. */
-function detectOrigineTrafic() {
-  const params = new URLSearchParams(window.location.search);
-  const urlSource = (params.get('source') || params.get('utm_source') || '').trim();
-  const labels = {
-    linkedin: 'LinkedIn', facebook: 'Facebook', instagram: 'Instagram',
-    google: 'Google', whatsapp: 'WhatsApp', flyer: 'Flyer / QR code',
-    indeed: 'Indeed', stepstone: 'StepStone', actiris: 'Actiris'
-  };
-  if (urlSource) return labels[urlSource.toLowerCase()] || (urlSource.charAt(0).toUpperCase() + urlSource.slice(1));
-
-  const ref = document.referrer || '';
-  if (ref) {
-    try {
-      const host = new URL(ref).hostname.replace('www.', '');
-      if (host.includes('linkedin')) return 'LinkedIn';
-      if (host.includes('facebook') || host.includes('fb.com')) return 'Facebook';
-      if (host.includes('instagram')) return 'Instagram';
-      if (host.includes('google')) return 'Google';
-      if (host.includes('whatsapp')) return 'WhatsApp';
-      return host;
-    } catch (e) { /* referrer non exploitable */ }
-  }
-  return 'Direct / Inconnu';
-}
-
-async function handleSubmit(e) {
-  e.preventDefault();
-  const form = e.target;
-  const data = new FormData(form);
-  const get = (k) => (data.get(k) || '').toString().trim();
-
-  const sujet = get('sujet');
-  const sourceMap = { mobile: 'Orange', internet: 'Orange', energie: 'Eneco', gaz: 'Eneco', tout: 'Orange+Eneco' };
-  const payload = {
-    type: 'client',
-    prenom: get('prenom'), nom: get('nom'), email: get('email'), telephone: get('telephone'),
-    vousEtes: get('profil'), sujet: sujet, produitSource: sourceMap[sujet] || 'Autre',
-    operateurMobile: get('operateur_mobile'), fournisseurInternet: get('fournisseur_internet'),
-    fournisseurEnergie: get('fournisseur_energie'), message: get('message'),
-    origineTrafic: detectOrigineTrafic(),
-    status: 'nouveau', createdAt: new Date().toISOString()
-  };
-
-  try {
-    await window.pmAddWebLead(payload);
-    form.reset();
-    updateFields();
-    document.getElementById('success-client').style.display = 'block';
-  } catch (err) {
-    alert("Une erreur est survenue lors de l'envoi. Merci de réessayer, ou contactez-nous directement via WhatsApp.");
-    console.log('Erreur envoi formulaire:', err.message);
-  }
-}
 </script>
 
-<!-- Firestore : écriture seule des formulaires publics vers la collection tampon "webLeads".
-     Aucune lecture n'est effectuée ici (pas de login sur ce site) ; le suivi et la conversion
-     en prospect se font depuis l'admin d'app.phil-mobile.be. -->
+<!-- Firestore : lecture seule pour l'affichage des avis clients (les formulaires de contact
+     vivent désormais sur des pages dédiées : simulation.html et recrutement.html). -->
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
-import { getFirestore, collection, addDoc, getDocs, doc, getDoc } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+import { getFirestore, collection, getDocs, doc, getDoc } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyDagghvP8ujE0fdUcYsOfmLaXps2ZSUexo",
@@ -769,9 +570,6 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-window.pmAddWebLead = function (payload) {
-  return addDoc(collection(db, 'webLeads'), payload);
-};
 
 // --- Avis clients : lecture directe depuis Firestore au chargement de la page ---
 // Si la collection est vide ou en cas d'erreur, le bloc statique existant reste affiché tel quel
