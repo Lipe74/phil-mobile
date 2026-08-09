@@ -81,6 +81,39 @@ nav { background: var(--white); border-bottom: 1px solid var(--blue-border); pos
 /* ===== SECTION / FORMULAIRE ===== */
 .section { padding: 48px 20px 60px; }
 .section-inner { max-width: 640px; margin: 0 auto; }
+.section-inner-wide {
+  max-width: 980px; margin: 0 auto;
+  display: flex; align-items: flex-start; gap: 32px;
+}
+.form-col { flex: 1.2; min-width: 0; }
+.video-col { flex: 1; position: sticky; top: 90px; }
+.video-preview-box {
+  position: relative; border-radius: 16px; overflow: hidden; cursor: pointer;
+  box-shadow: 0 8px 32px rgba(15,23,42,0.12); border: 1px solid var(--blue-border);
+  aspect-ratio: 16/9; background: #000;
+}
+.video-preview-box iframe { width: 100%; height: 100%; pointer-events: none; border: none; }
+.video-preview-play {
+  position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+  background: rgba(0,0,0,0.2); transition: background 0.2s;
+}
+.video-preview-box:hover .video-preview-play { background: rgba(0,0,0,0.35); }
+.video-preview-play-icon {
+  width: 60px; height: 60px; border-radius: 50%; background: var(--accent);
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 4px 16px rgba(245,158,11,0.5);
+}
+.video-preview-caption { text-align: center; font-size: 13px; font-weight: 700; color: var(--muted); margin-top: 12px; }
+.video-rewind-btn {
+  display: block; margin: 8px auto 0; background: none; border: none;
+  font-family: 'Nunito', sans-serif; font-size: 12px; font-weight: 700; color: var(--blue);
+  cursor: pointer; padding: 4px 8px;
+}
+.video-rewind-btn:hover { text-decoration: underline; }
+@media (max-width: 860px) {
+  .section-inner-wide { flex-direction: column; }
+  .video-col { position: static; width: 100%; order: -1; }
+}
 .form-card {
   background: white; border-radius: var(--radius); padding: 28px 24px;
   box-shadow: 0 2px 20px rgba(15,23,42,0.06); border: 1px solid var(--blue-border);
@@ -214,7 +247,8 @@ footer { background: var(--blue-pale); border-top: 2px solid var(--blue-border);
 
 <!-- FORMULAIRE -->
 <div class="section" id="demande">
-  <div class="section-inner">
+  <div class="section-inner-wide">
+    <div class="form-col">
 
     <!-- Écran de choix -->
     <div class="form-card reveal" id="choice-card">
@@ -354,6 +388,21 @@ footer { background: var(--blue-pale); border-top: 2px solid var(--blue-border);
       </a>
     </div>
 
+    </div>
+
+    <div class="video-col">
+      <div class="video-preview-box reveal" onclick="toggleVenteVideoPlayback()">
+        <iframe id="vente-video-iframe" src="https://player.vimeo.com/video/1214945528?autoplay=0&background=0&controls=0&byline=0&title=0&portrait=0" allow="autoplay; fullscreen; picture-in-picture; encrypted-media"></iframe>
+        <div class="video-preview-play" id="vente-video-preview-play-btn">
+          <div class="video-preview-play-icon" id="vente-video-preview-play-icon">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg>
+          </div>
+        </div>
+      </div>
+      <div class="video-preview-caption">🎥 Découvrez Phil-Mobile en vidéo — cliquez pour lancer le son</div>
+      <button type="button" class="video-rewind-btn" onclick="rewindVenteVideo(event)">⏮ Revenir au début</button>
+    </div>
+
   </div>
 </div>
 
@@ -383,9 +432,53 @@ footer { background: var(--blue-pale); border-top: 2px solid var(--blue-border);
   <svg width="30" height="30" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.125.558 4.126 1.535 5.862L.057 23.737a.75.75 0 00.921.921l5.875-1.478A11.944 11.944 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.886 0-3.66-.499-5.197-1.373l-.373-.217-3.876.974.993-3.768-.237-.388A9.956 9.956 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
 </a>
 
+<script src="https://player.vimeo.com/api/player.js"></script>
 <script>
 function toggleMenu() {
   document.getElementById('mobileMenu').classList.toggle('open');
+}
+
+/* Contrôle play/pause de la vidéo de vente (même principe que recrutement.html).
+   initVenteVideoPlayer() est appelée depuis le module Firebase plus bas, une fois
+   l'ID vidéo (par défaut ou personnalisé depuis l'admin) définitivement connu. */
+let venteVideoPlayer = null;
+let venteVideoPlaying = false;
+const VENTE_PAUSE_ICON = '<svg width="26" height="26" viewBox="0 0 24 24" fill="white"><rect x="6" y="5" width="4" height="14"/><rect x="14" y="5" width="4" height="14"/></svg>';
+const VENTE_PLAY_ICON = '<svg width="26" height="26" viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg>';
+
+function initVenteVideoPlayer() {
+  venteVideoPlayer = new Vimeo.Player(document.getElementById('vente-video-iframe'));
+
+  venteVideoPlayer.on('play', () => {
+    venteVideoPlaying = true;
+    document.getElementById('vente-video-preview-play-icon').innerHTML = VENTE_PAUSE_ICON;
+  });
+  venteVideoPlayer.on('pause', () => {
+    venteVideoPlaying = false;
+    document.getElementById('vente-video-preview-play-icon').innerHTML = VENTE_PLAY_ICON;
+  });
+  venteVideoPlayer.on('ended', () => {
+    venteVideoPlaying = false;
+    document.getElementById('vente-video-preview-play-icon').innerHTML = VENTE_PLAY_ICON;
+  });
+}
+
+function toggleVenteVideoPlayback() {
+  if (!venteVideoPlayer) return;
+  if (venteVideoPlaying) {
+    venteVideoPlayer.pause();
+  } else {
+    venteVideoPlayer.setVolume(1);
+    venteVideoPlayer.play();
+  }
+}
+
+function rewindVenteVideo(e) {
+  e.stopPropagation();
+  if (!venteVideoPlayer) return;
+  venteVideoPlayer.setCurrentTime(0);
+  venteVideoPlayer.setVolume(1);
+  venteVideoPlayer.play();
 }
 
 /* Animation d'apparition au scroll */
@@ -519,7 +612,7 @@ async function handleSubmitSimulation(e) {
 <!-- Firestore : même collection tampon "webLeads" que le reste du site (aucune lecture ici). -->
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
-import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+import { getFirestore, collection, addDoc, doc, getDoc } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-storage.js";
 
 const firebaseConfig = {
@@ -545,6 +638,24 @@ window.pmUploadFacture = async function (file) {
   await uploadBytes(storageRef, file);
   return await getDownloadURL(storageRef);
 };
+
+// --- Vidéo Vimeo "vente" éditable depuis l'admin (settings/venteVideo, champ vimeoId) ---
+// Si absente ou en cas d'erreur, la vidéo par défaut codée en dur dans le HTML reste utilisée.
+// initVenteVideoPlayer() (définie dans le script classique plus haut) n'est appelée qu'une seule
+// fois ici, après avoir déterminé l'ID définitif, pour éviter d'initialiser le player Vimeo deux fois.
+(async function loadVenteVideo() {
+  try {
+    const snap = await getDoc(doc(db, 'settings', 'venteVideo'));
+    if (snap.exists() && snap.data().vimeoId) {
+      const iframe = document.getElementById('vente-video-iframe');
+      iframe.src = `https://player.vimeo.com/video/${snap.data().vimeoId}?autoplay=0&background=0&controls=0&byline=0&title=0&portrait=0`;
+    }
+  } catch (err) {
+    console.log('Chargement vidéo vente impossible, vidéo par défaut conservée:', err.message);
+  } finally {
+    initVenteVideoPlayer();
+  }
+})();
 </script>
 </body>
 </html>
