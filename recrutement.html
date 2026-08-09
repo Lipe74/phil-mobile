@@ -505,26 +505,33 @@ function toggleMenu() {
    La vidéo ne démarre jamais toute seule : elle attend un clic de l'utilisateur.
    IMPORTANT : play() doit être appelé de façon strictement synchrone dans le clic
    (pas après un .then()), sinon certains navigateurs (Safari) bloquent le son. On
-   garde donc l'état "en lecture" localement plutôt que de le redemander à l'API. */
-const heroVideoPlayer = new Vimeo.Player(document.getElementById('hero-video-iframe'));
+   garde donc l'état "en lecture" localement plutôt que de le redemander à l'API.
+   initHeroVideoPlayer() est appelée depuis le module Firebase plus bas, une fois
+   l'ID vidéo (par défaut ou personnalisé depuis l'admin) définitivement connu. */
+let heroVideoPlayer = null;
+let heroVideoPlaying = false;
 const PAUSE_ICON = '<svg width="26" height="26" viewBox="0 0 24 24" fill="white"><rect x="6" y="5" width="4" height="14"/><rect x="14" y="5" width="4" height="14"/></svg>';
 const PLAY_ICON = '<svg width="26" height="26" viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg>';
-let heroVideoPlaying = false;
 
-heroVideoPlayer.on('play', () => {
-  heroVideoPlaying = true;
-  document.getElementById('video-preview-play-icon').innerHTML = PAUSE_ICON;
-});
-heroVideoPlayer.on('pause', () => {
-  heroVideoPlaying = false;
-  document.getElementById('video-preview-play-icon').innerHTML = PLAY_ICON;
-});
-heroVideoPlayer.on('ended', () => {
-  heroVideoPlaying = false;
-  document.getElementById('video-preview-play-icon').innerHTML = PLAY_ICON;
-});
+function initHeroVideoPlayer() {
+  heroVideoPlayer = new Vimeo.Player(document.getElementById('hero-video-iframe'));
+
+  heroVideoPlayer.on('play', () => {
+    heroVideoPlaying = true;
+    document.getElementById('video-preview-play-icon').innerHTML = PAUSE_ICON;
+  });
+  heroVideoPlayer.on('pause', () => {
+    heroVideoPlaying = false;
+    document.getElementById('video-preview-play-icon').innerHTML = PLAY_ICON;
+  });
+  heroVideoPlayer.on('ended', () => {
+    heroVideoPlaying = false;
+    document.getElementById('video-preview-play-icon').innerHTML = PLAY_ICON;
+  });
+}
 
 function toggleVideoPlayback() {
+  if (!heroVideoPlayer) return;
   if (heroVideoPlaying) {
     heroVideoPlayer.pause();
   } else {
@@ -536,6 +543,7 @@ function toggleVideoPlayback() {
 /* Revient au tout début de la vidéo (et relance la lecture) */
 function rewindVideo(e) {
   e.stopPropagation();
+  if (!heroVideoPlayer) return;
   heroVideoPlayer.setCurrentTime(0);
   heroVideoPlayer.setVolume(1);
   heroVideoPlayer.play();
@@ -748,7 +756,7 @@ async function handleSubmitRecrutement(e) {
 <!-- Firestore : même collection tampon "webLeads" que le site principal (aucune lecture ici). -->
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
-import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+import { getFirestore, collection, addDoc, doc, getDoc } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-storage.js";
 
 const firebaseConfig = {
@@ -774,6 +782,24 @@ window.pmUploadCv = async function (file) {
   await uploadBytes(storageRef, file);
   return await getDownloadURL(storageRef);
 };
+
+// --- Vidéo Vimeo éditable depuis l'admin (settings/recrutementVideo, champ vimeoId) ---
+// Si absente ou en cas d'erreur, la vidéo par défaut codée en dur dans le HTML reste utilisée.
+// initHeroVideoPlayer() (définie dans le script classique plus haut) n'est appelée qu'une seule
+// fois ici, après avoir déterminé l'ID définitif, pour éviter d'initialiser le player Vimeo deux fois.
+(async function loadRecrutementVideo() {
+  try {
+    const snap = await getDoc(doc(db, 'settings', 'recrutementVideo'));
+    if (snap.exists() && snap.data().vimeoId) {
+      const iframe = document.getElementById('hero-video-iframe');
+      iframe.src = `https://player.vimeo.com/video/${snap.data().vimeoId}?autoplay=0&background=0&controls=0&byline=0&title=0&portrait=0`;
+    }
+  } catch (err) {
+    console.log('Chargement vidéo recrutement impossible, vidéo par défaut conservée:', err.message);
+  } finally {
+    initHeroVideoPlayer();
+  }
+})();
 </script>
 </body>
 </html>
