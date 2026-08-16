@@ -99,17 +99,14 @@ nav { background: var(--white); border-bottom: 1px solid var(--blue-border); pos
   aspect-ratio: 16/9; background: #000;
 }
 .video-preview-box iframe { width: 100%; height: 100%; pointer-events: none; border: none; }
-.video-preview-play {
-  position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
-  background: rgba(0,0,0,0.2); transition: background 0.2s;
-}
-.video-preview-box:hover .video-preview-play { background: rgba(0,0,0,0.35); }
-.video-preview-play-icon {
-  width: 60px; height: 60px; border-radius: 50%; background: var(--accent);
-  display: flex; align-items: center; justify-content: center;
-  box-shadow: 0 4px 16px rgba(245,158,11,0.5);
-}
 .video-preview-caption { text-align: center; font-size: 13px; font-weight: 700; color: var(--muted); margin-top: 12px; }
+.video-controls-row { display: flex; align-items: center; justify-content: center; gap: 14px; margin-top: 4px; }
+.video-play-btn {
+  width: 48px; height: 48px; border-radius: 50%; background: var(--accent); border: none; cursor: pointer;
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  box-shadow: 0 4px 16px rgba(245,158,11,0.5); transition: filter 0.15s;
+}
+.video-play-btn:hover { filter: brightness(1.08); }
 .video-rewind-btn {
   display: block; margin: 8px auto 0; background: none; border: none;
   font-family: 'Nunito', sans-serif; font-size: 12px; font-weight: 700; color: var(--blue);
@@ -457,14 +454,16 @@ footer { background: var(--blue-pale); border-top: 2px solid var(--blue-border);
     <div class="video-col">
       <div class="video-preview-box reveal" onclick="toggleVideoPlayback()">
         <iframe id="hero-video-iframe" src="https://player.vimeo.com/video/1214945528?autoplay=0&background=0&controls=0&byline=0&title=0&portrait=0" allow="autoplay; fullscreen; picture-in-picture; encrypted-media"></iframe>
-        <div class="video-preview-play" id="video-preview-play-btn">
-          <div class="video-preview-play-icon" id="video-preview-play-icon">
-            <svg width="26" height="26" viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg>
-          </div>
-        </div>
       </div>
       <div class="video-preview-caption">🎥 Découvrez l'opportunité en vidéo — cliquez pour lancer le son</div>
-      <button type="button" class="video-rewind-btn" onclick="rewindVideo(event)">⏮ Revenir au début</button>
+      <div class="video-controls-row">
+        <button type="button" class="video-play-btn" id="video-preview-play-btn" onclick="toggleVideoPlayback()" aria-label="Lecture / Pause">
+          <span id="video-preview-play-icon" style="display:flex;align-items:center;justify-content:center;">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg>
+          </span>
+        </button>
+        <button type="button" class="video-rewind-btn" onclick="rewindVideo(event)">⏮ Revenir au début</button>
+      </div>
     </div>
 
   </div>
