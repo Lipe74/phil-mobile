@@ -196,20 +196,22 @@ nav.scrolled .burger span { background: var(--blue); }
   letter-spacing: 2px; text-transform: uppercase;
   color: var(--blue); margin-bottom: 8px;
 }
+.section-label-accent { color: var(--accent2); }
 .section-title {
   text-align: center; font-size: 30px; font-weight: 900;
   color: var(--dark); margin-bottom: 36px; line-height: 1.2;
 }
+.brand-stripe { height: 4px; background: linear-gradient(90deg, var(--blue) 0%, var(--accent) 100%); }
 
 /* ===== SERVICES ===== */
-.services-bg { background: var(--white); }
+.services-bg { background: var(--blue-pale); }
 .services-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 20px;
 }
 .service-card {
-  background: var(--bg); border: 1.5px solid var(--blue-border);
+  background: var(--white); border: 1.5px solid var(--blue-border);
   border-radius: var(--radius); overflow: hidden;
   box-shadow: 0 4px 24px rgba(30,64,175,0.08);
   transition: transform 0.2s, box-shadow 0.2s;
@@ -232,7 +234,7 @@ nav.scrolled .burger span { background: var(--blue); }
 }
 
 /* ===== AVIS ===== */
-.reviews-section { background: var(--white); padding: 60px 20px; }
+.reviews-section { background: var(--accent-pale); padding: 60px 20px; }
 .rating-bar {
   display: flex; align-items: center; gap: 20px;
   background: var(--blue-pale); border: 1.5px solid var(--blue-border);
@@ -249,7 +251,7 @@ nav.scrolled .burger span { background: var(--blue); }
   gap: 14px; margin-bottom: 20px;
 }
 .review-card {
-  background: var(--bg); border: 1.5px solid var(--blue-border);
+  background: var(--white); border: 1.5px solid #fde3c2;
   border-radius: var(--radius); padding: 18px;
 }
 .review-header { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
@@ -273,7 +275,7 @@ nav.scrolled .burger span { background: var(--blue); }
 .btn-more:hover { background: var(--blue); color: white; }
 
 /* ===== FORMULAIRES ===== */
-.forms-section { padding: 60px 20px; background: var(--bg); }
+.forms-section { padding: 60px 20px; background: var(--blue-pale); }
 .forms-inner { max-width: 640px; margin: 0 auto; }
 .form-tabs {
   display: flex; background: var(--white);
@@ -292,25 +294,25 @@ nav.scrolled .burger span { background: var(--blue); }
 a.form-tab { display: flex; align-items: center; justify-content: center; text-decoration: none; }
 
 /* ===== FOOTER ===== */
-footer { background: var(--blue-pale); border-top: 2px solid var(--blue-border); padding: 48px 20px 28px; }
+footer { background: var(--navy); border-top: 4px solid var(--accent); padding: 48px 20px 28px; }
 .footer-inner {
   max-width: var(--max); margin: 0 auto; text-align: center;
 }
 .footer-logo img {
   width: 80px; height: 80px; border-radius: 50%;
-  object-fit: cover; border: 3px solid var(--blue-border);
+  object-fit: cover; border: 3px solid var(--accent);
   margin: 0 auto 16px; background: white;
 }
-.footer-name { font-size: 22px; font-weight: 900; color: var(--dark); margin-bottom: 12px; }
-.footer-info p { font-size: 13px; color: var(--muted); line-height: 2; }
-.footer-info a { color: var(--blue); text-decoration: none; font-weight: 700; }
+.footer-name { font-size: 22px; font-weight: 900; color: white; margin-bottom: 12px; }
+.footer-info p { font-size: 13px; color: rgba(255,255,255,0.75); line-height: 2; }
+.footer-info a { color: var(--accent); text-decoration: none; font-weight: 700; }
 .footer-links {
   display: flex; justify-content: center; gap: 20px;
   flex-wrap: wrap; margin: 20px 0 0;
-  padding-top: 20px; border-top: 1px solid var(--blue-border);
+  padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.15);
 }
-.footer-links a { font-size: 12px; color: var(--muted); text-decoration: none; }
-.footer-copy { font-size: 11px; color: var(--muted); margin-top: 12px; }
+.footer-links a { font-size: 12px; color: rgba(255,255,255,0.6); text-decoration: none; }
+.footer-copy { font-size: 11px; color: rgba(255,255,255,0.5); margin-top: 12px; }
 
 /* WA FLOAT */
 .wa-float {
@@ -385,6 +387,7 @@ footer { background: var(--blue-pale); border-top: 2px solid var(--blue-border);
 </div>
 
 <!-- SERVICES -->
+<div class="brand-stripe"></div>
 <div class="section services-bg" id="services">
   <div class="section-inner">
     <div class="section-label">Nos Services</div>
@@ -423,9 +426,10 @@ footer { background: var(--blue-pale); border-top: 2px solid var(--blue-border);
 </div>
 
 <!-- AVIS -->
+<div class="brand-stripe"></div>
 <div class="reviews-section" id="avis">
   <div class="section-inner">
-    <div class="section-label">Avis Clients</div>
+    <div class="section-label section-label-accent">Avis Clients</div>
     <h2 class="section-title">Ce qu'ils disent de nous</h2>
     <div class="rating-bar" id="rating-bar">
       <div class="rating-score" id="rating-score">5.0</div>
@@ -453,6 +457,7 @@ footer { background: var(--blue-pale); border-top: 2px solid var(--blue-border);
 </div>
 
 <!-- FORMULAIRES -->
+<div class="brand-stripe"></div>
 <div class="forms-section" id="contact">
   <div class="section-label">Nous contacter</div>
   <h2 class="section-title">Parlons-en !</h2>
