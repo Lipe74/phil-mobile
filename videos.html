@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Phil-Mobile – Nos vidéos</title>
+<meta name="description" content="Découvrez en vidéo la simulation gratuite, l'opportunité de devenir consultant et les promotions Phil-Mobile.">
+<meta name="theme-color" content="#061443">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="images/logo.png">
+<link rel="icon" type="image/png" href="images/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<script>document.documentElement.classList.add('js');</script>
+<link rel="stylesheet" href="css/site.css">
+<style>
+.page-hero {
+  text-align: center; color: #fff; padding: clamp(36px, 6vw, 64px) 20px;
+  background:
+    radial-gradient(60% 80% at 50% 0%, rgba(25,200,255,.25), transparent 70%),
+    linear-gradient(165deg, #061443 0%, #0a2a7a 60%, #0d3fb0 100%);
+}
+.page-hero h1 { font-size: clamp(1.8rem, 5vw, 2.8rem); font-weight: 900; line-height: 1.15; }
+.page-hero h1 span { background: linear-gradient(90deg, var(--orange), #ffd166); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+.page-hero p { margin: 10px auto 0; max-width: 560px; color: rgba(255,255,255,.85); font-size: clamp(.95rem, 2.4vw, 1.1rem); }
+
+.videos-section { background: var(--blue-pale); padding: clamp(32px, 6vw, 64px) 0; }
+.videos-grid { display: grid; grid-template-columns: 1fr; gap: 24px; max-width: 720px; margin-inline: auto; }
+@media (min-width: 1000px) { .videos-grid { grid-template-columns: repeat(3, 1fr); max-width: none; } }
+
+.video-card {
+  display: flex; flex-direction: column; overflow: hidden;
+  background: #fff; border: 1.5px solid var(--blue-border); border-radius: var(--radius);
+  box-shadow: 0 4px 24px rgba(30,64,175,.08);
+}
+.video-frame { position: relative; aspect-ratio: 16 / 9; background: var(--navy); }
+.video-frame::before {
+  content: ""; position: absolute; top: 50%; left: 50%; width: 34px; height: 34px; margin: -17px;
+  border-radius: 50%; border: 4px solid rgba(255,255,255,.25); border-top-color: var(--orange);
+  animation: spin .8s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+.video-frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+.video-body { display: flex; flex-direction: column; gap: 8px; padding: 20px; flex: 1; }
+.video-body h2 { font-size: 1.2rem; font-weight: 900; line-height: 1.25; }
+.video-body p { color: var(--muted); font-size: .95rem; flex: 1; }
+.video-body .btn { margin-top: 10px; }
+</style>
+</head>
+<body>
+
+<!-- MENU MOBILE -->
+<button class="burger" type="button" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="menu"><span></span><span></span><span></span></button>
+<div class="menu-backdrop"></div>
+<nav class="menu-panel" id="menu" aria-label="Menu principal">
+  <a href="index.html">🏠 Accueil</a>
+  <a href="simulation.html">📊 Simulation</a>
+  <a href="recrutement.html">🚀 Recrutement</a>
+  <a href="videos.html">🎬 Nos vidéos</a>
+  <a href="index.html#services">🧩 Services</a>
+  <a href="index.html#avis">⭐ Nos avis</a>
+  <a href="index.html#contact">📋 Contact</a>
+  <a class="menu-cta" href="https://wa.me/32475240205" target="_blank" rel="noopener">💬 WhatsApp</a>
+</nav>
+
+<!-- BARRE MINIMALE (PC / tablette) -->
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="index.html"><img src="images/logo.png" width="42" height="42" alt=""><span>Phil-Mobile</span></a>
+    <a class="topbar-link" href="index.html">← Accueil</a>
+  </div>
+</header>
+
+<div class="page-hero">
+  <h1>Nos <span>vidéos</span></h1>
+  <p>Trois minutes pour comprendre comment on peut vous aider.</p>
+</div>
+
+<main class="videos-section">
+  <div class="container">
+    <div class="videos-grid">
+
+      <article class="video-card reveal" data-setting="venteVideo">
+        <div class="video-frame">
+          <iframe title="Vidéo : simulation gratuite Phil-Mobile" loading="lazy" allow="fullscreen; picture-in-picture; encrypted-media" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
+        </div>
+        <div class="video-body">
+          <h2>📊 Simulation gratuite</h2>
+          <p>Comment on analyse vos factures Télécom &amp; Énergie pour vous faire économiser, sans engagement.</p>
+          <a class="btn btn--orange" href="simulation.html">Faire ma simulation →</a>
+        </div>
+      </article>
+
+      <article class="video-card reveal" data-setting="recrutementVideo">
+        <div class="video-frame">
+          <iframe title="Vidéo : devenir consultant Phil-Mobile" loading="lazy" allow="fullscreen; picture-in-picture; encrypted-media" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
+        </div>
+        <div class="video-body">
+          <h2>🚀 Devenir consultant</h2>
+          <p>Lancez votre activité avec Phil-Mobile / Smart SN : formation et accompagnement inclus.</p>
+          <a class="btn btn--blue" href="recrutement.html">Rejoindre l'équipe →</a>
+        </div>
+      </article>
+
+      <article class="video-card reveal" data-setting="promotionVideo">
+        <div class="video-frame">
+          <iframe title="Vidéo : promotions Phil-Mobile" loading="lazy" allow="fullscreen; picture-in-picture; encrypted-media" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
+        </div>
+        <div class="video-body">
+          <h2>🏷️ Nos promotions</h2>
+          <p>Les offres du moment chez Orange &amp; Eneco.</p>
+          <a class="btn btn--orange" href="simulation.html">Me renseigner →</a>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <img src="images/logo.png" width="84" height="84" alt="Phil-Mobile" loading="lazy">
+    <div class="footer-name">Phil-Mobile</div>
+    <div class="footer-info">
+      <p>Revendeur Officiel Orange &amp; Eneco</p>
+      <p><a href="tel:+32475240205">+32 475 24 02 05</a> · <a href="mailto:infos@phil-mobile.be">infos@phil-mobile.be</a></p>
+      <p>Rue de Trooz 1 Bte 21, 4052 Beaufays (Liège)</p>
+      <p>Lun–Ven : 9h00 – 19h00</p>
+    </div>
+    <div class="footer-copy">© 2026 Phil-Mobile · Tous droits réservés</div>
+  </div>
+</footer>
+
+<script src="js/site.js"></script>
+<script>
+/* Apparition au scroll */
+(function () {
+  var els = document.querySelectorAll('.reveal');
+  if (!('IntersectionObserver' in window)) { els.forEach(function (e) { e.classList.add('visible'); }); return; }
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add('visible'); io.unobserve(en.target); } });
+  }, { threshold: 0.1 });
+  els.forEach(function (e) { io.observe(e); });
+})();
+</script>
+
+<!-- Vidéos Vimeo : les numéros viennent de l'admin (Firestore settings/<clé>.vimeoId).
+     Les numéros ci-dessous ne servent que de valeur de secours (admin injoignable ou vide). -->
+<script type="module">
+const DEFAULT_IDS = {
+  venteVideo: '1218625913',        // Simulation
+  recrutementVideo: '1214945528',  // Recrutement
+  promotionVideo: '1218625333'     // Promotions
+};
+
+const firebaseConfig = {
+  apiKey: "AIzaSyDagghvP8ujE0fdUcYsOfmLaXps2ZSUexo",
+  authDomain: "phil-mobile.firebaseapp.com",
+  projectId: "phil-mobile",
+  storageBucket: "phil-mobile.firebasestorage.app",
+  messagingSenderId: "193213939481",
+  appId: "1:193213939481:web:f8a750e89f0e645b62cf88",
+  measurementId: "G-6TJR9GTK90"
+};
+
+const ids = { ...DEFAULT_IDS };
+const isVimeoId = v => /^\d{5,15}$/.test(String(v || '').trim());
+
+// Lecture des numéros dans l'admin (sans jamais bloquer l'affichage)
+const fetching = (async () => {
+  try {
+    const [{ initializeApp }, { getFirestore, doc, getDoc }] = await Promise.all([
+      import('https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js'),
+      import('https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js')
+    ]);
+    const db = getFirestore(initializeApp(firebaseConfig));
+    await Promise.all(Object.keys(DEFAULT_IDS).map(async key => {
+      try {
+        const snap = await getDoc(doc(db, 'settings', key));
+        if (snap.exists() && isVimeoId(snap.data().vimeoId)) ids[key] = String(snap.data().vimeoId).trim();
+      } catch (e) { console.log('Réglage vidéo indisponible :', key, e.message); }
+    }));
+  } catch (e) {
+    console.log('Firestore indisponible, numéros de secours utilisés :', e.message);
+  }
+})();
+
+// On attend l'admin 3,5 s maximum, puis on charge chaque vidéo une seule fois
+(async () => {
+  await Promise.race([fetching, new Promise(resolve => setTimeout(resolve, 3500))]);
+  document.querySelectorAll('[data-setting]').forEach(card => {
+    const iframe = card.querySelector('iframe');
+    iframe.src = 'https://player.vimeo.com/video/' + ids[card.dataset.setting] + '?dnt=1&title=0&byline=0&portrait=0';
+  });
+})();
+</script>
+</body>
+</html>

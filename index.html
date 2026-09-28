@@ -2,9 +2,10 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Phil-Mobile – Télécom & Énergie à Beaufays</title>
-<meta name="theme-color" content="#1a56db">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Phil-Mobile – Télécom &amp; Énergie à Beaufays</title>
+<meta name="description" content="Phil-Mobile, revendeur officiel Orange et Eneco à Beaufays. Simulation gratuite, sans engagement.">
+<meta name="theme-color" content="#061443">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Phil-Mobile">
@@ -12,440 +13,188 @@
 <link rel="manifest" href="manifest.json">
 <link rel="apple-touch-icon" href="images/logo.png">
 <link rel="icon" type="image/png" href="images/logo.png">
-<meta name="description" content="Phil-Mobile, revendeur officiel Orange et Eneco à Beaufays. Simulation gratuite, sans engagement.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<script>document.documentElement.classList.add('js');</script>
+<link rel="stylesheet" href="css/site.css">
 <style>
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; }
-body {
-  font-family: 'Nunito', sans-serif;
-  background: #f8fafc;
-  color: #1e293b;
-  overflow-x: hidden;
-}
-img { max-width: 100%; display: block; }
-
-/* VARIABLES */
-:root {
-  --blue: #1a56db;
-  --blue2: #1e40af;
-  --blue-pale: #eff6ff;
-  --blue-border: #bfdbfe;
-  --navy: #0c1a4a;
-  --accent: #f59e0b;
-  --accent2: #d97706;
-  --accent-pale: #fff7ed;
-  --dark: #0f172a;
-  --muted: #64748b;
-  --white: #ffffff;
-  --bg: #f8fafc;
-  --green: #25d366;
-  --radius: 16px;
-  --max: 1100px;
-}
-
-/* ===== ANIMATIONS ===== */
-.reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
-.reveal.visible { opacity: 1; transform: none; }
-@keyframes waPulse {
-  0%, 100% { box-shadow: 0 4px 24px rgba(37,211,102,0.5); }
-  50% { box-shadow: 0 4px 34px rgba(37,211,102,0.85); }
-}
-
-/* WRAPPER */
-.wrap { max-width: var(--max); margin: 0 auto; padding: 0 20px; }
-
-/* ===== NAV ===== */
-nav {
-  position: fixed; top: 0; left: 0; width: 100%; z-index: 999;
-  background: transparent;
-  border-bottom: 3px solid transparent;
-  box-shadow: none;
-  transition: background 0.25s, border-color 0.25s, box-shadow 0.25s;
-}
-nav.scrolled {
-  background: var(--white);
-  border-bottom-color: var(--blue);
-  box-shadow: 0 2px 16px rgba(30,64,175,0.10);
-}
-.nav-inner {
-  max-width: var(--max); margin: 0 auto; padding: 12px 20px;
-  display: flex; align-items: center; justify-content: space-between;
-}
-.nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
-.nav-logo img { width: 42px; height: 42px; border-radius: 50%; object-fit: cover; }
-.nav-logo span { font-size: 20px; font-weight: 900; color: white; text-shadow: 0 1px 6px rgba(0,0,0,0.35); transition: color 0.25s, text-shadow 0.25s; }
-nav.scrolled .nav-logo span { color: var(--blue); text-shadow: none; }
-.logo-text{
-  display:flex;
-  flex-direction:column;
-  line-height:1.1;
-}
-
-.site-version{
-  font-size:10px;
-  font-weight:600;
-  color: rgba(255,255,255,0.75);
-  margin-top:2px;
-  transition: color 0.25s;
-}
-nav.scrolled .site-version { color: #999; }
-.nav-links { display: flex; align-items: center; gap: 8px; }
-.nav-links a {
-  font-size: 13px; font-weight: 600; color: rgba(255,255,255,0.9);
-  text-decoration: none; padding: 6px 12px; border-radius: 8px;
-  transition: all 0.2s;
-}
-.nav-links a:hover { color: var(--blue); background: var(--blue-pale); }
-nav.scrolled .nav-links a { color: var(--muted); }
-.nav-links .nav-cta {
-  background: var(--green); color: white !important;
-  padding: 8px 16px; border-radius: 10px; font-weight: 700;
-  display: flex; align-items: center; gap: 6px;
-}
-.nav-links .nav-cta:hover { background: #1da851; }
-
-/* BURGER */
-.burger {
-  display: none; flex-direction: column; gap: 5px;
-  cursor: pointer; padding: 6px; border: none; background: none;
-}
-.burger span {
-  display: block; width: 24px; height: 2px;
-  background: white; border-radius: 2px;
-  transition: all 0.3s;
-}
-nav.scrolled .burger span { background: var(--blue); }
-
-/* MOBILE MENU */
-.mobile-menu {
-  display: none;
-  background: var(--white); border-top: 1px solid var(--blue-border);
-  padding: 12px 20px 16px;
-}
-.mobile-menu.open { display: block; }
-.mobile-menu a {
-  display: block;
-  font-size: 15px; font-weight: 700; color: var(--dark);
-  text-decoration: none; padding: 12px 0;
-  border-bottom: 1px solid var(--blue-border);
-}
-.mobile-menu a:last-child { border-bottom: none; margin-top: 8px; }
-.mobile-menu .mob-cta {
-  display: block;
-  background: var(--green); color: white !important;
-  padding: 12px 16px; border-radius: 10px;
-  text-align: center; border: none !important;
-}
-
-@media (max-width: 640px) {
-  .nav-links { display: none; }
-  .burger { display: flex; }
-}
-
 /* ===== HERO ===== */
 .hero {
-  background: var(--white);
-  padding: 0 0 50px;
-  text-align: center;
-  position: relative;
+  position: relative; isolation: isolate; overflow: hidden;
+  min-height: min(100dvh, 900px);
+  display: grid; place-items: center; text-align: center; color: #fff;
+  padding: clamp(64px, 9vw, 96px) 20px clamp(40px, 7vw, 72px);
+  background:
+    radial-gradient(70% 55% at 50% 0%, rgba(25,200,255,.28), transparent 70%),
+    radial-gradient(45% 45% at 92% 92%, rgba(255,138,0,.24), transparent 70%),
+    linear-gradient(165deg, #061443 0%, #0a2a7a 58%, #0d3fb0 100%);
 }
-.hero-banner { width: 100%; line-height: 0; }
-.hero-banner-img { width: 100%; height: auto; display: block; }
-.hero-inner { max-width: 640px; margin: 0 auto; padding: 32px 20px 0; }
-.hero-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
-.btn-green {
-  display: inline-flex; align-items: center; gap: 8px;
-  background: var(--green); color: white;
-  padding: 14px 24px; border-radius: 12px;
-  font-size: 15px; font-weight: 800; text-decoration: none;
-  box-shadow: 0 4px 20px rgba(37,211,102,0.4); transition: transform 0.2s;
-  white-space: nowrap;
+.hero-inner { width: min(100%, 900px); display: flex; flex-direction: column; align-items: center; gap: clamp(14px, 2.4vw, 22px); }
+.hero-logo {
+  width: clamp(170px, 32vw, 300px); aspect-ratio: 1;
+  filter: drop-shadow(0 14px 40px rgba(25,200,255,.35));
+  animation: float 6s ease-in-out infinite;
 }
-.btn-green:hover { transform: translateY(-2px); }
-.btn-orange {
-  display: inline-flex; align-items: center; gap: 8px;
-  background: linear-gradient(90deg, var(--accent) 0%, var(--accent2) 100%); color: white;
-  padding: 14px 24px; border-radius: 12px;
-  font-size: 15px; font-weight: 800; text-decoration: none;
-  box-shadow: 0 4px 20px rgba(217,119,6,0.35); transition: transform 0.2s;
-  white-space: nowrap;
+@keyframes float { 50% { transform: translateY(-8px); } }
+.hero h1 { font-size: clamp(1.55rem, 4.6vw, 2.6rem); font-weight: 900; line-height: 1.15; text-wrap: balance; }
+.hero h1 span {
+  background: linear-gradient(90deg, var(--orange), #ffd166);
+  -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
 }
-.btn-orange:hover { transform: translateY(-2px); }
-.btn-white {
-  display: inline-flex; align-items: center; gap: 8px;
-  background: white; color: var(--blue);
-  border: 2px solid var(--blue-border);
-  padding: 12px 24px; border-radius: 12px;
-  font-size: 15px; font-weight: 800; text-decoration: none;
-  transition: transform 0.2s;
-  white-space: nowrap;
+.hero-sub { font-size: clamp(.95rem, 2.4vw, 1.1rem); color: rgba(255,255,255,.85); }
+
+.hero-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; width: 100%; margin-top: 6px; }
+.tile {
+  flex: 1 1 calc(50% - 6px); min-width: 0;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px;
+  min-height: 92px; padding: 14px 10px; border-radius: 18px;
+  font: inherit; font-weight: 800; font-size: .95rem; line-height: 1.2; text-align: center;
+  text-decoration: none; cursor: pointer; border: 1.5px solid transparent;
+  transition: transform .2s, box-shadow .2s, background .2s;
 }
-.btn-white:hover { transform: translateY(-2px); border-color: var(--accent); color: var(--accent2); }
-@media (max-width: 400px) {
-  .hero-inner { padding-left: 12px; padding-right: 12px; }
-  .hero-btns { gap: 6px; }
-  .btn-green, .btn-white, .btn-orange { padding: 10px 14px; font-size: 13px; }
-  .ico-wa { width: 17px; height: 17px; }
+.tile .ico { font-size: 1.7rem; line-height: 1; }
+.tile:hover { transform: translateY(-3px); }
+.tile--orange { background: linear-gradient(135deg, #ffb238, var(--orange)); color: #2b1400; box-shadow: 0 10px 26px rgba(255,138,0,.35); }
+.tile--blue { background: linear-gradient(135deg, #3b82f6, var(--blue)); color: #fff; box-shadow: 0 10px 26px rgba(26,86,219,.4); }
+.tile--glass { background: rgba(255,255,255,.1); border-color: rgba(255,255,255,.3); color: #fff; -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); }
+.tile--glass:hover { background: rgba(255,255,255,.2); }
+.tile:last-child:nth-child(odd) { flex-basis: 100%; }
+@media (min-width: 640px) {
+  .tile { flex: 0 1 calc(33.333% - 8px); }
+  .tile:last-child:nth-child(odd) { flex-basis: calc(33.333% - 8px); }
+}
+@media (min-width: 900px) {
+  .tile { flex: 1 1 0; }
+  .tile:last-child:nth-child(odd) { flex-basis: 0; }
 }
 
-/* WAVE */
-.wave-bottom {
-  display: block; width: 100%; overflow: hidden;
-  line-height: 0; background: var(--white);
-}
-.wave-bottom svg { display: block; width: 100%; }
-
-/* ===== SECTION ===== */
-.section { padding: 60px 20px; }
-.section-inner { max-width: var(--max); margin: 0 auto; }
-.section-label {
-  text-align: center; font-size: 11px; font-weight: 800;
-  letter-spacing: 2px; text-transform: uppercase;
-  color: var(--blue); margin-bottom: 8px;
-}
-.section-label-accent { color: var(--accent2); }
-.section-title {
-  text-align: center; font-size: 30px; font-weight: 900;
-  color: var(--dark); margin-bottom: 36px; line-height: 1.2;
-}
-.brand-stripe { height: 4px; background: linear-gradient(90deg, var(--blue) 0%, var(--accent) 100%); }
+#services, #avis, #contact { scroll-margin-top: 12px; }
 
 /* ===== SERVICES ===== */
-.services-bg { background: var(--blue-pale); }
-.services-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 20px;
-}
+.services { background: var(--blue-pale); }
+.services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); gap: 20px; }
 .service-card {
-  background: var(--white); border: 1.5px solid var(--blue-border);
-  border-radius: var(--radius); overflow: hidden;
-  box-shadow: 0 4px 24px rgba(30,64,175,0.08);
-  transition: transform 0.2s, box-shadow 0.2s;
+  background: #fff; border: 1.5px solid var(--blue-border); border-radius: var(--radius);
+  padding: 26px; display: flex; flex-direction: column; gap: 12px;
+  box-shadow: 0 4px 24px rgba(30,64,175,.08); transition: transform .2s, box-shadow .2s;
 }
-.service-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(30,64,175,0.15); }
-.service-body { padding: 22px; }
-.service-tag {
-  display: inline-block; font-size: 10px; font-weight: 800;
-  letter-spacing: 1px; text-transform: uppercase;
-  padding: 3px 10px; border-radius: 20px; margin-bottom: 10px;
-}
-.tag-orange { background: #fff5e6; color: #c95200; }
-.tag-eneco  { background: #fde8ea; color: #E2001A; }
-.tag-recruit{ background: var(--blue-pale); color: var(--blue2); }
-.service-body h3 { font-size: 20px; font-weight: 800; margin-bottom: 10px; color: var(--dark); }
-.service-body p  { font-size: 14px; color: var(--muted); line-height: 1.7; margin-bottom: 16px; }
-.service-link {
-  font-size: 14px; font-weight: 700; color: var(--blue);
-  text-decoration: none;
-}
+.service-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(30,64,175,.14); }
+.service-tag { align-self: flex-start; font-size: .72rem; font-weight: 800; letter-spacing: .5px; text-transform: uppercase; padding: 5px 12px; border-radius: 999px; }
+.tag-eneco { background: #fde8ea; color: #c2001a; }
+.tag-orange { background: var(--orange-pale); color: #b45300; }
+.tag-recruit { background: #dbeafe; color: var(--blue-2); }
+.service-card h3 { font-size: 1.2rem; font-weight: 900; line-height: 1.25; }
+.service-card p { color: var(--muted); font-size: .97rem; flex: 1; }
+.service-link { font-weight: 800; color: var(--blue); text-decoration: none; }
+.service-link:hover { color: var(--orange-2); }
 
 /* ===== AVIS ===== */
-.reviews-section { background: var(--accent-pale); padding: 60px 20px; }
+.reviews { background: var(--orange-pale); }
 .rating-bar {
-  display: flex; align-items: center; gap: 20px;
-  background: var(--blue-pale); border: 1.5px solid var(--blue-border);
-  border-radius: var(--radius); padding: 20px 24px; margin-bottom: 28px;
-  max-width: 400px;
+  display: flex; align-items: center; gap: 20px; width: fit-content; max-width: 100%;
+  background: #fff; border: 1.5px solid var(--blue-border); border-radius: var(--radius);
+  padding: 18px 26px; margin: 0 auto 32px;
 }
-.rating-score { font-size: 56px; font-weight: 900; color: var(--accent2); line-height: 1; }
-.rating-info .stars { color: var(--accent); font-size: 22px; }
-.rating-info .rtxt { font-size: 15px; font-weight: 700; color: var(--dark); }
-.rating-info small { font-size: 12px; color: var(--muted); }
-.reviews-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 14px; margin-bottom: 20px;
-}
-.review-card {
-  background: var(--white); border: 1.5px solid #fde3c2;
-  border-radius: var(--radius); padding: 18px;
-}
-.review-header { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+.rating-score { font-size: clamp(2.6rem, 8vw, 3.6rem); font-weight: 900; color: var(--orange-2); line-height: 1; }
+.rating-info .stars { color: var(--orange); font-size: 1.3rem; letter-spacing: 2px; }
+.rating-info .rtxt { font-weight: 800; }
+.rating-info small { color: var(--muted); font-size: .8rem; }
+.reviews-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 290px), 1fr)); gap: 16px; margin-bottom: 28px; }
+.review-card { background: #fff; border: 1.5px solid var(--orange-border); border-radius: var(--radius); padding: 20px; }
+.review-header { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
 .review-avatar {
-  width: 40px; height: 40px; border-radius: 50%;
-  background: var(--blue-pale); border: 2px solid var(--blue-border);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 13px; font-weight: 800; color: var(--blue); flex-shrink: 0;
+  width: 42px; height: 42px; flex: none; border-radius: 50%; display: grid; place-items: center;
+  background: var(--blue-pale); border: 2px solid var(--blue-border); color: var(--blue);
+  font-weight: 900; font-size: .85rem;
 }
-.review-name { font-size: 13px; font-weight: 700; color: var(--dark); }
-.review-stars { color: var(--accent); font-size: 12px; }
-.review-date { font-size: 10px; color: var(--muted); margin-left: auto; white-space: nowrap; }
-.review-text { font-size: 13px; color: var(--muted); line-height: 1.7; font-style: italic; }
-.btn-more {
-  display: block; text-align: center; padding: 14px;
-  border-radius: 12px; font-size: 14px; font-weight: 700;
-  color: var(--blue); background: var(--blue-pale);
-  border: 1.5px solid var(--blue-border); text-decoration: none;
-  transition: all 0.2s; max-width: 320px; margin: 0 auto;
-}
-.btn-more:hover { background: var(--blue); color: white; }
+.review-name { font-weight: 800; font-size: .95rem; }
+.review-stars { color: var(--orange); font-size: .85rem; letter-spacing: 1px; }
+.review-date { margin-left: auto; font-size: .75rem; color: var(--muted); white-space: nowrap; }
+.review-text { font-size: .93rem; color: #334155; line-height: 1.6; }
+.center { text-align: center; }
 
-/* ===== FORMULAIRES ===== */
-.forms-section { padding: 60px 20px; background: var(--blue-pale); }
-.forms-inner { max-width: 640px; margin: 0 auto; }
-.form-tabs {
-  display: flex; background: var(--white);
-  border: 1.5px solid var(--blue-border); border-radius: 12px;
-  overflow: hidden; margin-bottom: 20px;
-}
-.form-tab {
-  flex: 1; padding: 14px 8px; text-align: center;
-  font-size: 13px; font-weight: 700; cursor: pointer;
-  border: none; background: transparent;
-  font-family: 'Nunito', sans-serif;
-  color: var(--muted); border-bottom: 3px solid transparent;
-  transition: all 0.2s;
-}
-.form-tab.active { color: var(--blue); background: var(--blue-pale); border-bottom-color: var(--blue); }
-a.form-tab { display: flex; align-items: center; justify-content: center; text-decoration: none; }
-
-/* ===== FOOTER ===== */
-footer { background: var(--navy); border-top: 4px solid var(--accent); padding: 48px 20px 28px; }
-.footer-inner {
-  max-width: var(--max); margin: 0 auto; text-align: center;
-}
-.footer-logo img {
-  width: 80px; height: 80px; border-radius: 50%;
-  object-fit: cover; border: 3px solid var(--accent);
-  margin: 0 auto 16px; background: white;
-}
-.footer-name { font-size: 22px; font-weight: 900; color: white; margin-bottom: 12px; }
-.footer-info p { font-size: 13px; color: rgba(255,255,255,0.75); line-height: 2; }
-.footer-info a { color: var(--accent); text-decoration: none; font-weight: 700; }
-.footer-links {
-  display: flex; justify-content: center; gap: 20px;
-  flex-wrap: wrap; margin: 20px 0 0;
-  padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.15);
-}
-.footer-links a { font-size: 12px; color: rgba(255,255,255,0.6); text-decoration: none; }
-.footer-copy { font-size: 11px; color: rgba(255,255,255,0.5); margin-top: 12px; }
-
-/* WA FLOAT */
-.wa-float {
-  position: fixed; bottom: 22px; right: 22px; z-index: 999;
-  width: 60px; height: 60px; border-radius: 50%;
-  background: var(--green);
-  display: flex; align-items: center; justify-content: center;
-  box-shadow: 0 4px 24px rgba(37,211,102,0.5);
-  text-decoration: none; transition: transform 0.2s;
-  animation: waPulse 2.5s ease-in-out infinite;
-}
-.wa-float:hover { transform: scale(1.1); animation: none; }
-
-/* SVG ICON WA */
-.ico-wa { width: 22px; height: 22px; fill: white; flex-shrink: 0; }
+/* ===== CONTACT ===== */
+.contact-band { background: linear-gradient(160deg, var(--navy), var(--navy-2)); color: #fff; text-align: center; }
+.contact-band .section-label { color: var(--orange); }
+.contact-band .section-title { margin-bottom: 14px; }
+.contact-band p { color: rgba(255,255,255,.85); max-width: 560px; margin: 0 auto 28px; }
+.cta-row { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; }
+.cta-row .btn { flex: 1 1 200px; max-width: 260px; }
 </style>
 </head>
 <body>
 
-<!-- NAV -->
-<nav>
-  <div class="nav-inner">
-   <a href="#" class="nav-logo">
-  <div class="logo-text">
-    <span>Phil-Mobile</span>
-    <div class="site-version">Version 2.4</div>
-  </div>
-</a>
-    <div class="nav-links">
-      <a href="#">🏠 Accueil</a>
-      <a href="#services">Services</a>
-      <a href="promotion.html">Promotions</a>
-      <a href="recrutement.html">Opportunité</a>
-      <a href="#avis">Avis</a>
-      <a href="#contact">Contact</a>
-      <a href="https://wa.me/32475240205" class="nav-cta">
-        <svg class="ico-wa" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.125.558 4.126 1.535 5.862L.057 23.737a.75.75 0 00.921.921l5.875-1.478A11.944 11.944 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.886 0-3.66-.499-5.197-1.373l-.373-.217-3.876.974.993-3.768-.237-.388A9.956 9.956 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
-        WhatsApp
-      </a>
-    </div>
-    <button class="burger" onclick="toggleMenu()" aria-label="Menu">
-      <span></span><span></span><span></span>
-    </button>
-  </div>
-  <div class="mobile-menu" id="mobileMenu">
-    <a href="#" onclick="toggleMenu()">🏠 Accueil</a>
-    <a href="#services" onclick="toggleMenu()">🧩 Services</a>
-    <a href="promotion.html" onclick="toggleMenu()">🏷️ Promotions</a>
-    <a href="recrutement.html" onclick="toggleMenu()">🚀 Opportunité</a>
-    <a href="#avis" onclick="toggleMenu()">⭐ Avis clients</a>
-    <a href="#contact" onclick="toggleMenu()">📋 Contact</a>
-    <a href="https://wa.me/32475240205" class="mob-cta">💬 WhatsApp</a>
-  </div>
+<!-- MENU MOBILE (burger visible uniquement sur téléphone) -->
+<button class="burger" type="button" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="menu"><span></span><span></span><span></span></button>
+<div class="menu-backdrop"></div>
+<nav class="menu-panel" id="menu" aria-label="Menu principal">
+  <a href="#top">🏠 Accueil</a>
+  <a href="simulation.html">📊 Simulation</a>
+  <a href="recrutement.html">🚀 Recrutement</a>
+  <a href="videos.html">🎬 Nos vidéos</a>
+  <a href="#services">🧩 Services</a>
+  <a href="#avis">⭐ Nos avis</a>
+  <a href="#contact">📋 Contact</a>
+  <a class="menu-cta" href="https://wa.me/32475240205" target="_blank" rel="noopener">💬 WhatsApp</a>
 </nav>
 
 <!-- HERO -->
-<div class="hero">
-  <div class="hero-banner">
-    <img class="hero-banner-img" src="images/hero-fond.jpg" alt="Phil-Mobile - Revendeur Officiel Orange &amp; Eneco - +32 475 24 02 05">
-  </div>
+<header class="hero" id="top">
   <div class="hero-inner">
-    <div class="hero-btns">
-      <a href="simulation.html" class="btn-green">
-        📊 Simulation
-      </a>
-      <a href="recrutement.html" class="btn-orange">
-        🚀 Recrutement
-      </a>
-      <a href="#" onclick="downloadVcard();return false;" class="btn-white">
-        📇 Mes coordonnées
-      </a>
+    <img class="hero-logo" src="images/logo.png" width="300" height="300" alt="Phil-Mobile – Orange &amp; Eneco – +32 475 24 02 05" fetchpriority="high">
+    <h1>Votre conseiller <span>Télécom &amp; Énergie</span></h1>
+    <p class="hero-sub">Revendeur officiel Orange &amp; Eneco · Beaufays (Liège)</p>
+    <div class="hero-actions">
+      <a class="tile tile--orange" href="simulation.html"><span class="ico" aria-hidden="true">📊</span>Simulation</a>
+      <a class="tile tile--blue" href="recrutement.html"><span class="ico" aria-hidden="true">🚀</span>Recrutement</a>
+      <a class="tile tile--glass" href="videos.html"><span class="ico" aria-hidden="true">🎬</span>Nos vidéos</a>
+      <a class="tile tile--glass" href="#avis"><span class="ico" aria-hidden="true">⭐</span>Nos avis</a>
+      <button class="tile tile--glass" type="button" id="vcardBtn"><span class="ico" aria-hidden="true">📇</span>Mes coordonnées</button>
     </div>
   </div>
-</div>
-
-<!-- SERVICES -->
+</header>
 <div class="brand-stripe"></div>
-<div class="section services-bg" id="services">
-  <div class="section-inner">
-    <div class="section-label">Nos Services</div>
+
+<main>
+<!-- SERVICES -->
+<section class="section services" id="services">
+  <div class="container">
+    <div class="section-label">Nos services</div>
     <h2 class="section-title">Ce que nous proposons</h2>
     <div class="services-grid">
-
-      <div class="service-card reveal">
-        <div class="service-body">
-          <span class="service-tag tag-eneco">⚡ Énergie & Gaz</span>
-          <h3>Eneco – Le compagnon Belge</h3>
-          <p>Avec Eneco, vous optez pour un fournisseur fiable et transparent. Des prix clairs et un accompagnement personnalisé pour réduire vos factures, sans mauvaises surprises.</p>
-          <a href="simulation.html" class="service-link">Demande gratuite →</a>
-        </div>
-      </div>
-
-      <div class="service-card reveal">
-        <div class="service-body">
-          <span class="service-tag tag-orange">📱 Télécommunications</span>
-          <h3>Orange – Le meilleur réseau</h3>
-          <p>Vos factures sont analysées en détail pour vous proposer l'abonnement Orange le plus adapté. Le meilleur réseau, au meilleur prix.</p>
-          <a href="simulation.html" class="service-link">Demande gratuite →</a>
-        </div>
-      </div>
-
-      <div class="service-card reveal">
-        <div class="service-body">
-          <span class="service-tag tag-recruit">🚀 Opportunité</span>
-          <h3>Devenez Consultant Smart SN</h3>
-          <p>Lancez une activité indépendante dans les télécom & énergie. Accompagnement, formation, revenus récurrents.</p>
-          <a href="recrutement.html" class="service-link">En savoir plus →</a>
-        </div>
-      </div>
-
+      <article class="service-card reveal">
+        <span class="service-tag tag-eneco">⚡ Énergie &amp; Gaz</span>
+        <h3>Eneco – Le compagnon Belge</h3>
+        <p>Avec Eneco, vous optez pour un fournisseur fiable et transparent. Des prix clairs et un accompagnement personnalisé pour réduire vos factures, sans mauvaises surprises.</p>
+        <a href="simulation.html" class="service-link">Demande gratuite →</a>
+      </article>
+      <article class="service-card reveal">
+        <span class="service-tag tag-orange">📱 Télécommunications</span>
+        <h3>Orange – Le meilleur réseau</h3>
+        <p>Vos factures sont analysées en détail pour vous proposer l'abonnement Orange le plus adapté. Le meilleur réseau, au meilleur prix.</p>
+        <a href="simulation.html" class="service-link">Demande gratuite →</a>
+      </article>
+      <article class="service-card reveal">
+        <span class="service-tag tag-recruit">🚀 Opportunité</span>
+        <h3>Devenez Consultant Smart SN</h3>
+        <p>Lancez une activité indépendante dans les télécom &amp; énergie. Accompagnement, formation, revenus récurrents.</p>
+        <a href="recrutement.html" class="service-link">En savoir plus →</a>
+      </article>
     </div>
   </div>
-</div>
+</section>
+<div class="brand-stripe"></div>
 
 <!-- AVIS -->
-<div class="brand-stripe"></div>
-<div class="reviews-section" id="avis">
-  <div class="section-inner">
-    <div class="section-label section-label-accent">Avis Clients</div>
+<section class="section reviews" id="avis">
+  <div class="container">
+    <div class="section-label section-label--accent">Avis clients</div>
     <h2 class="section-title">Ce qu'ils disent de nous</h2>
     <div class="rating-bar" id="rating-bar">
       <div class="rating-score" id="rating-score">5.0</div>
       <div class="rating-info">
-        <div class="stars">★★★★★</div>
+        <div class="stars" aria-hidden="true">★★★★★</div>
         <div class="rtxt" id="rating-label">Excellent</div>
         <small>sur Google Reviews</small>
       </div>
@@ -463,32 +212,37 @@ footer { background: var(--navy); border-top: 4px solid var(--accent); padding: 
       <div class="review-card reveal"><div class="review-header"><div class="review-avatar">S</div><div><div class="review-name">Sauron 701</div><div class="review-stars">★★★★★</div></div><div class="review-date">Juin 2026</div></div><p class="review-text">"Super service et professionnalisme. Merci Phillipe !"</p></div>
       <div class="review-card reveal"><div class="review-header"><div class="review-avatar">JH</div><div><div class="review-name">Jessica Hanquet</div><div class="review-stars">★★★★★</div></div><div class="review-date">Mai 2026</div></div><p class="review-text">"Philippe est vraiment à l'écoute et très professionnel. Je recommande !"</p></div>
     </div>
-    <a href="https://search.google.com/local/reviews?placeid=ChIJf9P2ZBGgkKcRmwuLgkfejME" target="_blank" class="btn-more">Voir tous les avis Google ↗</a>
-  </div>
-</div>
-
-<!-- FORMULAIRES -->
-<div class="brand-stripe"></div>
-<div class="forms-section" id="contact">
-  <div class="section-label">Nous contacter</div>
-  <h2 class="section-title">Parlons-en !</h2>
-  <div class="forms-inner">
-    <div class="form-tabs">
-      <a href="simulation.html" class="form-tab active">📋 Demande d'information</a>
-      <a href="recrutement.html" class="form-tab">🚀 Rejoindre l'équipe</a>
+    <div class="center">
+      <a href="https://search.google.com/local/reviews?placeid=ChIJf9P2ZBGgkKcRmwuLgkfejME" target="_blank" rel="noopener" class="btn btn--outline">Voir tous les avis Google ↗</a>
     </div>
-
   </div>
-</div>
+</section>
+<div class="brand-stripe"></div>
+
+<!-- CONTACT -->
+<section class="section contact-band" id="contact">
+  <div class="container">
+    <div class="section-label">Nous contacter</div>
+    <h2 class="section-title">Parlons-en !</h2>
+    <p>Ça prend une minute. Je vous recontacte rapidement pour analyser vos factures, sans engagement.</p>
+    <div class="cta-row">
+      <a class="btn btn--orange" href="simulation.html">📊 Faire ma simulation</a>
+      <a class="btn btn--blue" href="recrutement.html">🚀 Rejoindre l'équipe</a>
+      <a class="btn btn--green" href="https://wa.me/32475240205" target="_blank" rel="noopener">💬 WhatsApp</a>
+      <a class="btn btn--ghost" href="tel:+32475240205">📞 Appeler</a>
+    </div>
+  </div>
+</section>
+</main>
 
 <!-- FOOTER -->
-<footer>
-  <div class="footer-inner">
-    <div class="footer-logo"><img src="images/logo.png" alt="Phil-Mobile"></div>
+<footer class="site-footer">
+  <div class="container">
+    <img src="images/logo.png" width="84" height="84" alt="Phil-Mobile" loading="lazy">
     <div class="footer-name">Phil-Mobile</div>
     <div class="footer-info">
       <p>Revendeur Officiel Orange &amp; Eneco</p>
-      <p><a href="tel:+32475240205">+32 475 24 02 05</a> · <a href="mailto:infos@phil-mobile.be">infos@phil-Mobile.be</a></p>
+      <p><a href="tel:+32475240205">+32 475 24 02 05</a> · <a href="mailto:infos@phil-mobile.be">infos@phil-mobile.be</a></p>
       <p>Rue de Trooz 1 Bte 21, 4052 Beaufays (Liège)</p>
       <p>Lun–Ven : 9h00 – 19h00</p>
     </div>
@@ -502,52 +256,56 @@ footer { background: var(--navy); border-top: 4px solid var(--accent); padding: 
   </div>
 </footer>
 
-<!-- WA FLOTTANT -->
-<a href="https://wa.me/32475240205" class="wa-float" target="_blank">
-  <svg width="30" height="30" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.125.558 4.126 1.535 5.862L.057 23.737a.75.75 0 00.921.921l5.875-1.478A11.944 11.944 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.886 0-3.66-.499-5.197-1.373l-.373-.217-3.876.974.993-3.768-.237-.388A9.956 9.956 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+<!-- WHATSAPP FLOTTANT -->
+<a href="https://wa.me/32475240205" class="wa-float" target="_blank" rel="noopener" aria-label="Écrire sur WhatsApp">
+<svg width="30" height="30" aria-hidden="true" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.125.558 4.126 1.535 5.862L.057 23.737a.75.75 0 00.921.921l5.875-1.478A11.944 11.944 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.886 0-3.66-.499-5.197-1.373l-.373-.217-3.876.974.993-3.768-.237-.388A9.956 9.956 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
 </a>
 
+<script src="js/site.js"></script>
 <script>
-function toggleMenu() {
-  document.getElementById('mobileMenu').classList.toggle('open');
-}
-
-/* Menu transparent sur l'image, opaque une fois le hero dépassé */
-(function() {
-  const navEl = document.querySelector('nav');
-  const heroBanner = document.querySelector('.hero-banner');
-  if (!navEl || !heroBanner) return;
-  let threshold = 0;
-  function updateThreshold() {
-    threshold = heroBanner.offsetHeight - navEl.offsetHeight - 10;
-  }
-  function onScroll() {
-    navEl.classList.toggle('scrolled', window.scrollY > threshold);
-  }
-  updateThreshold();
-  window.addEventListener('resize', updateThreshold);
-  window.addEventListener('scroll', onScroll, { passive: true });
-  onScroll();
-})();
-
 /* Animation d'apparition au scroll */
-const revealObserver = new IntersectionObserver((entries) => {
+const revealObserver = ('IntersectionObserver' in window) ? new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
       entry.target.classList.add('visible');
       revealObserver.unobserve(entry.target);
     }
   });
-}, { threshold: 0.15 });
+}, { threshold: 0.12 }) : null;
 
 function observeReveals(root = document) {
-  root.querySelectorAll('.reveal:not(.visible)').forEach(el => revealObserver.observe(el));
+  root.querySelectorAll('.reveal:not(.visible)').forEach(el => {
+    if (revealObserver) revealObserver.observe(el); else el.classList.add('visible');
+  });
 }
 observeReveals();
+
+/* Mes coordonnées : téléchargement de la fiche contact (vCard) */
+const VCARD = `BEGIN:VCARD
+VERSION:3.0
+N:Phil-Mobile;;;;
+FN:Phil-Mobile
+TEL;TYPE=CELL:+32475240205
+EMAIL:infos@phil-mobile.be
+URL:https://www.phil-mobile.be
+URL:https://wa.me/32475240205
+NOTE:Laissez un avis Google : https://g.page/r/CZsLi4JH3ozBEAE/review
+END:VCARD`;
+
+function downloadVcard() {
+  const blob = new Blob([VCARD], { type: 'text/vcard;charset=utf-8' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'Phil-Mobile.vcf';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(a.href);
+}
+document.getElementById('vcardBtn').addEventListener('click', downloadVcard);
 </script>
 
-<!-- Firestore : lecture seule pour l'affichage des avis clients (les formulaires de contact
-     vivent désormais sur des pages dédiées : simulation.html et recrutement.html). -->
+<!-- Firestore : lecture seule pour l'affichage des avis clients. -->
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
 import { getFirestore, collection, getDocs, doc, getDoc } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
@@ -564,10 +322,8 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-
 // --- Avis clients : lecture directe depuis Firestore au chargement de la page ---
-// Si la collection est vide ou en cas d'erreur, le bloc statique existant reste affiché tel quel
-// (aucune écriture ni suppression du DOM tant qu'on n'a pas de données valides à afficher).
+// Si la collection est vide ou en cas d'erreur, le bloc statique existant reste affiché tel quel.
 const FR_MONTHS_SITE = ['Jan.', 'Fév.', 'Mars', 'Avr.', 'Mai', 'Juin', 'Juil.', 'Août', 'Sept.', 'Oct.', 'Nov.', 'Déc.'];
 function frMonthLabelSite(dateMonth) {
   if (!dateMonth) return '';
@@ -590,7 +346,7 @@ async function loadAvisFromFirestore() {
     const snap = await getDocs(collection(db, 'avisWeb'));
     const list = [];
     snap.forEach(d => { if (d.id !== '_globalRating') list.push(d.data()); });
-    if (list.length === 0) return; // aucun avis publié : on garde le bloc statique actuel
+    if (list.length === 0) return; // aucun avis publié : on garde le bloc statique
 
     list.sort((a, b) => (b.dateMonth || '').localeCompare(a.dateMonth || ''));
 
@@ -600,7 +356,7 @@ async function loadAvisFromFirestore() {
       const stars = '★'.repeat(noteNum) + '☆'.repeat(5 - noteNum);
       return `<div class="review-card reveal"><div class="review-header"><div class="review-avatar">${escapeHtmlSite(avisInitialesSite(a.nom))}</div><div><div class="review-name">${escapeHtmlSite(a.nom)}</div><div class="review-stars">${stars}</div></div><div class="review-date">${escapeHtmlSite(frMonthLabelSite(a.dateMonth))}</div></div><p class="review-text">"${escapeHtmlSite(a.texte)}"</p></div>`;
     }).join('');
-    if (typeof observeReveals === 'function') observeReveals(grid);
+    observeReveals(grid);
 
     const ratingSnap = await getDoc(doc(db, 'avisWeb', '_globalRating'));
     if (ratingSnap.exists()) {
@@ -613,30 +369,6 @@ async function loadAvisFromFirestore() {
   }
 }
 loadAvisFromFirestore();
-</script>
-
-<script>
-const VCARD = `BEGIN:VCARD
-VERSION:3.0
-N:Phil-Mobile;;;;
-FN:Phil-Mobile
-TEL;TYPE=CELL:+32475240205
-EMAIL:infos@phil-mobile.be
-URL:https://www.phil-mobile.be
-URL:https://wa.me/32475240205
-NOTE:Laissez un avis Google : https://g.page/r/CZsLi4JH3ozBEAE/review
-END:VCARD`;
-
-function downloadVcard() {
-  const blob = new Blob([VCARD], {type:'text/vcard;charset=utf-8'});
-  const a = document.createElement('a');
-  a.href = URL.createObjectURL(blob);
-  a.download = 'Phil-Mobile.vcf';
-  document.body.appendChild(a);
-  a.click();
-  document.body.removeChild(a);
-  URL.revokeObjectURL(a.href);
-}
 </script>
 </body>
 </html>
