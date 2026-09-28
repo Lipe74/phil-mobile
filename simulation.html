@@ -12,7 +12,193 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/site.css">
+<style>
+/* ==========================================================================
+   Phil-Mobile — feuille de style partagée (toutes les pages du site)
+   Palette tirée du logo : bleu marine, orange, cyan, vert Eneco.
+   ========================================================================== */
+
+:root {
+  --navy: #061443;
+  --navy-2: #0a2a7a;
+  --blue: #1a56db;
+  --blue-2: #1e40af;
+  --blue-pale: #eff6ff;
+  --blue-border: #bfdbfe;
+  --orange: #ff8a00;
+  --orange-2: #e26d00;
+  --orange-pale: #fff4e5;
+  --orange-border: #fed7aa;
+  --cyan: #19c8ff;
+  --green: #25d366;
+  --dark: #0f172a;
+  --muted: #5b6b82;
+  --white: #ffffff;
+  --radius: 18px;
+  --max: 1120px;
+  --topbar-h: 64px;
+  --tri: linear-gradient(90deg, #ff8a00 0 33.34%, #1fa64a 33.34% 66.67%, #1a56db 66.67% 100%);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+body {
+  font-family: 'Nunito', system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
+  color: var(--dark); background: var(--white);
+  line-height: 1.5; overflow-x: hidden;
+}
+img { max-width: 100%; height: auto; display: block; }
+a { color: inherit; }
+button { font-family: inherit; }
+:focus-visible { outline: 3px solid var(--orange); outline-offset: 3px; border-radius: 8px; }
+
+.container { width: min(100% - 40px, var(--max)); margin-inline: auto; }
+.brand-stripe { height: 5px; background: var(--tri); }
+
+/* ===== SECTIONS ===== */
+.section { padding: clamp(48px, 8vw, 88px) 0; }
+.section-label {
+  text-align: center; font-size: .75rem; font-weight: 800;
+  letter-spacing: 2px; text-transform: uppercase;
+  color: var(--blue); margin-bottom: 8px;
+}
+.section-label--accent { color: #b45300; }
+.section-title {
+  text-align: center; font-size: clamp(1.6rem, 4.2vw, 2.2rem);
+  font-weight: 900; line-height: 1.2; text-wrap: balance;
+  margin-bottom: clamp(24px, 4vw, 40px);
+}
+
+/* ===== BOUTONS ===== */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  min-height: 48px; padding: 0 24px; border-radius: 14px;
+  font-weight: 800; font-size: 1rem; text-decoration: none;
+  border: 2px solid transparent; cursor: pointer;
+  transition: transform .2s, box-shadow .2s, filter .2s;
+}
+.btn:hover { transform: translateY(-2px); }
+.btn--orange { background: linear-gradient(135deg, #ffb238, var(--orange)); color: #2b1400; box-shadow: 0 6px 20px rgba(255,138,0,.35); }
+.btn--blue { background: linear-gradient(135deg, #3b82f6, var(--blue)); color: #fff; box-shadow: 0 6px 20px rgba(26,86,219,.35); }
+.btn--green { background: var(--green); color: #04260f; box-shadow: 0 6px 20px rgba(37,211,102,.35); }
+.btn--ghost { background: rgba(255,255,255,.1); border-color: rgba(255,255,255,.35); color: #fff; }
+.btn--ghost:hover { background: rgba(255,255,255,.2); }
+.btn--outline { background: #fff; border-color: var(--blue-border); color: var(--blue); }
+.btn--outline:hover { border-color: var(--orange); color: var(--orange-2); }
+
+/* ===== BARRE DU HAUT (pages internes) ===== */
+.topbar {
+  position: sticky; top: 0; z-index: 900; flex: 0 0 auto;
+  background: linear-gradient(90deg, var(--navy), var(--navy-2));
+}
+.topbar::after { content: ""; display: block; height: 5px; background: var(--tri); }
+.topbar-inner {
+  width: min(100% - 32px, var(--max)); margin-inline: auto;
+  min-height: var(--topbar-h);
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+}
+.brand {
+  display: flex; align-items: center; gap: 10px;
+  text-decoration: none; color: #fff; font-weight: 900; font-size: 1.15rem;
+}
+.brand img { width: 42px; height: 42px; }
+.topbar-link {
+  color: #fff; text-decoration: none; font-weight: 800; font-size: .9rem;
+  padding: 8px 18px; border-radius: 999px;
+  background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.3);
+  transition: background .2s, color .2s;
+}
+.topbar-link:hover { background: var(--orange); color: var(--navy); border-color: var(--orange); }
+
+/* ===== MENU BURGER (mobile uniquement) ===== */
+.burger {
+  display: none;
+  position: fixed; top: max(9px, env(safe-area-inset-top)); right: max(12px, env(safe-area-inset-right));
+  z-index: 1100; width: 46px; height: 46px; border-radius: 50%;
+  border: 2px solid var(--orange); background: var(--navy);
+  align-items: center; justify-content: center; flex-direction: column; gap: 5px;
+  cursor: pointer; box-shadow: 0 4px 16px rgba(0,0,0,.35);
+}
+.burger span { display: block; width: 20px; height: 2.5px; background: #fff; border-radius: 2px; transition: transform .25s, opacity .2s; }
+.burger[aria-expanded="true"] span:nth-child(1) { transform: translateY(7.5px) rotate(45deg); }
+.burger[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+.burger[aria-expanded="true"] span:nth-child(3) { transform: translateY(-7.5px) rotate(-45deg); }
+
+.menu-panel, .menu-backdrop { display: none; }
+
+@media (max-width: 768px) {
+  .burger { display: flex; }
+  .topbar-link { display: none; }
+  .topbar-inner { padding-right: 56px; }
+
+  .menu-backdrop {
+    display: block; position: fixed; inset: 0; z-index: 1080;
+    background: rgba(2,8,30,.55); opacity: 0; pointer-events: none; transition: opacity .3s;
+  }
+  .menu-backdrop.open { opacity: 1; pointer-events: auto; }
+
+  .menu-panel {
+    display: block; position: fixed; inset: 0 0 auto 0; z-index: 1090;
+    max-height: 100dvh; overflow-y: auto;
+    background: linear-gradient(180deg, var(--navy), var(--navy-2));
+    padding: 76px 20px 24px;
+    border-radius: 0 0 24px 24px;
+    transform: translateY(-105%); visibility: hidden;
+    transition: transform .3s ease, visibility 0s .3s;
+  }
+  .menu-panel::after { content: ""; display: block; height: 5px; margin: 18px -20px -24px; background: var(--tri); }
+  .menu-panel.open { transform: none; visibility: visible; transition: transform .3s ease; }
+  .menu-panel a {
+    display: flex; align-items: center; gap: 12px; min-height: 50px; padding: 0 6px;
+    color: #fff; font-weight: 800; font-size: 1.05rem; text-decoration: none;
+    border-bottom: 1px solid rgba(255,255,255,.12);
+  }
+  .menu-panel a:hover { color: var(--orange); }
+  .menu-panel .menu-cta {
+    margin-top: 14px; border: 0; justify-content: center; border-radius: 14px;
+    background: var(--green); color: #04260f;
+  }
+  .menu-panel .menu-cta:hover { color: #04260f; filter: brightness(1.05); }
+}
+
+/* ===== PIED DE PAGE ===== */
+.site-footer {
+  position: relative; background: var(--navy);
+  color: #fff; padding: 44px 0 28px; text-align: center;
+}
+.site-footer::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 5px; background: var(--tri); }
+.site-footer img { width: 84px; height: 84px; margin: 0 auto 12px; }
+.footer-name { font-size: 1.4rem; font-weight: 900; margin-bottom: 8px; }
+.footer-info p { font-size: .92rem; color: rgba(255,255,255,.78); line-height: 2; }
+.footer-info a { color: var(--orange); font-weight: 800; text-decoration: none; }
+.footer-links {
+  display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 22px;
+  margin-top: 20px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,.15);
+}
+.footer-links a { font-size: .82rem; color: rgba(255,255,255,.7); text-decoration: none; }
+.footer-links a:hover { color: #fff; }
+.footer-copy { font-size: .75rem; color: rgba(255,255,255,.55); margin-top: 14px; }
+
+/* ===== WHATSAPP FLOTTANT ===== */
+.wa-float {
+  position: fixed; z-index: 800;
+  right: max(16px, env(safe-area-inset-right)); bottom: max(16px, env(safe-area-inset-bottom));
+  width: 58px; height: 58px; border-radius: 50%; background: var(--green);
+  display: grid; place-items: center;
+  box-shadow: 0 6px 22px rgba(37,211,102,.5); transition: transform .2s;
+}
+.wa-float:hover { transform: scale(1.08); }
+
+/* ===== APPARITION AU SCROLL (actif seulement si JS) ===== */
+.js .reveal { opacity: 0; transform: translateY(18px); transition: opacity .6s ease, transform .6s ease; }
+.js .reveal.visible { opacity: 1; transform: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation: none !important; transition-duration: .01ms !important; }
+  .js .reveal { opacity: 1; transform: none; }
+}
+</style>
 <style>
 html, body { height: 100%; }
 body { display: flex; flex-direction: column; height: 100vh; height: 100dvh; overflow: hidden; }
@@ -55,7 +241,37 @@ body { display: flex; flex-direction: column; height: 100vh; height: 100dvh; ove
   <iframe id="contactFrame" title="Simulation gratuite Phil-Mobile" src="https://app.phil-mobile.be/wp_contact.html?c=delta835&amp;type=client&amp;source=site"></iframe>
 </main>
 
-<script src="js/site.js"></script>
+<script>
+/* Phil-Mobile — menu burger (mobile uniquement) */
+(function () {
+  var burger = document.querySelector('.burger');
+  var panel = document.getElementById('menu');
+  var backdrop = document.querySelector('.menu-backdrop');
+  if (!burger || !panel) return;
+
+  function setOpen(open) {
+    panel.classList.toggle('open', open);
+    if (backdrop) backdrop.classList.toggle('open', open);
+    burger.setAttribute('aria-expanded', String(open));
+    burger.setAttribute('aria-label', open ? 'Fermer le menu' : 'Ouvrir le menu');
+    document.body.style.overflow = open ? 'hidden' : '';
+  }
+
+  burger.addEventListener('click', function () {
+    setOpen(!panel.classList.contains('open'));
+  });
+  if (backdrop) backdrop.addEventListener('click', function () { setOpen(false); });
+  panel.addEventListener('click', function (e) {
+    if (e.target.closest('a')) setOpen(false);
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') setOpen(false);
+  });
+  window.addEventListener('resize', function () {
+    if (window.innerWidth > 768) setOpen(false);
+  });
+})();
+</script>
 <script>
 /* Transmet le ?source= d'origine (tracking) au formulaire, "site" par défaut */
 (function () {
